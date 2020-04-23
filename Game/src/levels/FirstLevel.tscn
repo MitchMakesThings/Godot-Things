@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/levels/FirstLevel.png" type="Texture" id=1]
+[ext_resource path="res://src/destruction/Destructible.tscn" type="PackedScene" id=2]
+
+[node name="FirstLevel" type="Node2D"]
+
+[node name="DestructibleForeground" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 2545, 1649.62 )
+current = true
+
+[node name="Destructible" parent="." instance=ExtResource( 2 )]
+world_map_nodepath = NodePath("../DestructibleForeground")
+foreground_objects = [ NodePath("../DestructibleForeground") ]
