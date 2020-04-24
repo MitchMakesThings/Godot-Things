@@ -18,8 +18,6 @@ func _ready():
 	CollisionHolder = get_node(CollisionHolderNodePath)
 	
 	world_size = (get_node(world_map_nodepath) as Sprite).get_rect().size
-	print(world_size)
-	print(get_parent().size)
 	
 	# For debugging purposes:
 	$Viewport.set_size(get_viewport_rect().size)
