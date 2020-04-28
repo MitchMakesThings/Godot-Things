@@ -5,36 +5,38 @@ var i = 0
 export var thing : NodePath
 export var CollisionHolderNodePath : NodePath
 
-export var world_map_nodepath : NodePath
-
 var world_size : Vector2
-
-export (Array, NodePath) var foreground_objects : Array
 
 var CollisionHolder : Node2D
 var _to_cull : Array
 
+var _image_republish_texture := ImageTexture.new()
+
 func _ready():
 	CollisionHolder = get_node(CollisionHolderNodePath)
 	
-	world_size = (get_node(world_map_nodepath) as Sprite).get_rect().size
+	world_size = (get_parent() as Sprite).get_rect().size
 	
-	# For debugging purposes:
+	# Match our destruction viewport to the regular viewport.
+	# If we didn't do this we'd need to either hardcode a viewport size
 	$Viewport.set_size(get_viewport_rect().size)
 	
-	# First up we need to know about everything that needs collision
-	# We do this by exposing foreground_objects, which will need to be set in the editor
-	# TODO get everything from the "destructible" group / layer instead?
-	for foreground_object in foreground_objects:
-		# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
-		# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
-		var dup = get_node(foreground_object).duplicate(0) as Node2D
-		_to_cull.append(dup)
-		# Shrink to match the ratio of our destruction viewport
-		dup.scale = _world_to_viewport_scale(dup.scale)
-		# Then reposition, so we're in the right spot
-		dup.position = _world_to_viewport(dup.position)
-		$Viewport.add_child(dup)
+	# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
+	# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
+	var dup = get_parent().duplicate(0) as Node2D
+	_to_cull.append(dup)
+	# Shrink to match the ratio of our destruction viewport
+	dup.scale = _world_to_viewport_scale(dup.scale)
+	# Then reposition, so we're in the right spot
+	dup.position = _world_to_viewport(dup.position)
+	
+	# Risky move:
+	# Delete all children of the duplicate.
+	# One of those children will be a duplicate of the Destructible
+	for child in dup.get_children():
+		dup.remove_child(child)
+	$Viewport.add_child(dup)
+		
 	rebuild_texture()
 	$CullTimer.start()
 
@@ -98,6 +100,24 @@ func rebuild_collisions():
 			newpoints.push_back(_viewport_to_world(point))
 		collider.polygon = newpoints # Scaling example. Otherwise just use polygon
 		CollisionHolder.add_child(collider)
+	
+	# Here's where things get wild
+	# We need to multiply the foreground sprite against our destruction sprite
+	# So that the foreground only shows where our destruction sprite is not alpha
+	republish_sprite(bitmap)
+
+func republish_sprite(bitmap : BitMap) -> void:
+
+	var material : Material = get_parent().material 
+	
+	# Assume the image has changed, so we'll need to update our ImageTexture
+	_image_republish_texture.create_from_image($Sprite.texture.get_data())
+
+	# If our parent has the proper src/destruction/parent_material shader
+	# We can set our destruction_mask parameter against it, 
+	# which will carve out our destruction map!
+	if material != null:
+		material.set_shader_param("destruction_mask", _image_republish_texture)
 
 func _viewport_to_world(var point : Vector2) -> Vector2:
 	var dynamic_texture_size = $Viewport.get_size()
@@ -113,9 +133,16 @@ func _world_to_viewport(var point : Vector2) -> Vector2:
 				(point.y / world_size.y) * dynamic_texture_size.y + get_viewport_rect().position.y
 			)
 
-func _world_to_viewport_scale(var original_scale : Vector2) -> Vector2:
+func _viewport_to_world_scale_amount():
 	var dynamic_texture_size = $Viewport.get_size()
+	var x_scale = ((100.0 / dynamic_texture_size.x) * world_size.x) / 100.0
+	var y_scale = ((100.0 / dynamic_texture_size.y) * world_size.y) / 100.0
+	return Vector2(x_scale, y_scale)
+
+func _world_to_viewport_scale(var original_scale : Vector2
+		, var dynamic_texture_size : Vector2 = Vector2.ZERO) -> Vector2:
+	if dynamic_texture_size == Vector2.ZERO	:
+		dynamic_texture_size = $Viewport.get_size()
 	var x_scale = ((100.0 / world_size.x) * dynamic_texture_size.x) / 100.0
 	var y_scale = ((100.0 / world_size.y) * dynamic_texture_size.y) / 100.0
-
 	return Vector2(original_scale.x * x_scale, original_scale.y * y_scale)

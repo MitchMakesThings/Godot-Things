@@ -3,10 +3,11 @@
 [ext_resource path="res://src/destruction/Circle.gd" type="Script" id=1]
 [ext_resource path="res://src/destruction/Destructible.gd" type="Script" id=2]
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 2
+light_mode = 1
 
-[sub_resource type="ViewportTexture" id=1]
+[sub_resource type="ViewportTexture" id=4]
 viewport_path = NodePath("Viewport")
 
 [node name="Destructible" type="Node2D"]
@@ -24,13 +25,15 @@ render_target_update_mode = 1
 gui_disable_input = true
 
 [node name="Circle" type="Node2D" parent="Viewport"]
-material = SubResource( 2 )
+visible = false
+material = SubResource( 1 )
 position = Vector2( 512, 256 )
 z_index = 1
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = SubResource( 1 )
+visible = false
+texture = SubResource( 4 )
 centered = false
 
 [node name="CollisionHolder" type="Node2D" parent="."]
