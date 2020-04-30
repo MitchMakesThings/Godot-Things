@@ -51,7 +51,7 @@ func _process(_delta):
 	get_node(thing).visible = true
 	get_node(thing).position = Vector2(get_node(thing).position.x + i, get_node(thing).position.y)
 	
-	if i < 3:
+	if i < 20:
 		rebuild_texture()
 		i += 1
 	
@@ -104,9 +104,9 @@ func rebuild_collisions():
 	# Here's where things get wild
 	# We need to multiply the foreground sprite against our destruction sprite
 	# So that the foreground only shows where our destruction sprite is not alpha
-	republish_sprite(bitmap)
+	republish_sprite()
 
-func republish_sprite(bitmap : BitMap) -> void:
+func republish_sprite() -> void:
 
 	var material : Material = get_parent().material 
 	

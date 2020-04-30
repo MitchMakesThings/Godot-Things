@@ -7,7 +7,7 @@
 blend_mode = 2
 light_mode = 1
 
-[sub_resource type="ViewportTexture" id=4]
+[sub_resource type="ViewportTexture" id=2]
 viewport_path = NodePath("Viewport")
 
 [node name="Destructible" type="Node2D"]
@@ -33,10 +33,10 @@ script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
-texture = SubResource( 4 )
+texture = SubResource( 2 )
 centered = false
 
-[node name="CollisionHolder" type="Node2D" parent="."]
+[node name="CollisionHolder" type="StaticBody2D" parent="."]
 
 [node name="CollisionRebuildTimer" type="Timer" parent="."]
 wait_time = 0.25
