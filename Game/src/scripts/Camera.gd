@@ -6,7 +6,7 @@ var _move_camera := false
 
 func _unhandled_input(event):
 	# Click and drag - begin / end clicking
-	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
+	if event is InputEventMouseButton && event.button_index == BUTTON_RIGHT:
 		get_tree().set_input_as_handled()
 		if event.is_pressed():
 			_previous_position = event.position

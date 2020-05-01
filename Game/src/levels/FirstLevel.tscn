@@ -19,7 +19,7 @@ centered = false
 [node name="Destruction" parent="DestructibleForeground" instance=ExtResource( 2 )]
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2( 2545, 1649.62 )
+position = Vector2( 2497.4, 1786.07 )
 current = true
 script = ExtResource( 3 )
 
