@@ -48,6 +48,7 @@ func destroy(position : Vector2, radius : float):
 	
 	get_node(thing).radius = radius
 	get_node(thing).global_position = viewport_position
+	get_node(thing).update() # Redraw the circle, now that we've updated it's radius
 
 	rebuild_texture()
 
