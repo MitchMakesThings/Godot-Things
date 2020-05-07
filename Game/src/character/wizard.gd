@@ -8,21 +8,39 @@ var _velocity : Vector2 = Vector2.ZERO
 export var _reticule_anchor_node_path : NodePath
 onready var reticule_anchor : Node2D = get_node(_reticule_anchor_node_path)
 
+export var weapon_projectile : PackedScene
+export var weapon_speed : float = 3
+
 var _current_attack_power := 0
 
 func _process(_delta : float):
 	_rotate_reticule()
-	
+
+
 func _unhandled_input(event):
 	# Click and drag - begin / end clicking
 	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
 		if event.is_pressed():
 			$AttackPowerTimer.start()
 		else:
+			# Disable the power-improvement timer
 			$AttackPowerTimer.stop()
-			_current_attack_power = 0
-			_redraw_power()
+			shoot()
+
+
+func shoot():
+	# Spawn projectile
+	var new_projectile := weapon_projectile.instance() as RigidBody2D
+	var reticule := reticule_anchor.find_node("Reticule")
+	new_projectile.global_position = reticule.global_position
+	new_projectile.linear_velocity = (reticule.global_position - global_position) * weapon_speed * (_current_attack_power + 1)
+	get_parent().add_child(new_projectile)
 	
+	# Reset the power-improvement meter
+	_current_attack_power = 0
+	_redraw_power()
+
+
 func _rotate_reticule():
 	reticule_anchor.rotate(reticule_anchor.get_angle_to(get_global_mouse_position()))
 
@@ -68,13 +86,14 @@ func _calculate_move_velocity(
 
 func _on_AttackPowerTimer_timeout():
 	# Increase our attack power.
-	# If it's reached the max limit, loop back to 0
-	# TODO - consider whether max limit should auto-fire at full power!
 	_current_attack_power += 1
+	
+	# If we've maxed out our power level auto-fire the projectile!
 	if _current_attack_power >= reticule_anchor.get_child_count() - 1:
-		_current_attack_power = 0
+		shoot()
 
 	_redraw_power()
+
 
 func _redraw_power():
 	# Note - we ignore the last child, as we don't want to hide the reticule!

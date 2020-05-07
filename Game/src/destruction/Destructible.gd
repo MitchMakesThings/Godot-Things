@@ -13,6 +13,8 @@ var _to_cull : Array
 var _image_republish_texture := ImageTexture.new()
 
 func _ready():
+	add_to_group("destructibles")
+	
 	CollisionHolder = get_node(CollisionHolderNodePath)
 	
 	world_size = (get_parent() as Sprite).get_rect().size
@@ -40,8 +42,16 @@ func _ready():
 	rebuild_texture()
 	$CullTimer.start()
 
+
+func destroy(position : Vector2, radius : float):
+	var viewport_position = _world_to_viewport(position)
 	
-	
+	get_node(thing).radius = radius
+	get_node(thing).global_position = viewport_position
+
+	rebuild_texture()
+
+
 func _cull_foreground_duplicates():
 	for dup in _to_cull:
 		dup.queue_free()
@@ -50,10 +60,6 @@ func _cull_foreground_duplicates():
 func _process(_delta):
 	get_node(thing).visible = true
 	get_node(thing).position = Vector2(get_node(thing).position.x + i, get_node(thing).position.y)
-	
-	if i < 20:
-		rebuild_texture()
-		i += 1
 	
 	# Debug
 	OS.set_window_title(" | fps: " + str(Engine.get_frames_per_second()))
@@ -72,7 +78,7 @@ func rebuild_collisions():
 	bitmap.create_from_image_alpha($Sprite.texture.get_data())
 	
 	# DEBUG:
-	#$Sprite.get_texture().get_data().save_png("res://screenshots/subtractiveblend.png")
+	#$Sprite.get_texture().get_data().save_png("res://screenshots/debug.png")
 	#print("Saved")
 
 	# This will generate polygons for the given coordinate rectangle within the bitmap
@@ -118,6 +124,7 @@ func republish_sprite() -> void:
 	# which will carve out our destruction map!
 	if material != null:
 		material.set_shader_param("destruction_mask", _image_republish_texture)
+
 
 func _viewport_to_world(var point : Vector2) -> Vector2:
 	var dynamic_texture_size = $Viewport.get_size()
