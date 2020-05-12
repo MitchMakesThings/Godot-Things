@@ -46,5 +46,5 @@ one_shot = true
 [node name="CullTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-[connection signal="timeout" from="CollisionRebuildTimer" to="." method="rebuild_collisions"]
+[connection signal="timeout" from="CollisionRebuildTimer" to="." method="rebuild_collisions_from_image"]
 [connection signal="timeout" from="CullTimer" to="." method="_cull_foreground_duplicates"]

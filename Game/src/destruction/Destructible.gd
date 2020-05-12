@@ -12,6 +12,9 @@ var _to_cull : Array
 
 var _image_republish_texture := ImageTexture.new()
 
+
+var _destruction_threads := Array()
+
 func _ready():
 	add_to_group("destructibles")
 	
@@ -41,11 +44,24 @@ func _ready():
 		
 	rebuild_texture()
 	$CullTimer.start()
+	$CollisionRebuildTimer.start() # DEBUG
 
+func _exit_tree():
+	for thread in _destruction_threads:
+		thread.wait_to_finish()
 
 func destroy(position : Vector2, radius : float):
 	var viewport_position = _world_to_viewport(position)
 	
+	# Collision rebuild thread!
+	var thread := Thread.new()
+	var error = thread.start(self, "rebuild_collisions_from_geometry", [position, radius])
+	if error != OK:
+		print("Error creating destruction thread: ", error)
+	_destruction_threads.push_back(thread)
+	#rebuild_collisions_from_geometry(position, radius)
+	
+	# This stuff does the bad-idea rebuild using images
 	get_node(thing).radius = radius
 	get_node(thing).global_position = viewport_position
 	get_node(thing).update() # Redraw the circle, now that we've updated it's radius
@@ -58,6 +74,7 @@ func _cull_foreground_duplicates():
 		dup.queue_free()
 	_to_cull = Array()
 
+
 func _process(_delta):
 	get_node(thing).visible = true
 	get_node(thing).position = Vector2(get_node(thing).position.x + i, get_node(thing).position.y)
@@ -69,12 +86,55 @@ func _process(_delta):
 func rebuild_texture():
 	# Force re-render to update our target viewport
 	$Viewport.render_target_update_mode = Viewport.UPDATE_ONCE
-	
-	# Recalculate collisions
-	if $CollisionRebuildTimer.is_stopped():
-		$CollisionRebuildTimer.start()
 
-func rebuild_collisions():
+	# Recalculate collisions
+	#if $CollisionRebuildTimer.is_stopped():
+	#	$CollisionRebuildTimer.start()
+
+
+# Improved collision rebuilding!
+func rebuild_collisions_from_geometry(arguments : Array):
+	var position : Vector2 = arguments[0]
+	var radius : float = arguments[1]
+
+	var nb_points = 32
+	var points_arc = PoolVector2Array()
+	points_arc.push_back(position)
+	
+	for i in range(nb_points + 1):
+		var angle_point = deg2rad(i * 360 / nb_points)
+		points_arc.push_back(position + Vector2(cos(angle_point), sin(angle_point)) * radius * 2)
+
+	for collision_polygon in $CollisionHolder.get_children():
+		var clipped_polygons = Geometry.clip_polygons_2d(collision_polygon.polygon, points_arc)
+		if clipped_polygons.size() > 0:
+			for clipped_collision in clipped_polygons:
+				# Ignore clipped polygons that are too small to actually create
+				# These are awkward single or two-point floaters.
+				# If we can't at least make a triangle from it, we don't care about it
+				if clipped_collision.size() < 3:
+					continue
+				
+				# God knows why, but creating a PoolVector2Array from the Geometry Array fails
+				# ie, PoolVector2Array(Geometry.clip_polygons_2d(points_arc, collision_polygon.polygon))
+				# Doesn't give you a PoolVector2Array with all the points!
+				var points = PoolVector2Array()
+				
+				# So we'll iterate through and manually copy them ourselves :(
+				for point in clipped_collision:
+					points.push_back(point)
+				
+				# Then add our new collider
+				#var collider := CollisionPolygon2D.new()
+				collision_polygon.call_deferred("set", "polygon", points)
+				#collider.polygon = points# 
+				#CollisionHolder.call_deferred("add_child", collider)
+			
+			# Then delete the old collider
+			#collision_polygon.call_deferred("queue_free")
+
+
+func rebuild_collisions_from_image():
 	var bitmap := BitMap.new()
 	bitmap.create_from_image_alpha($Sprite.texture.get_data())
 	
@@ -140,12 +200,6 @@ func _world_to_viewport(var point : Vector2) -> Vector2:
 				(point.x / world_size.x) * dynamic_texture_size.x + get_viewport_rect().position.x,
 				(point.y / world_size.y) * dynamic_texture_size.y + get_viewport_rect().position.y
 			)
-
-func _viewport_to_world_scale_amount():
-	var dynamic_texture_size = $Viewport.get_size()
-	var x_scale = ((100.0 / dynamic_texture_size.x) * world_size.x) / 100.0
-	var y_scale = ((100.0 / dynamic_texture_size.y) * world_size.y) / 100.0
-	return Vector2(x_scale, y_scale)
 
 func _world_to_viewport_scale(var original_scale : Vector2
 		, var dynamic_texture_size : Vector2 = Vector2.ZERO) -> Vector2:
