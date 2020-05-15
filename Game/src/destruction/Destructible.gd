@@ -1,8 +1,6 @@
 extends Node2D
 
-var i = 0
-
-export var thing : NodePath
+export var viewport_destruction_nodepath : NodePath
 export var CollisionHolderNodePath : NodePath
 
 var world_size : Vector2
@@ -14,6 +12,7 @@ var _image_republish_texture := ImageTexture.new()
 
 var _parent_material : Material
 var _destruction_threads := Array()
+var _viewport_destruction_node : Node
 
 func _ready():
 	add_to_group("destructibles")
@@ -21,6 +20,7 @@ func _ready():
 	CollisionHolder = get_node(CollisionHolderNodePath)
 	world_size = (get_parent() as Sprite).get_rect().size
 	_parent_material = get_parent().material
+	_viewport_destruction_node = get_node(viewport_destruction_nodepath)
 	
 	# Match our destruction viewport to the regular viewport.
 	# If we didn't do this we'd need to either hardcode a viewport size
@@ -46,9 +46,11 @@ func _ready():
 	$CullTimer.start()
 	$CollisionRebuildTimer.start() # DEBUG
 
+
 func _exit_tree():
 	for thread in _destruction_threads:
 		thread.wait_to_finish()
+
 
 func destroy(position : Vector2, radius : float):
 	var viewport_position = _world_to_viewport(position)
@@ -61,9 +63,10 @@ func destroy(position : Vector2, radius : float):
 	_destruction_threads.push_back(thread)
 	
 	# This stuff does the bad-idea rebuild using images
-	get_node(thing).radius = radius / 2
-	get_node(thing).global_position = viewport_position
-	get_node(thing).update() # Redraw the circle, now that we've updated it's radius
+	_viewport_destruction_node.visible = true
+	_viewport_destruction_node.radius = radius / 2
+	_viewport_destruction_node.global_position = viewport_position
+	_viewport_destruction_node.update() # Redraw the circle, now that we've updated it's radius
 
 	rebuild_texture()
 	yield(VisualServer, "frame_post_draw")
@@ -77,9 +80,6 @@ func _cull_foreground_duplicates():
 
 
 func _process(_delta):
-	get_node(thing).visible = true
-	get_node(thing).position = Vector2(get_node(thing).position.x + i, get_node(thing).position.y)
-	
 	# Debug
 	OS.set_window_title(" | fps: " + str(Engine.get_frames_per_second()))
 	
@@ -104,6 +104,12 @@ func rebuild_collisions_from_geometry(arguments : Array):
 
 	for collision_polygon in $CollisionHolder.get_children():
 		var clipped_polygons = Geometry.clip_polygons_2d(collision_polygon.polygon, points_arc)
+		
+		# If the clip failed, we're almost certainly trying to delete the last few
+		# remnants of an 'island'
+		if clipped_polygons.size() == 0:
+			collision_polygon.call_deferred("queue_free")
+		
 		for i in range(clipped_polygons.size()):
 			var clipped_collision = clipped_polygons[i]
 			
@@ -167,7 +173,7 @@ func rebuild_collisions_from_image():
 		collider.polygon = newpoints # Scaling example. Otherwise just use polygon
 		CollisionHolder.add_child(collider)
 	
-	# Here's where things get wild
+	# Here's where viewport_destruction_nodepaths get wild
 	# We need to multiply the foreground sprite against our destruction sprite
 	# So that the foreground only shows where our destruction sprite is not alpha
 	republish_sprite()

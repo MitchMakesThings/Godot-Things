@@ -12,7 +12,7 @@ viewport_path = NodePath("Viewport")
 
 [node name="Destructible" type="Node2D"]
 script = ExtResource( 2 )
-thing = NodePath("Viewport/Circle")
+viewport_destruction_nodepath = NodePath("Viewport/Circle")
 CollisionHolderNodePath = NodePath("CollisionHolder")
 
 [node name="Viewport" type="Viewport" parent="."]
