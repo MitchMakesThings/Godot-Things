@@ -12,15 +12,15 @@ var _to_cull : Array
 
 var _image_republish_texture := ImageTexture.new()
 
-
+var _parent_material : Material
 var _destruction_threads := Array()
 
 func _ready():
 	add_to_group("destructibles")
 	
 	CollisionHolder = get_node(CollisionHolderNodePath)
-	
 	world_size = (get_parent() as Sprite).get_rect().size
+	_parent_material = get_parent().material
 	
 	# Match our destruction viewport to the regular viewport.
 	# If we didn't do this we'd need to either hardcode a viewport size
@@ -59,14 +59,15 @@ func destroy(position : Vector2, radius : float):
 	if error != OK:
 		print("Error creating destruction thread: ", error)
 	_destruction_threads.push_back(thread)
-	#rebuild_collisions_from_geometry(position, radius)
 	
 	# This stuff does the bad-idea rebuild using images
-	get_node(thing).radius = radius
+	get_node(thing).radius = radius / 2
 	get_node(thing).global_position = viewport_position
 	get_node(thing).update() # Redraw the circle, now that we've updated it's radius
 
 	rebuild_texture()
+	yield(VisualServer, "frame_post_draw")
+	republish_sprite()
 
 
 func _cull_foreground_duplicates():
@@ -87,17 +88,13 @@ func rebuild_texture():
 	# Force re-render to update our target viewport
 	$Viewport.render_target_update_mode = Viewport.UPDATE_ONCE
 
-	# Recalculate collisions
-	#if $CollisionRebuildTimer.is_stopped():
-	#	$CollisionRebuildTimer.start()
-
 
 # Improved collision rebuilding!
 func rebuild_collisions_from_geometry(arguments : Array):
 	var position : Vector2 = arguments[0]
 	var radius : float = arguments[1]
 
-	var nb_points = 32
+	var nb_points = 8
 	var points_arc = PoolVector2Array()
 	points_arc.push_back(position)
 	
@@ -107,31 +104,33 @@ func rebuild_collisions_from_geometry(arguments : Array):
 
 	for collision_polygon in $CollisionHolder.get_children():
 		var clipped_polygons = Geometry.clip_polygons_2d(collision_polygon.polygon, points_arc)
-		if clipped_polygons.size() > 0:
-			for clipped_collision in clipped_polygons:
-				# Ignore clipped polygons that are too small to actually create
-				# These are awkward single or two-point floaters.
-				# If we can't at least make a triangle from it, we don't care about it
-				if clipped_collision.size() < 3:
-					continue
-				
-				# God knows why, but creating a PoolVector2Array from the Geometry Array fails
-				# ie, PoolVector2Array(Geometry.clip_polygons_2d(points_arc, collision_polygon.polygon))
-				# Doesn't give you a PoolVector2Array with all the points!
-				var points = PoolVector2Array()
-				
-				# So we'll iterate through and manually copy them ourselves :(
-				for point in clipped_collision:
-					points.push_back(point)
-				
-				# Then add our new collider
-				#var collider := CollisionPolygon2D.new()
-				collision_polygon.call_deferred("set", "polygon", points)
-				#collider.polygon = points# 
-				#CollisionHolder.call_deferred("add_child", collider)
+		for i in range(clipped_polygons.size()):
+			var clipped_collision = clipped_polygons[i]
 			
-			# Then delete the old collider
-			#collision_polygon.call_deferred("queue_free")
+			# Ignore clipped polygons that are too small to actually create
+			# These are awkward single or two-point floaters.
+			# If we can't at least make a triangle from it, we don't care about it
+			if clipped_collision.size() < 3:
+				continue
+			
+			# God knows why, but creating a PoolVector2Array from the Geometry Array fails
+			# ie, PoolVector2Array(Geometry.clip_polygons_2d(points_arc, collision_polygon.polygon))
+			# Doesn't give you a PoolVector2Array with all the points!
+			var points = PoolVector2Array()
+			# So we'll iterate through and manually copy them ourselves :(
+			for point in clipped_collision:
+				points.push_back(point)
+			
+			# Update the existing polygon if possible
+			if i == 0:
+				collision_polygon.call_deferred("set", "polygon", points)
+				
+			else:
+				# Otherwise, our clipping created independent islands!
+				# We'll need to add a CollisionPolygon for each of them
+				var collider := CollisionPolygon2D.new()
+				collider.polygon = points
+				CollisionHolder.call_deferred("add_child", collider)
 
 
 func rebuild_collisions_from_image():
@@ -174,17 +173,14 @@ func rebuild_collisions_from_image():
 	republish_sprite()
 
 func republish_sprite() -> void:
-
-	var material : Material = get_parent().material 
-	
 	# Assume the image has changed, so we'll need to update our ImageTexture
 	_image_republish_texture.create_from_image($Sprite.texture.get_data())
 
 	# If our parent has the proper src/destruction/parent_material shader
 	# We can set our destruction_mask parameter against it, 
 	# which will carve out our destruction map!
-	if material != null:
-		material.set_shader_param("destruction_mask", _image_republish_texture)
+	if _parent_material != null:
+		_parent_material.set_shader_param("destruction_mask", _image_republish_texture)
 
 
 func _viewport_to_world(var point : Vector2) -> Vector2:
