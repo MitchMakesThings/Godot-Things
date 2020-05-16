@@ -51,7 +51,3 @@ texture = ExtResource( 4 )
 position = Vector2( 100, 0 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
-
-[node name="AttackPowerTimer" type="Timer" parent="."]
-wait_time = 0.25
-[connection signal="timeout" from="AttackPowerTimer" to="." method="_on_AttackPowerTimer_timeout"]

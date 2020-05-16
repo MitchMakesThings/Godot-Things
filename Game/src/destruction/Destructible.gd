@@ -28,7 +28,7 @@ func _ready():
 	
 	# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
 	# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
-	var dup = get_parent().duplicate(0) as Node2D
+	var dup = get_parent().duplicate(8) as Node2D
 	_to_cull.append(dup)
 	# Shrink to match the ratio of our destruction viewport
 	dup.scale = _world_to_viewport_scale(dup.scale)
@@ -69,6 +69,8 @@ func destroy(position : Vector2, radius : float):
 	_viewport_destruction_node.update() # Redraw the circle, now that we've updated it's radius
 
 	rebuild_texture()
+
+	# Wait until all viewports have re-rendered before pushing our viewport to the destruction shader.
 	yield(VisualServer, "frame_post_draw")
 	republish_sprite()
 

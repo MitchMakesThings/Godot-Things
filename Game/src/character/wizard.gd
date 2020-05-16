@@ -11,21 +11,29 @@ onready var reticule_anchor : Node2D = get_node(_reticule_anchor_node_path)
 export var weapon_projectile : PackedScene
 export var weapon_speed : float = 3
 
-var _current_attack_power := 0
+var _attack_power : float = 0
+var _attack_scale : float = 3
+var _attack_clicked : bool = false
+
+# When _attack_power reaches this we'll force the shot. (ie, this is the max cap of power for any 1 shot)
+onready var _auto_attack_power : float = (reticule_anchor.get_child_count() / _attack_scale)
 
 func _process(_delta : float):
 	_rotate_reticule()
+	_redraw_power()
 
 
 func _unhandled_input(event):
 	# Click and drag - begin / end clicking
 	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
 		if event.is_pressed():
-			$AttackPowerTimer.start()
+			_attack_clicked = true
 		else:
-			# Disable the power-improvement timer
-			$AttackPowerTimer.stop()
-			shoot()
+			# We're checking _attack_clicked because it gets set to false if
+			# we auto-fire because the player held the button for too long.
+			if _attack_clicked:
+				shoot()
+			_attack_clicked = false
 
 
 func shoot():
@@ -33,12 +41,12 @@ func shoot():
 	var new_projectile := weapon_projectile.instance() as RigidBody2D
 	var reticule := reticule_anchor.find_node("Reticule")
 	new_projectile.global_position = reticule.global_position
-	new_projectile.linear_velocity = (reticule.global_position - global_position) * weapon_speed * (_current_attack_power + 1)
+	new_projectile.linear_velocity = (reticule.global_position - global_position) * weapon_speed * (_attack_power * _attack_scale)
 	get_parent().add_child(new_projectile)
 	
 	# Reset the power-improvement meter
-	_current_attack_power = 0
-	_redraw_power()
+	_attack_power = 0
+	_attack_clicked = false
 
 
 func _rotate_reticule():
@@ -46,6 +54,13 @@ func _rotate_reticule():
 
 
 func _physics_process(_delta : float):
+	if _attack_clicked:
+		_attack_power += _delta
+	
+	# If the player has been holding the attack button for too long, we'll shoot for them.5
+	if _attack_power >= _auto_attack_power:
+		shoot()
+		
 	var input_direction = _get_input_direction()
 	
 	_velocity = _calculate_move_velocity(_velocity, input_direction, _speed)
@@ -84,21 +99,12 @@ func _calculate_move_velocity(
 		return new_velocity
 
 
-func _on_AttackPowerTimer_timeout():
-	# Increase our attack power.
-	_current_attack_power += 1
-	
-	# If we've maxed out our power level auto-fire the projectile!
-	if _current_attack_power >= reticule_anchor.get_child_count() - 1:
-		shoot()
-
-	_redraw_power()
-
-
 func _redraw_power():
+	var sprites_to_show : int = (_attack_power * _attack_scale)
+	
 	# Note - we ignore the last child, as we don't want to hide the reticule!
 	for i in range(reticule_anchor.get_child_count() - 1):
-		if i < _current_attack_power:
+		if i < sprites_to_show:
 			reticule_anchor.get_child(i).visible = true
 		else:
 			reticule_anchor.get_child(i).visible = false
