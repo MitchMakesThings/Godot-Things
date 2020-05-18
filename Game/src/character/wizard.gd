@@ -100,7 +100,7 @@ func _calculate_move_velocity(
 
 
 func _redraw_power():
-	var sprites_to_show : int = (_attack_power * _attack_scale)
+	var sprites_to_show : int = int(_attack_power * _attack_scale)
 	
 	# Note - we ignore the last child, as we don't want to hide the reticule!
 	for i in range(reticule_anchor.get_child_count() - 1):
