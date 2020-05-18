@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet.png-12fa279cc01d18430892ec0a0abf445b.stex"
+path="res://.import/spritesheet.png-fc6762d9f36e7083eba393b18aa2821e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/spritesheet.png"
-dest_files=[ "res://.import/spritesheet.png-12fa279cc01d18430892ec0a0abf445b.stex" ]
+source_file="res://assets/weapons/explosions/spritesheet.png"
+dest_files=[ "res://.import/spritesheet.png-fc6762d9f36e7083eba393b18aa2821e.stex" ]
 
 [params]
 
