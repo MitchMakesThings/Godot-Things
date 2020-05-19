@@ -13,7 +13,7 @@ viewport_path = NodePath("Viewport")
 [node name="Destructible" type="Node2D"]
 script = ExtResource( 2 )
 viewport_destruction_nodepath = NodePath("Viewport/Circle")
-CollisionHolderNodePath = NodePath("CollisionHolder")
+collision_holder_node_path = NodePath("CollisionHolder")
 
 [node name="Viewport" type="Viewport" parent="."]
 transparent_bg = true
@@ -39,12 +39,7 @@ centered = false
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionRebuildTimer" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
-
 [node name="CullTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-[connection signal="timeout" from="CollisionRebuildTimer" to="." method="rebuild_collisions_from_image"]
 [connection signal="timeout" from="CullTimer" to="." method="_cull_foreground_duplicates"]

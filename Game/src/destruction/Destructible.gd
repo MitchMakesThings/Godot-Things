@@ -1,11 +1,11 @@
 extends Node2D
 
 export var viewport_destruction_nodepath : NodePath
-export var CollisionHolderNodePath : NodePath
+export var collision_holder_node_path : NodePath
 
 var world_size : Vector2
 
-var CollisionHolder : Node2D
+var collision_holder : Node2D
 var _to_cull : Array
 
 var _image_republish_texture := ImageTexture.new()
@@ -17,7 +17,7 @@ var _viewport_destruction_node : Node
 func _ready():
 	add_to_group("destructibles")
 	
-	CollisionHolder = get_node(CollisionHolderNodePath)
+	collision_holder = get_node(collision_holder_node_path)
 	world_size = (get_parent() as Sprite).get_rect().size
 	_parent_material = get_parent().material
 	_viewport_destruction_node = get_node(viewport_destruction_nodepath)
@@ -28,23 +28,21 @@ func _ready():
 	
 	# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
 	# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
-	var dup = get_parent().duplicate(8) as Node2D
+	var dup = get_parent().duplicate(0) as Node2D
 	_to_cull.append(dup)
 	# Shrink to match the ratio of our destruction viewport
 	dup.scale = _world_to_viewport_scale(dup.scale)
 	# Then reposition, so we're in the right spot
 	dup.position = _world_to_viewport(dup.position)
-	
-	# Risky move:
-	# Delete all children of the duplicate.
-	# One of those children will be a duplicate of the Destructible
-	for child in dup.get_children():
-		dup.remove_child(child)
+
+	# Add to the viewport, so that our destructible viewport has our starting point
 	$Viewport.add_child(dup)
-		
+	
+	# Force the destruction texture rebuild
 	rebuild_texture()
 	$CullTimer.start()
-	$CollisionRebuildTimer.start() # DEBUG
+	
+	rebuild_collisions_from_image()
 
 
 func _exit_tree():
@@ -81,7 +79,7 @@ func _cull_foreground_duplicates():
 func _process(_delta):
 	# Debug
 	OS.set_window_title(" | fps: " + str(Engine.get_frames_per_second()))
-	
+
 
 func rebuild_texture():
 	# Force re-render to update our target viewport
@@ -101,7 +99,7 @@ func rebuild_collisions_from_geometry(arguments : Array):
 		var angle_point = deg2rad(i * 360 / nb_points)
 		points_arc.push_back(position + Vector2(cos(angle_point), sin(angle_point)) * radius * 2)
 
-	for collision_polygon in $CollisionHolder.get_children():
+	for collision_polygon in collision_holder.get_children():
 		var clipped_polygons = Geometry.clip_polygons_2d(collision_polygon.polygon, points_arc)
 		
 		# If the clip failed, we're almost certainly trying to delete the last few
@@ -135,10 +133,14 @@ func rebuild_collisions_from_geometry(arguments : Array):
 				# We'll need to add a CollisionPolygon for each of them
 				var collider := CollisionPolygon2D.new()
 				collider.polygon = points
-				CollisionHolder.call_deferred("add_child", collider)
+				collision_holder.call_deferred("add_child", collider)
 
 
 func rebuild_collisions_from_image():
+	# Wait for all viewports to re-render before we build our image
+	yield(VisualServer, "frame_post_draw")
+	
+	# Create bitmap from the Viewport (which projects into our sprite)
 	var bitmap := BitMap.new()
 	bitmap.create_from_image_alpha($Sprite.texture.get_data())
 	
@@ -147,11 +149,11 @@ func rebuild_collisions_from_image():
 	#print("Saved")
 
 	# This will generate polygons for the given coordinate rectangle within the bitmap
-	# As an optimisation we should *only* recalculate polygons in an area around where the impact was
+	# In our case, our given coordinates are the entire image.
 	var polygons = bitmap.opaque_to_polygons(Rect2(Vector2(0,0), bitmap.get_size()))
 	
 	# Delete all previous polygons
-	for child in CollisionHolder.get_children():
+	for child in collision_holder.get_children():
 		child.queue_free()
 	
 	# Now create a collision polygon for each polygon returned
@@ -170,12 +172,13 @@ func rebuild_collisions_from_image():
 			# Remap to world position
 			newpoints.push_back(_viewport_to_world(point))
 		collider.polygon = newpoints # Scaling example. Otherwise just use polygon
-		CollisionHolder.add_child(collider)
+		collision_holder.add_child(collider)
 	
 	# Here's where viewport_destruction_nodepaths get wild
 	# We need to multiply the foreground sprite against our destruction sprite
 	# So that the foreground only shows where our destruction sprite is not alpha
 	republish_sprite()
+
 
 func republish_sprite() -> void:
 	# Assume the image has changed, so we'll need to update our ImageTexture
@@ -195,6 +198,7 @@ func _viewport_to_world(var point : Vector2) -> Vector2:
 				((point.y + get_viewport_rect().position.y) / dynamic_texture_size.y) * world_size.y
 			)
 
+
 func _world_to_viewport(var point : Vector2) -> Vector2:
 	var dynamic_texture_size = $Viewport.get_size()
 	return Vector2(
@@ -202,10 +206,9 @@ func _world_to_viewport(var point : Vector2) -> Vector2:
 				(point.y / world_size.y) * dynamic_texture_size.y + get_viewport_rect().position.y
 			)
 
-func _world_to_viewport_scale(var original_scale : Vector2
-		, var dynamic_texture_size : Vector2 = Vector2.ZERO) -> Vector2:
-	if dynamic_texture_size == Vector2.ZERO	:
-		dynamic_texture_size = $Viewport.get_size()
+
+func _world_to_viewport_scale(var original_scale : Vector2) -> Vector2:
+	var dynamic_texture_size : Vector2 = $Viewport.get_size()
 	var x_scale = ((100.0 / world_size.x) * dynamic_texture_size.x) / 100.0
 	var y_scale = ((100.0 / world_size.y) * dynamic_texture_size.y) / 100.0
 	return Vector2(original_scale.x * x_scale, original_scale.y * y_scale)
