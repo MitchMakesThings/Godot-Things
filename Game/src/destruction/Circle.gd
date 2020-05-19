@@ -1,20 +1,25 @@
 extends Node2D
 
 # Controls the size of the explosion
-var radius = 40
+var _radius = 40
 
-# Private variables - please don't change below here
 
-# Offset from the node origin that we should draw the circle.
-# We don't want to mess with this, so that the circle can simply be moved
-# using the global_position property.
-var _center = Vector2(0, 0)
+# Reposition and redraw the circle
+func reposition(position : Vector2, radius : float):
+	# Ensure we're visible
+	visible = true
 
-# Colour is hardcoded to black
-var _color = Color.black
+	# Reposition and resize
+	global_position = position
+	_radius = radius
+
+	# Now that we've been repositioned and resized we need to call update to force a redraw
+	update()
+
 
 # Note - this is only called once after the node is added to the scene.
 # In order to redraw we need our update() method to be called!
 func _draw():
 	# Draw a circle at our current position using the built in CanvasItem method
-	draw_circle( _center, radius, _color )
+	# We set our position for the circle to zero, so it draws exactly where our global_position is.
+	draw_circle( Vector2.ZERO , _radius, Color.black )

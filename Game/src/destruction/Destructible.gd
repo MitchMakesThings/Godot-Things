@@ -63,10 +63,7 @@ func destroy(position : Vector2, radius : float):
 	_destruction_threads.push_back(thread)
 	
 	# This stuff does the bad-idea rebuild using images
-	_viewport_destruction_node.visible = true
-	_viewport_destruction_node.radius = radius / 2
-	_viewport_destruction_node.global_position = viewport_position
-	_viewport_destruction_node.update() # Redraw the circle, now that we've updated it's radius
+	_viewport_destruction_node.reposition(viewport_position, radius / 2)
 
 	rebuild_texture()
 
@@ -110,7 +107,7 @@ func rebuild_collisions_from_geometry(arguments : Array):
 		# If the clip failed, we're almost certainly trying to delete the last few
 		# remnants of an 'island'
 		if clipped_polygons.size() == 0:
-			collision_polygon.call_deferred("queue_free")
+			collision_polygon.queue_free()
 		
 		for i in range(clipped_polygons.size()):
 			var clipped_collision = clipped_polygons[i]
