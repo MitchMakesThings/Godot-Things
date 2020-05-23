@@ -2,6 +2,7 @@ extends Node2D
 
 export var viewport_destruction_nodepath : NodePath
 export var collision_holder_node_path : NodePath
+export var collision_viewport_size : Vector2 = Vector2.ZERO
 
 var world_size : Vector2
 
@@ -24,7 +25,10 @@ func _ready():
 	
 	# Match our destruction viewport to the regular viewport.
 	# If we didn't do this we'd need to either hardcode a viewport size
-	$Viewport.set_size(get_viewport_rect().size)
+	if collision_viewport_size != Vector2.ZERO:
+		$Viewport.set_size(collision_viewport_size)
+	else:
+		$Viewport.set_size(get_viewport_rect().size)
 	
 	# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
 	# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
@@ -52,7 +56,6 @@ func _exit_tree():
 
 func destroy(position : Vector2, radius : float):
 	var viewport_position = _world_to_viewport(position)
-	
 	# Collision rebuild thread!
 	var thread := Thread.new()
 	var error = thread.start(self, "rebuild_collisions_from_geometry", [position, radius])
@@ -76,11 +79,6 @@ func _cull_foreground_duplicates():
 	_to_cull = Array()
 
 
-func _process(_delta):
-	# Debug
-	OS.set_window_title(" | fps: " + str(Engine.get_frames_per_second()))
-
-
 func rebuild_texture():
 	# Force re-render to update our target viewport
 	$Viewport.render_target_update_mode = Viewport.UPDATE_ONCE
@@ -94,7 +92,7 @@ func rebuild_collisions_from_geometry(arguments : Array):
 	var nb_points = 8
 	var points_arc = PoolVector2Array()
 	points_arc.push_back(position)
-	
+
 	for i in range(nb_points + 1):
 		var angle_point = deg2rad(i * 360 / nb_points)
 		points_arc.push_back(position + Vector2(cos(angle_point), sin(angle_point)) * radius * 2)
@@ -145,7 +143,7 @@ func rebuild_collisions_from_image():
 	bitmap.create_from_image_alpha($Sprite.texture.get_data())
 	
 	# DEBUG:
-	#$Sprite.get_texture().get_data().save_png("res://screenshots/debug.png")
+	#$Sprite.get_texture().get_data().save_png("res://screenshots/debug" + get_parent().name + ".png")
 	#print("Saved")
 
 	# This will generate polygons for the given coordinate rectangle within the bitmap
@@ -193,18 +191,20 @@ func republish_sprite() -> void:
 
 func _viewport_to_world(var point : Vector2) -> Vector2:
 	var dynamic_texture_size = $Viewport.get_size()
+	var parent_offset = get_parent().position
 	return Vector2(
-				((point.x + get_viewport_rect().position.x) / dynamic_texture_size.x) * world_size.x,
-				((point.y + get_viewport_rect().position.y) / dynamic_texture_size.y) * world_size.y
-			)
+		((point.x + get_viewport_rect().position.x) / dynamic_texture_size.x) * world_size.x,
+		((point.y + get_viewport_rect().position.y) / dynamic_texture_size.y) * world_size.y
+	)
 
 
 func _world_to_viewport(var point : Vector2) -> Vector2:
 	var dynamic_texture_size = $Viewport.get_size()
+	var parent_offset = get_parent().position
 	return Vector2(
-				(point.x / world_size.x) * dynamic_texture_size.x + get_viewport_rect().position.x,
-				(point.y / world_size.y) * dynamic_texture_size.y + get_viewport_rect().position.y
-			)
+		((point.x - parent_offset.x ) / world_size.x) * dynamic_texture_size.x + get_viewport_rect().position.x,
+		((point.y - parent_offset.y ) / world_size.y) * dynamic_texture_size.y + get_viewport_rect().position.y
+	)
 
 
 func _world_to_viewport_scale(var original_scale : Vector2) -> Vector2:
