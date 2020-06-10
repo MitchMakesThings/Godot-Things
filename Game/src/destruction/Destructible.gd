@@ -23,12 +23,14 @@ func _ready():
 	_parent_material = get_parent().material
 	_viewport_destruction_node = get_node(viewport_destruction_nodepath)
 	
-	# Match our destruction viewport to the regular viewport.
-	# If we didn't do this we'd need to either hardcode a viewport size
+	# Set our viewport size. This can be specified in the editor
 	if collision_viewport_size != Vector2.ZERO:
 		$Viewport.set_size(collision_viewport_size)
 	else:
-		$Viewport.set_size(get_viewport_rect().size)
+		# If it's not specified we'll match our parent sprites size.
+		# This ensures our scaling is correct so that the visual display of the
+		# sprite matches to the corresponding collision shape
+		$Viewport.set_size(get_parent().get_rect().size)
 	
 	# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
 	# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
@@ -64,7 +66,7 @@ func destroy(position : Vector2, radius : float):
 	_destruction_threads.push_back(thread)
 	
 	# This stuff does the bad-idea rebuild using images
-	_viewport_destruction_node.reposition(viewport_position, radius / 2)
+	_viewport_destruction_node.reposition(viewport_position, radius)
 
 	rebuild_texture()
 
@@ -89,13 +91,17 @@ func rebuild_collisions_from_geometry(arguments : Array):
 	var position : Vector2 = arguments[0]
 	var radius : float = arguments[1]
 
+	# Convert world coordinates of the collision point to local coordinates
+	# We need to do this because the collision polygon coordinates are only available in local space
+	position = position - global_position
+
 	var nb_points = 8
 	var points_arc = PoolVector2Array()
 	points_arc.push_back(position)
 
 	for i in range(nb_points + 1):
 		var angle_point = deg2rad(i * 360 / nb_points)
-		points_arc.push_back(position + Vector2(cos(angle_point), sin(angle_point)) * radius * 2)
+		points_arc.push_back(position + Vector2(cos(angle_point), sin(angle_point)) * radius)
 
 	for collision_polygon in collision_holder.get_children():
 		var clipped_polygons = Geometry.clip_polygons_2d(collision_polygon.polygon, points_arc)
@@ -117,8 +123,8 @@ func rebuild_collisions_from_geometry(arguments : Array):
 			# God knows why, but creating a PoolVector2Array from the Geometry Array fails
 			# ie, PoolVector2Array(Geometry.clip_polygons_2d(points_arc, collision_polygon.polygon))
 			# Doesn't give you a PoolVector2Array with all the points!
-			var points = PoolVector2Array()
 			# So we'll iterate through and manually copy them ourselves :(
+			var points = PoolVector2Array()
 			for point in clipped_collision:
 				points.push_back(point)
 			

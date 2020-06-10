@@ -15,7 +15,7 @@ gravity_scale = 10.0
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 2 )
-explosion_radius = 30.0
+explosion_radius = 60.0
 explosion_scene = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
