@@ -6,7 +6,7 @@ Godot Interaction Example
 Overview
 ========
 
-This is an example project to go along with the [Youtube Tutorial](https://www.youtube.com/watch?v=C_-faOyIuTQ&lc=Ugy_-8a6hg_DhYSF-yl4AaABAg) I made to show a simple interaction system for Godot.
+This is an example project to go along with the [Youtube Tutorial](https://youtu.be/C_-faOyIuTQ) I made to show a simple interaction system for Godot.
 
 All code is written in GDScript, and built to decouple the UI from the interaction system itself. The youtube video linked above has a project overview, so I'd recommend starting with that.
 
