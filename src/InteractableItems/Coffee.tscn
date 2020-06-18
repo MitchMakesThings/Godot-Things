@@ -1,0 +1,148 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://assets/MySprites/CoffeCup.png" type="Texture" id=1]
+[ext_resource path="res://src/InteractableItems/Coffee.gd" type="Script" id=2]
+
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 18, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 36, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 54, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 72, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 90, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 108, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 126, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 144, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 162, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 180, 0, 18, 18 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[sub_resource type="Gradient" id=13]
+colors = PoolColorArray( 1, 0.688477, 0, 1, 1, 0.95, 0.5, 1 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+lifetime_randomness = 0.59
+trail_divisor = 3
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 35.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 250.0
+initial_velocity_random = 0.3
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 500.0
+scale = 5.0
+scale_random = 0.5
+color_ramp = SubResource( 14 )
+hue_variation = 0.69
+hue_variation_random = 0.44
+
+[sub_resource type="Animation" id=16]
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 24.5781, 22.0125 )
+
+[node name="Coffee" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 3, 3 )
+frames = SubResource( 12 )
+frame = 3
+playing = true
+
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 64
+one_shot = true
+preprocess = 0.5
+randomness = 0.53
+visibility_rect = Rect2( -200, -100, 200, 200 )
+process_material = SubResource( 15 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Open = SubResource( 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2.51825 )
+shape = SubResource( 17 )

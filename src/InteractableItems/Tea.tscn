@@ -1,0 +1,86 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/MySprites/TeaMug.png" type="Texture" id=1]
+[ext_resource path="res://src/InteractableItems/Tea.gd" type="Script" id=2]
+
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 18, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 36, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 54, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 72, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 90, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 108, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 126, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 144, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 162, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 180, 0, 18, 18 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 24.5781, 22.0125 )
+
+[node name="Tea" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 3, 3 )
+frames = SubResource( 12 )
+frame = 10
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2.51825 )
+shape = SubResource( 13 )

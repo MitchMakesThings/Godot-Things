@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/InteractableItems/Tea.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/InteractableItems/Chest.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/InteractableItems/Coffee.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.820359, 1 )
+colors = PoolColorArray( 0.113725, 0.219608, 0.235294, 1, 0.113725, 0.219608, 0.235294, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1024.63, 0.495241 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Floor" type="Sprite" parent="."]
+position = Vector2( 510.717, 514.27 )
+scale = Vector2( 1, 50 )
+texture = SubResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
+shape = SubResource( 3 )
+
+[node name="Chest" parent="." instance=ExtResource( 4 )]
+position = Vector2( 842.762, 461 )
+
+[node name="player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 577.115, 253.546 )
+
+[node name="Coffee" parent="." instance=ExtResource( 5 )]
+position = Vector2( 423.483, 463.945 )
+
+[node name="Coffee2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 215.789, 465.263 )

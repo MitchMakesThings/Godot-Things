@@ -1,0 +1,77 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "InteractableItem",
+"class": "ConsumableItem",
+"language": "GDScript",
+"path": "res://src/player/Effects/src/src/InteractableItems/ConsumableItem.gd"
+}, {
+"base": "Node",
+"class": "InteractableItem",
+"language": "GDScript",
+"path": "res://src/player/Effects/src/src/InteractableItems/InteractableItem.gd"
+}, {
+"base": "Control",
+"class": "InteractionComponentUI",
+"language": "GDScript",
+"path": "res://src/player/Effects/src/src/player/InteractionComponentUI.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://src/player/Effects/src/src/player/player.gd"
+} ]
+_global_script_class_icons={
+"ConsumableItem": "",
+"InteractableItem": "",
+"InteractionComponentUI": "",
+"Player": ""
+}
+
+[application]
+
+config/name="Godot-Interaction-Example"
+run/main_scene="res://src/levels/Interactable.tscn"
+config/icon="res://icon.png"
+
+[input]
+
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+ ]
+}
+interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="default"
+2d_physics/layer_2="environment"
+2d_physics/layer_3="climbable"
+2d_physics/layer_4="interactable"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
