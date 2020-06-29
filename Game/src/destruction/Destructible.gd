@@ -56,6 +56,14 @@ func _exit_tree():
 		thread.wait_to_finish()
 
 
+func _unhandled_input(event):
+	if (event.is_action_pressed("ui_accept")):
+		# DEBUG:
+		var bitmap := BitMap.new()
+		bitmap.create_from_image_alpha($Sprite.texture.get_data())
+		$Sprite.get_texture().get_data().save_png("res://screenshots/debug" + get_parent().name + ".png")
+
+
 func destroy(position : Vector2, radius : float):
 	var viewport_position = _world_to_viewport(position)
 	# Collision rebuild thread!
@@ -149,7 +157,7 @@ func rebuild_collisions_from_image():
 	bitmap.create_from_image_alpha($Sprite.texture.get_data())
 	
 	# DEBUG:
-	#$Sprite.get_texture().get_data().save_png("res://screenshots/debug" + get_parent().name + ".png")
+	$Sprite.get_texture().get_data().save_png("res://screenshots/debug" + get_parent().name + ".png")
 	#print("Saved")
 
 	# This will generate polygons for the given coordinate rectangle within the bitmap
