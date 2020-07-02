@@ -2,7 +2,6 @@ extends Node2D
 
 export var viewport_destruction_nodepath : NodePath
 export var collision_holder_node_path : NodePath
-export var collision_viewport_size : Vector2 = Vector2.ZERO
 
 var world_size : Vector2
 
@@ -23,32 +22,26 @@ func _ready():
 	_parent_material = get_parent().material
 	_viewport_destruction_node = get_node(viewport_destruction_nodepath)
 	
-	# Set our viewport size. This can be specified in the editor
-	if collision_viewport_size != Vector2.ZERO:
-		$Viewport.set_size(collision_viewport_size)
-	else:
-		# If it's not specified we'll match our parent sprites size.
-		# This ensures our scaling is correct so that the visual display of the
-		# sprite matches to the corresponding collision shape
-		$Viewport.set_size(get_parent().get_rect().size)
+	# Set our viewport size. We don't know this until run time, since its from our parent.
+	$Viewport.set_size(get_parent().get_rect().size)
 	
 	# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
 	# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
 	var dup = get_parent().duplicate(0) as Node2D
 	_to_cull.append(dup)
-	# Shrink to match the ratio of our destruction viewport
-	dup.scale = _world_to_viewport_scale(dup.scale)
+	
 	# Then reposition, so we're in the right spot
 	dup.position = _world_to_viewport(dup.position)
 
 	# Add to the viewport, so that our destructible viewport has our starting point
 	$Viewport.add_child(dup)
 	
-	# Force the destruction texture rebuild
-	rebuild_texture()
+	# Start the timer, so it can delete our duplicated parent info
 	$CullTimer.start()
 	
-	rebuild_collisions_from_image()
+	# Wait for all viewports to re-render before we build our image
+	yield(VisualServer, "frame_post_draw")
+	build_collisions_from_image()
 
 
 func _exit_tree():
@@ -148,48 +141,31 @@ func rebuild_collisions_from_geometry(arguments : Array):
 				collision_holder.call_deferred("add_child", collider)
 
 
-func rebuild_collisions_from_image():
-	# Wait for all viewports to re-render before we build our image
-	yield(VisualServer, "frame_post_draw")
-	
+func build_collisions_from_image():	
 	# Create bitmap from the Viewport (which projects into our sprite)
 	var bitmap := BitMap.new()
 	bitmap.create_from_image_alpha($Sprite.texture.get_data())
 	
 	# DEBUG:
-	$Sprite.get_texture().get_data().save_png("res://screenshots/debug" + get_parent().name + ".png")
+	#$Sprite.get_texture().get_data().save_png("res://screenshots/debug" + get_parent().name + ".png")
 	#print("Saved")
 
 	# This will generate polygons for the given coordinate rectangle within the bitmap
 	# In our case, our given coordinates are the entire image.
 	var polygons = bitmap.opaque_to_polygons(Rect2(Vector2(0,0), bitmap.get_size()))
-	
-	# Delete all previous polygons
-	for child in collision_holder.get_children():
-		child.queue_free()
-	
+
 	# Now create a collision polygon for each polygon returned
 	# For the most part there will probably only be one.... unless you have islands
-	# And we'll add them as children of our DynamicTexture
 	for polygon in polygons:
 		var collider := CollisionPolygon2D.new()
 
-		# Remap our points from the dynamic texture (which is small)
-		# To our world, which might be more than a screen wide.
-		# Depending on the size of our dynamic texture viewport, we'll get a different resolution
-		# of collidability.
-		# This can be much less fine-grained than our display!
+		# Remap our points from the viewport coordinates back to world coordinates.
 		var newpoints := Array()
 		for point in polygon:
-			# Remap to world position
 			newpoints.push_back(_viewport_to_world(point))
-		collider.polygon = newpoints # Scaling example. Otherwise just use polygon
+		collider.polygon = newpoints
 		collision_holder.add_child(collider)
-	
-	# Here's where viewport_destruction_nodepaths get wild
-	# We need to multiply the foreground sprite against our destruction sprite
-	# So that the foreground only shows where our destruction sprite is not alpha
-	republish_sprite()
+
 
 
 func republish_sprite() -> void:
@@ -205,7 +181,6 @@ func republish_sprite() -> void:
 
 func _viewport_to_world(var point : Vector2) -> Vector2:
 	var dynamic_texture_size = $Viewport.get_size()
-	var parent_offset = get_parent().position
 	return Vector2(
 		((point.x + get_viewport_rect().position.x) / dynamic_texture_size.x) * world_size.x,
 		((point.y + get_viewport_rect().position.y) / dynamic_texture_size.y) * world_size.y
@@ -219,10 +194,3 @@ func _world_to_viewport(var point : Vector2) -> Vector2:
 		((point.x - parent_offset.x ) / world_size.x) * dynamic_texture_size.x + get_viewport_rect().position.x,
 		((point.y - parent_offset.y ) / world_size.y) * dynamic_texture_size.y + get_viewport_rect().position.y
 	)
-
-
-func _world_to_viewport_scale(var original_scale : Vector2) -> Vector2:
-	var dynamic_texture_size : Vector2 = $Viewport.get_size()
-	var x_scale = ((100.0 / world_size.x) * dynamic_texture_size.x) / 100.0
-	var y_scale = ((100.0 / world_size.y) * dynamic_texture_size.y) / 100.0
-	return Vector2(original_scale.x * x_scale, original_scale.y * y_scale)
