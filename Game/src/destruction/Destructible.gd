@@ -23,7 +23,7 @@ func _ready():
 	_viewport_destruction_node = get_node(viewport_destruction_nodepath)
 	
 	# Set our viewport size. We don't know this until run time, since its from our parent.
-	$Viewport.set_size(get_parent().get_rect().size)
+	$Viewport.set_size(world_size)
 	
 	# Passing 0 to duplicate, as we don't want to duplicate scripts/signals etc
 	# We don't use 8 since we're going to delete our duplicate nodes after first render anyway
@@ -58,7 +58,6 @@ func _unhandled_input(event):
 
 
 func destroy(position : Vector2, radius : float):
-	var viewport_position = _world_to_viewport(position)
 	# Collision rebuild thread!
 	var thread := Thread.new()
 	var error = thread.start(self, "rebuild_collisions_from_geometry", [position, radius])
@@ -66,9 +65,9 @@ func destroy(position : Vector2, radius : float):
 		print("Error creating destruction thread: ", error)
 	_destruction_threads.push_back(thread)
 	
-	# This stuff does the bad-idea rebuild using images
-	_viewport_destruction_node.reposition(viewport_position, radius)
-
+	# Move our subtractive-circle so that our Viewport deletes pixels that were in our explosion
+	_viewport_destruction_node.reposition(_world_to_viewport(position), radius)
+	# Re-render the viewport into our texture
 	rebuild_texture()
 
 	# Wait until all viewports have re-rendered before pushing our viewport to the destruction shader.
@@ -165,7 +164,6 @@ func build_collisions_from_image():
 			newpoints.push_back(_viewport_to_world(point))
 		collider.polygon = newpoints
 		collision_holder.add_child(collider)
-
 
 
 func republish_sprite() -> void:

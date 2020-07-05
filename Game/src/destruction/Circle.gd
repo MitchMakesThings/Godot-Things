@@ -23,3 +23,4 @@ func _draw():
 	# Draw a circle at our current position using the built in CanvasItem method
 	# We set our position for the circle to zero, so it draws exactly where our global_position is.
 	draw_circle( Vector2.ZERO , _radius, Color.black )
+ 
