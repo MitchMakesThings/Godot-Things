@@ -5,9 +5,9 @@ Spell 'Splosion
 
 Overview
 --------
-An example project to show a few ways of recreating mechanics from the 2D Worms games. This includes everything needed to follow along with a youtube video I haven't made yet.
+An example project to show a few ways of recreating mechanics from the 2D Worms games. There is an accompanying [youtube playlist](https://www.youtube.com/playlist?list=PLFsjUWfnATInUrH15tlrwwSpOLsGIf3-G) full of tutorials that explain the project.
 
-All code is written in GDScript, and hopefully documented well-enough to understand. The youtube video will walk through some of the project setup that's a bit unintuitive.
+All code is written in GDScript, and hopefully documented well-enough to understand.
 
 
 Art Assets
