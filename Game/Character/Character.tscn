@@ -1,6 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Character/Character.cs" type="Script" id=1]
+
+[sub_resource type="CapsuleShape" id=3]
+radius = 0.5
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.269865, 0.286833, 0.322328 )
 
 [sub_resource type="PrismMesh" id=2]
 size = Vector3( 0.5, 0.5, 0.5 )
@@ -8,35 +14,33 @@ size = Vector3( 0.5, 0.5, 0.5 )
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
 
-[sub_resource type="CapsuleShape" id=3]
-radius = 0.5
-
 [node name="Character" type="KinematicBody"]
 script = ExtResource( 1 )
-RotationHelperNodePath = NodePath("RotationHelper")
-HeadNodePath = NodePath("RotationHelper/Head")
-CameraNodePath = NodePath("RotationHelper/Head/Camera")
+HeadNodePath = NodePath("Head")
+CameraNodePath = NodePath("Head/Camera")
 MaxSpeed = 4.0
-
-[node name="RotationHelper" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-
-[node name="Head" type="Spatial" parent="RotationHelper"]
-
-[node name="Pointer" type="MeshInstance" parent="RotationHelper/Head"]
-transform = Transform( -1, 3.25841e-07, 0, 5.30863e-14, 1.62921e-07, -1, -3.25841e-07, -1, -1.62921e-07, 0, -0.0477421, -0.56784 )
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="Camera" type="Camera" parent="RotationHelper/Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.738551 )
-current = true
-
-[node name="Body" type="MeshInstance" parent="RotationHelper"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.5, 0 )
-mesh = SubResource( 1 )
-material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
 shape = SubResource( 3 )
+
+[node name="FaceCollider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45589, -0.660212 )
+shape = SubResource( 4 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+
+[node name="Pointer" type="MeshInstance" parent="Head"]
+transform = Transform( -1, 3.25841e-07, 0, 5.30863e-14, 1.62921e-07, -1, -3.25841e-07, -1, -1.62921e-07, 0, -0.0477421, -0.56784 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.294 )
+current = true
+
+[node name="Body" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
+mesh = SubResource( 1 )
+material/0 = null

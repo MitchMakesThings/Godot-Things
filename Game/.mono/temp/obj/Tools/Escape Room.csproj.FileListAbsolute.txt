@@ -1,5 +1,0 @@
-D:\Projects\Godot\EscapeRoom\Game\.mono\temp\bin\Tools\Escape Room.dll
-D:\Projects\Godot\EscapeRoom\Game\.mono\temp\bin\Tools\Escape Room.pdb
-D:\Projects\Godot\EscapeRoom\Game\.mono\temp\obj\Tools\Escape Room.csprojAssemblyReference.cache
-D:\Projects\Godot\EscapeRoom\Game\.mono\temp\obj\Tools\Escape Room.dll
-D:\Projects\Godot\EscapeRoom\Game\.mono\temp\obj\Tools\Escape Room.pdb

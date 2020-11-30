@@ -4,10 +4,6 @@ using System;
 public class Character : KinematicBody
 {
 	[Export]
-	NodePath RotationHelperNodePath;
-	Spatial RotationHelper;
-
-	[Export]
 	NodePath HeadNodePath;
 	Spatial Head;
 
@@ -42,7 +38,6 @@ public class Character : KinematicBody
 		// Trap the mouse
 		Input.SetMouseMode(Input.MouseMode.Captured);
 
-		RotationHelper = GetNode<Spatial>(RotationHelperNodePath);
 		Head = GetNode<Spatial>(HeadNodePath);
 		Camera = GetNode<Camera>(CameraNodePath);
 
@@ -83,8 +78,8 @@ public class Character : KinematicBody
 		inputMovementVector = inputMovementVector.Normalized();
 
 		// Set our intended direction, which will be used to move us in ProcessMovement
-		Direction += -RotationHelper.GlobalTransform.basis.z * inputMovementVector.y;
-		Direction += RotationHelper.GlobalTransform.basis.x * inputMovementVector.x;
+		Direction += -GlobalTransform.basis.z * inputMovementVector.y;
+		Direction += GlobalTransform.basis.x * inputMovementVector.x;
 
 		if (IsOnFloor()) {
 			if (Input.IsActionJustPressed("movement_jump")) {
@@ -158,6 +153,6 @@ public class Character : KinematicBody
 		Head.RotationDegrees = new Vector3(Mathf.Clamp(Head.RotationDegrees.x, -70, 70), Head.RotationDegrees.y, Head.RotationDegrees.z);
 
 		// Rotate left / right
-		RotationHelper.RotateY(Mathf.Deg2Rad(-mouseMotion.Relative.x * MouseSensitivity));
+		RotateY(Mathf.Deg2Rad(-mouseMotion.Relative.x * MouseSensitivity));
 	}
 }

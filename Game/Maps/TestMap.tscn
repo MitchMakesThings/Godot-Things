@@ -1,8 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Character/Character.tscn" type="PackedScene" id=1]
 
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.619608, 0.921569, 0.878431, 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.215686, 0.239216, 0.337255, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.941176, 0.913725, 0.619608, 1 )
+
 [sub_resource type="PrismMesh" id=1]
+material = SubResource( 2 )
 left_to_right = -2.0
 size = Vector3( 5, 5, 2 )
 
@@ -11,30 +21,35 @@ size = Vector3( 5, 5, 2 )
 [node name="CoreRoom" type="CSGCombiner" parent="."]
 use_collision = true
 
-[node name="CSGBox" type="CSGBox" parent="CoreRoom"]
+[node name="Floor" type="CSGBox" parent="CoreRoom"]
 width = 20.0
 height = 0.002
 depth = 20.0
+material = SubResource( 3 )
 
 [node name="CSGBox2" type="CSGBox" parent="CoreRoom"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10 )
 width = 20.0
 depth = 0.002
+material = SubResource( 4 )
 
 [node name="CSGBox3" type="CSGBox" parent="CoreRoom"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -10 )
 width = 20.0
 depth = 0.002
+material = SubResource( 4 )
 
 [node name="CSGBox4" type="CSGBox" parent="CoreRoom"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 1, 0 )
 width = 20.0
 depth = 0.002
+material = SubResource( 4 )
 
 [node name="CSGBox5" type="CSGBox" parent="CoreRoom"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -10, 1, 0 )
 width = 20.0
 depth = 0.002
+material = SubResource( 4 )
 
 [node name="Obstacles" type="CSGCombiner" parent="."]
 use_collision = true
@@ -46,6 +61,7 @@ mesh = SubResource( 1 )
 [node name="CSGBox6" type="CSGBox" parent="Obstacles"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 0 )
 depth = 18.0
+material = SubResource( 2 )
 
 [node name="Character" parent="." instance=ExtResource( 1 )]
 
