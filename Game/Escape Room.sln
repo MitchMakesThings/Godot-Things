@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escape Room", "Escape Room.csproj", "{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	Release|Any CPU = Release|Any CPU
+	Tools|Any CPU = Tools|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
+		{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}.Tools|Any CPU.Build.0 = Tools|Any CPU
+	EndGlobalSection
+EndGlobal
