@@ -19,6 +19,10 @@ config/name="Escape Room"
 run/main_scene="res://Maps/TestMap.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameMode="*res://GameModes/TestGameMode.tscn"
+
 [input]
 
 movement_forward={

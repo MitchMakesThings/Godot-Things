@@ -35,9 +35,6 @@ public class Character : KinematicBody
 
 	public override void _Ready()
 	{
-		// Trap the mouse
-		Input.SetMouseMode(Input.MouseMode.Captured);
-
 		Head = GetNode<Spatial>(HeadNodePath);
 		Camera = GetNode<Camera>(CameraNodePath);
 
@@ -88,6 +85,7 @@ public class Character : KinematicBody
 		}
 
 		// Capture / free the camera on escape
+		// TODO remove this stuff. Mouse capture could then all happen in the GameMode
 		if (Input.IsActionJustPressed("ui_cancel")) {
 			if (Input.GetMouseMode() == Input.MouseMode.Captured) {
 			Input.SetMouseMode(Input.MouseMode.Visible);
