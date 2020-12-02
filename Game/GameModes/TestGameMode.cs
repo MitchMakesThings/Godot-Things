@@ -3,20 +3,17 @@ using System;
 
 public class TestGameMode : Node
 {
+	public static TestGameMode Instance { get; private set; }
+
 	[Export]
 	private PackedScene VictoryScreenScene;
 	private Control VictoryScreen;
-
-	public static TestGameMode Instance { get; private set; }
 
 	public override void _Ready()
 	{
 		base._Ready();
 
 		Instance = this;
-
-		// TODO - call this from the networking stuff after all players are loaded in
-		StartGame();
 	}
 
 	public void EnteredWinArea(WinArea area, Character winningCharacter) {

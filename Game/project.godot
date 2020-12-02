@@ -16,11 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Escape Room"
-run/main_scene="res://Maps/TestMap.tscn"
+run/main_scene="res://UI/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
+Network="*res://Networking/Network.cs"
 GameMode="*res://GameModes/TestGameMode.tscn"
 
 [input]
