@@ -18,10 +18,10 @@ public class Character : KinematicBody
 	private Vector3 Direction;
 	
 	[Export]
-	private float JumpSpeed = 18.0f;
+	private float JumpSpeed = 5.0f;
 
 	[Export]
-	private float MaxSpeed = 20f;
+	private float MaxSpeed = 30f;
 
 	[Export]
 	private float AccelerationSpeed = 4.5f;
@@ -96,15 +96,17 @@ public class Character : KinematicBody
 	}
 
 	private void ProcessMovement(float delta) {
-		Direction = Direction.Normalized();
-
 		// Calculate vertical movement
 		if (Direction.y != 0) {
 			// Add jump power
 			Velocity.y = Direction.y;
 		}
+
 		// Apply gravity
 		Velocity.y += delta * Gravity;
+
+		// Normalize before calculating movement
+		Direction = Direction.Normalized();
 
 		// Calculate horizontal movement
 		var horizontalVelocity = Velocity;

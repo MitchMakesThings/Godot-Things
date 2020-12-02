@@ -61,7 +61,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
 use_collision = true
 
 [node name="CSGMesh" type="CSGMesh" parent="Obstacles"]
-transform = Transform( 0.986138, -0.165925, 0, 0.165925, 0.986138, 0, 0, 0, 1, 5.45056, 1.60975, -5 )
+transform = Transform( 0.986138, -0.165925, 0, 0.165925, 0.986138, 0, 0, 0, 1, 6.01502, 1.66817, -5 )
 mesh = SubResource( 4 )
 
 [node name="CSGBox6" type="CSGBox" parent="Obstacles"]
