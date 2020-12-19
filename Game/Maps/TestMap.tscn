@@ -23,8 +23,9 @@ size = Vector3( 5, 5, 2 )
 use_collision = true
 
 [node name="Floor" type="CSGBox" parent="CoreRoom"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.260377, 0 )
 width = 20.0
-height = 0.002
+height = 0.5
 depth = 20.0
 material = SubResource( 1 )
 
@@ -65,7 +66,8 @@ transform = Transform( 0.986138, -0.165925, 0, 0.165925, 0.986138, 0, 0, 0, 1, 6
 mesh = SubResource( 4 )
 
 [node name="CSGBox6" type="CSGBox" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.71267, 1, 0 )
+width = 2.5
 depth = 18.0
 material = SubResource( 3 )
 
