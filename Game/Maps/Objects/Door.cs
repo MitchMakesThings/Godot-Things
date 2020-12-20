@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Door : Spatial, IInteractable
+public class Door : Spatial, IActivatable
 {
 	[Export]
 	NodePath AnimationPlayerNodePath;
@@ -16,12 +16,13 @@ public class Door : Spatial, IInteractable
 		AnimationPlayer.AssignedAnimation = AnimationPlayer.GetAnimationList()[0];
 	}
 
-	public void Interact()
+	public void Activate()
 	{
-		if (AnimationPlayer.CurrentAnimationPosition > 0) {
-			AnimationPlayer.PlayBackwards();
-		} else {
-			AnimationPlayer.Play();
-		}
+		AnimationPlayer.Play();
+	}
+
+	public void Deactivate()
+	{
+		AnimationPlayer.PlayBackwards();
 	}
 }
