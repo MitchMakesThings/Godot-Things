@@ -10,6 +10,7 @@ public class Character : KinematicBody
 	[Export]
 	NodePath CameraNodePath;
 	Camera Camera;
+	RayCast CameraRayCast;
 
 	const float MouseSensitivity = 0.05f;
 
@@ -37,6 +38,8 @@ public class Character : KinematicBody
 	{
 		Head = GetNode<Spatial>(HeadNodePath);
 		Camera = GetNode<Camera>(CameraNodePath);
+		CameraRayCast = Camera.GetNode<RayCast>("RayCast");
+
 
 		// We could take the gravity vector from project settings, instead of * -1
 		// However, we're not going to do any crazy non-standard physics, so nothing to worry about
@@ -50,6 +53,15 @@ public class Character : KinematicBody
 		ProcessInput(delta);
 		ProcessMovement(delta);
 	}
+
+	public override void _Process(float delta)
+	{
+		base._Process(delta);
+
+		// TODO - update the Interaction UI... probably by raising a signal from here?
+		// Maybe we could raise a RayCast_Updated signal from _PhysicsProcess?
+	}
+
 
 	// TODO - extract this stuff out into a CharacterController - have it call a method to set Direction instead
 	// That should be able to simplify AI / network puppets
@@ -91,6 +103,14 @@ public class Character : KinematicBody
 			Input.SetMouseMode(Input.MouseMode.Visible);
 			} else {
 				Input.SetMouseMode(Input.MouseMode.Captured);
+			}
+		}
+
+		// Handle interaction
+		if (CameraRayCast.IsColliding() && Input.IsActionJustPressed("interact")) {
+			var interactable = CameraRayCast.GetCollider() as IInteractable;
+			if (interactable != null && interactable.CanInteract(this)) {
+				interactable.Interact(this);
 			}
 		}
 	}
