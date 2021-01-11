@@ -26,6 +26,7 @@
     <Compile Include="Maps\Objects\PressurePlate.cs" />
     <Compile Include="Maps\Objects\WinArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\InteractableUI.cs" />
     <Compile Include="UI\VictoryScreen.cs" />
   </ItemGroup>
 </Project>

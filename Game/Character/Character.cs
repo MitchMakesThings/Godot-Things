@@ -11,6 +11,10 @@ public class Character : KinematicBody
 	NodePath CameraNodePath;
 	Camera Camera;
 	RayCast CameraRayCast;
+    Godot.Object CurrentInteractable;
+
+	[Signal]
+	public delegate void InteractableUpdated(Godot.Object interactable);
 
 	const float MouseSensitivity = 0.05f;
 
@@ -40,7 +44,6 @@ public class Character : KinematicBody
 		Camera = GetNode<Camera>(CameraNodePath);
 		CameraRayCast = Camera.GetNode<RayCast>("RayCast");
 
-
 		// We could take the gravity vector from project settings, instead of * -1
 		// However, we're not going to do any crazy non-standard physics, so nothing to worry about
 		Gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity") * -1;
@@ -52,14 +55,12 @@ public class Character : KinematicBody
 
 		ProcessInput(delta);
 		ProcessMovement(delta);
-	}
 
-	public override void _Process(float delta)
-	{
-		base._Process(delta);
-
-		// TODO - update the Interaction UI... probably by raising a signal from here?
-		// Maybe we could raise a RayCast_Updated signal from _PhysicsProcess?
+		var rayInteractable = CameraRayCast.GetCollider();
+		if (CurrentInteractable != rayInteractable) {
+			CurrentInteractable = rayInteractable;
+			EmitSignal(nameof(InteractableUpdated), CurrentInteractable);
+		}
 	}
 
 
@@ -111,6 +112,9 @@ public class Character : KinematicBody
 			var interactable = CameraRayCast.GetCollider() as IInteractable;
 			if (interactable != null && interactable.CanInteract(this)) {
 				interactable.Interact(this);
+
+				// Ensure the UI knows we've pressed stuff (specifically, in we just interacted with a one-shot thing)
+				EmitSignal(nameof(InteractableUpdated), CameraRayCast.GetCollider());
 			}
 		}
 	}
