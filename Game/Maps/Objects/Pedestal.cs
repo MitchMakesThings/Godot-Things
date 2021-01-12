@@ -22,7 +22,7 @@ public class Pedestal : StaticBody, IInteractable
 		Target = GetNode(ActivatableTargetNodePath) as IActivatable;	// Note: Could be null!
 
 		CSGBox = GetNode<CSGBox>(CSGNodePath);
-		((SpatialMaterial)CSGBox.Material).AlbedoColor = NotPressedColor;
+		SetColour(NotPressedColor);
 	}
 
 	public string InteractionText => "Activate";
@@ -37,7 +37,12 @@ public class Pedestal : StaticBody, IInteractable
 		if (!HasBeenPressed && Target != null) {
 			Target.Activate();
 			HasBeenPressed = true;
-			((SpatialMaterial)CSGBox.Material).AlbedoColor = PressedColor;
+			SetColour(PressedColor, 2);
 		}
+	}
+
+	private void SetColour(Color newColour, float glowIntensity = 100) {
+		((ShaderMaterial)CSGBox.Material).SetShaderParam("Color", newColour);
+		((ShaderMaterial)CSGBox.Material).SetShaderParam("EmissionMultiplier", glowIntensity);
 	}
 }

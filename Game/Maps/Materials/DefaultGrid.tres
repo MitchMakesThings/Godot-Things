@@ -1,11 +1,6 @@
-[gd_scene load_steps=27 format=2]
+[gd_resource type="ShaderMaterial" load_steps=24 format=2]
 
-[ext_resource path="res://Maps/Objects/Pedestal.cs" type="Script" id=1]
-
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.25, 0.5, 0.25 )
-
-[sub_resource type="VisualShaderNodeScalarOp" id=24]
+[sub_resource type="VisualShaderNodeScalarOp" id=1]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
 operator = 9
 
@@ -14,62 +9,62 @@ function = 31
 
 [sub_resource type="VisualShaderNodeScalarOp" id=3]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=4]
+[sub_resource type="VisualShaderNodeVectorOp" id=18]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=5]
+[sub_resource type="VisualShaderNodeVectorOp" id=20]
 operator = 2
 
-[sub_resource type="VisualShaderNodeInput" id=6]
+[sub_resource type="VisualShaderNodeInput" id=22]
 input_name = "uv"
 
-[sub_resource type="VisualShaderNodeVectorFunc" id=7]
+[sub_resource type="VisualShaderNodeVectorFunc" id=24]
 function = 20
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=8]
+[sub_resource type="VisualShaderNodeScalarUniform" id=25]
 uniform_name = "TilingX"
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=9]
+[sub_resource type="VisualShaderNodeScalarUniform" id=26]
 uniform_name = "EmissionMultiplier"
 
-[sub_resource type="VisualShaderNodeColorUniform" id=10]
+[sub_resource type="VisualShaderNodeColorUniform" id=27]
 uniform_name = "Color"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=11]
+[sub_resource type="VisualShaderNodeScalarOp" id=5]
 default_input_values = [ 0, 0.0, 1, 0.05 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=12]
+[sub_resource type="VisualShaderNodeScalarUniform" id=28]
 uniform_name = "TilingY"
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=13]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=29]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=14]
+[sub_resource type="VisualShaderNodeScalarOp" id=30]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarOp" id=15]
+[sub_resource type="VisualShaderNodeScalarOp" id=31]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorCompose" id=16]
+[sub_resource type="VisualShaderNodeVectorCompose" id=32]
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=17]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=6]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=18]
+[sub_resource type="VisualShaderNodeScalarOp" id=7]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=19]
+[sub_resource type="VisualShaderNodeScalarFunc" id=8]
 function = 31
 
-[sub_resource type="VisualShaderNodeScalarOp" id=20]
+[sub_resource type="VisualShaderNodeScalarOp" id=9]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=21]
+[sub_resource type="VisualShaderNodeScalarOp" id=10]
 default_input_values = [ 0, 0.0, 1, 0.05 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarOp" id=22]
+[sub_resource type="VisualShaderNodeScalarOp" id=11]
 
-[sub_resource type="VisualShader" id=23]
+[sub_resource type="VisualShader" id=33]
 code = "shader_type spatial;
 render_mode specular_schlick_ggx;
 
@@ -175,71 +170,55 @@ void light() {
 "
 graph_offset = Vector2( -1745, -164 )
 nodes/fragment/0/position = Vector2( 1180, 140 )
-nodes/fragment/3/node = SubResource( 11 )
+nodes/fragment/3/node = SubResource( 5 )
 nodes/fragment/3/position = Vector2( -320, 160 )
-nodes/fragment/4/node = SubResource( 17 )
+nodes/fragment/4/node = SubResource( 6 )
 nodes/fragment/4/position = Vector2( -620, 180 )
-nodes/fragment/5/node = SubResource( 18 )
+nodes/fragment/5/node = SubResource( 7 )
 nodes/fragment/5/position = Vector2( -320, 40 )
-nodes/fragment/6/node = SubResource( 19 )
+nodes/fragment/6/node = SubResource( 8 )
 nodes/fragment/6/position = Vector2( -140, 60 )
-nodes/fragment/7/node = SubResource( 20 )
+nodes/fragment/7/node = SubResource( 9 )
 nodes/fragment/7/position = Vector2( 95, 99 )
-nodes/fragment/8/node = SubResource( 21 )
+nodes/fragment/8/node = SubResource( 10 )
 nodes/fragment/8/position = Vector2( -320, 420 )
-nodes/fragment/9/node = SubResource( 22 )
+nodes/fragment/9/node = SubResource( 11 )
 nodes/fragment/9/position = Vector2( 100, 380 )
-nodes/fragment/10/node = SubResource( 24 )
+nodes/fragment/10/node = SubResource( 1 )
 nodes/fragment/10/position = Vector2( -320, 300 )
 nodes/fragment/11/node = SubResource( 2 )
 nodes/fragment/11/position = Vector2( -120, 320 )
 nodes/fragment/12/node = SubResource( 3 )
 nodes/fragment/12/position = Vector2( 340, 260 )
-nodes/fragment/14/node = SubResource( 4 )
+nodes/fragment/14/node = SubResource( 18 )
 nodes/fragment/14/position = Vector2( 661, 178 )
-nodes/fragment/15/node = SubResource( 5 )
+nodes/fragment/15/node = SubResource( 20 )
 nodes/fragment/15/position = Vector2( 940, 280 )
-nodes/fragment/24/node = SubResource( 6 )
+nodes/fragment/24/node = SubResource( 22 )
 nodes/fragment/24/position = Vector2( -1880, -80 )
-nodes/fragment/26/node = SubResource( 7 )
+nodes/fragment/26/node = SubResource( 24 )
 nodes/fragment/26/position = Vector2( -860, -20 )
-nodes/fragment/27/node = SubResource( 8 )
+nodes/fragment/27/node = SubResource( 25 )
 nodes/fragment/27/position = Vector2( -1680, 80 )
-nodes/fragment/28/node = SubResource( 9 )
+nodes/fragment/28/node = SubResource( 26 )
 nodes/fragment/28/position = Vector2( 640, 360 )
-nodes/fragment/29/node = SubResource( 10 )
+nodes/fragment/29/node = SubResource( 27 )
 nodes/fragment/29/position = Vector2( 340, 120 )
-nodes/fragment/30/node = SubResource( 12 )
+nodes/fragment/30/node = SubResource( 28 )
 nodes/fragment/30/position = Vector2( -1680, 160 )
-nodes/fragment/31/node = SubResource( 13 )
+nodes/fragment/31/node = SubResource( 29 )
 nodes/fragment/31/position = Vector2( -1700, -60 )
-nodes/fragment/32/node = SubResource( 14 )
+nodes/fragment/32/node = SubResource( 30 )
 nodes/fragment/32/position = Vector2( -1462, -18 )
-nodes/fragment/33/node = SubResource( 15 )
+nodes/fragment/33/node = SubResource( 31 )
 nodes/fragment/33/position = Vector2( -1460, 100 )
-nodes/fragment/34/node = SubResource( 16 )
+nodes/fragment/34/node = SubResource( 32 )
 nodes/fragment/34/position = Vector2( -1220, 20 )
 nodes/fragment/connections = PoolIntArray( 4, 0, 3, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 7, 0, 3, 0, 7, 1, 10, 0, 11, 0, 11, 0, 9, 0, 8, 0, 9, 1, 4, 1, 10, 0, 4, 1, 8, 0, 7, 0, 12, 0, 9, 0, 12, 1, 12, 0, 14, 1, 14, 0, 0, 0, 14, 0, 15, 0, 15, 0, 0, 5, 26, 0, 4, 0, 28, 0, 15, 1, 29, 0, 14, 0, 24, 0, 31, 0, 31, 0, 32, 0, 27, 0, 32, 1, 30, 0, 33, 1, 32, 0, 34, 0, 33, 0, 34, 1, 34, 0, 26, 0, 31, 1, 33, 0 )
 
-[sub_resource type="ShaderMaterial" id=25]
-shader = SubResource( 23 )
-shader_param/Color = Color( 0, 0.35, 0.35, 1 )
-shader_param/TilingX = 1.0
-shader_param/TilingY = 1.0
+[resource]
+shader = SubResource( 33 )
+shader_param/Color = Color( 0, 1, 1, 1 )
+shader_param/TilingX = 10.0
+shader_param/TilingY = 2.0
 shader_param/EmissionMultiplier = 2.0
-
-[node name="Pedestal" type="StaticBody"]
-collision_layer = 3
-script = ExtResource( 1 )
-CSGNodePath = NodePath("Pillar")
-PressedColor = Color( 1, 1, 1, 1 )
-NotPressedColor = Color( 1, 1, 0, 1 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
-
-[node name="Pillar" type="CSGBox" parent="."]
-width = 0.5
-height = 1.0
-depth = 0.5
-material = SubResource( 25 )

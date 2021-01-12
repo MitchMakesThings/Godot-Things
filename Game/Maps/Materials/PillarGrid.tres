@@ -1,11 +1,6 @@
-[gd_scene load_steps=27 format=2]
+[gd_resource type="ShaderMaterial" load_steps=24 format=2]
 
-[ext_resource path="res://Maps/Objects/Pedestal.cs" type="Script" id=1]
-
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.25, 0.5, 0.25 )
-
-[sub_resource type="VisualShaderNodeScalarOp" id=24]
+[sub_resource type="VisualShaderNodeScalarOp" id=1]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
 operator = 9
 
@@ -189,7 +184,7 @@ nodes/fragment/8/node = SubResource( 21 )
 nodes/fragment/8/position = Vector2( -320, 420 )
 nodes/fragment/9/node = SubResource( 22 )
 nodes/fragment/9/position = Vector2( 100, 380 )
-nodes/fragment/10/node = SubResource( 24 )
+nodes/fragment/10/node = SubResource( 1 )
 nodes/fragment/10/position = Vector2( -320, 300 )
 nodes/fragment/11/node = SubResource( 2 )
 nodes/fragment/11/position = Vector2( -120, 320 )
@@ -221,25 +216,9 @@ nodes/fragment/34/node = SubResource( 16 )
 nodes/fragment/34/position = Vector2( -1220, 20 )
 nodes/fragment/connections = PoolIntArray( 4, 0, 3, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 7, 0, 3, 0, 7, 1, 10, 0, 11, 0, 11, 0, 9, 0, 8, 0, 9, 1, 4, 1, 10, 0, 4, 1, 8, 0, 7, 0, 12, 0, 9, 0, 12, 1, 12, 0, 14, 1, 14, 0, 0, 0, 14, 0, 15, 0, 15, 0, 0, 5, 26, 0, 4, 0, 28, 0, 15, 1, 29, 0, 14, 0, 24, 0, 31, 0, 31, 0, 32, 0, 27, 0, 32, 1, 30, 0, 33, 1, 32, 0, 34, 0, 33, 0, 34, 1, 34, 0, 26, 0, 31, 1, 33, 0 )
 
-[sub_resource type="ShaderMaterial" id=25]
+[resource]
 shader = SubResource( 23 )
 shader_param/Color = Color( 0, 0.35, 0.35, 1 )
-shader_param/TilingX = 1.0
-shader_param/TilingY = 1.0
+shader_param/TilingX = 3.0
+shader_param/TilingY = 0.0
 shader_param/EmissionMultiplier = 2.0
-
-[node name="Pedestal" type="StaticBody"]
-collision_layer = 3
-script = ExtResource( 1 )
-CSGNodePath = NodePath("Pillar")
-PressedColor = Color( 1, 1, 1, 1 )
-NotPressedColor = Color( 1, 1, 0, 1 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
-
-[node name="Pillar" type="CSGBox" parent="."]
-width = 0.5
-height = 1.0
-depth = 0.5
-material = SubResource( 25 )
