@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/Fonts/Roboto-Italic.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/Fonts/ttf-iosevka-slab-4.4.0/iosevka-slab-extended.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UI/Themes/DefaultTheme.tres" type="Theme" id=2]
 [ext_resource path="res://UI/VictoryScreen.cs" type="Script" id=3]
 
@@ -31,8 +31,8 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 238.0
-margin_bottom = 76.0
+margin_right = 296.0
+margin_bottom = 81.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.341176, 0.8, 0.6, 1 )
@@ -43,15 +43,15 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 106.0
-margin_right = 238.0
-margin_bottom = 141.0
+margin_top = 111.0
+margin_right = 296.0
+margin_bottom = 146.0
 custom_constants/separation = 50
 alignment = 1
 
 [node name="Restart" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 23.0
-margin_right = 112.0
+margin_left = 52.0
+margin_right = 141.0
 margin_bottom = 35.0
 theme = ExtResource( 2 )
 text = "Restart"
@@ -60,8 +60,8 @@ __meta__ = {
 }
 
 [node name="Exit" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 162.0
-margin_right = 214.0
+margin_left = 191.0
+margin_right = 243.0
 margin_bottom = 35.0
 theme = ExtResource( 2 )
 text = "Exit"
