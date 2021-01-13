@@ -218,7 +218,7 @@ nodes/fragment/connections = PoolIntArray( 4, 0, 3, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6
 
 [resource]
 shader = SubResource( 23 )
-shader_param/Color = Color( 0, 0.35, 0.35, 1 )
+shader_param/Color = Color( 1, 0, 0, 1 )
 shader_param/TilingX = 3.0
-shader_param/TilingY = 0.0
+shader_param/TilingY = 2.0
 shader_param/EmissionMultiplier = 2.0

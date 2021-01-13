@@ -11,7 +11,7 @@ public class Character : KinematicBody
 	NodePath CameraNodePath;
 	Camera Camera;
 	RayCast CameraRayCast;
-    Godot.Object CurrentInteractable;
+	Godot.Object CurrentInteractable;
 
 	[Signal]
 	public delegate void InteractableUpdated(Godot.Object interactable);

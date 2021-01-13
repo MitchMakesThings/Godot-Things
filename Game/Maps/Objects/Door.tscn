@@ -7,9 +7,9 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.75, 1, 0.1 )
 
-[sub_resource type="CubeMesh" id=6]
+[sub_resource type="CubeMesh" id=2]
 material = ExtResource( 3 )
-size = Vector3( 1.5, 2, 0.2 )
+size = Vector3( 1.5, 2, 0.15 )
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 1.8, 2.2, 0.2 )
@@ -41,7 +41,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08979, 0 )
 shape = SubResource( 1 )
 
 [node name="Sliding" type="CSGMesh" parent="Sliding"]
-mesh = SubResource( 6 )
+mesh = SubResource( 2 )
 
 [node name="Frame" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08979, 0 )
