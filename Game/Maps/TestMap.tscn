@@ -231,71 +231,71 @@ shader_param/TilingX = 10.0
 shader_param/TilingY = 10.0
 shader_param/EmissionMultiplier = 2.0
 
-[sub_resource type="VisualShaderNodeScalarOp" id=27]
+[sub_resource type="VisualShaderNodeScalarOp" id=25]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=28]
+[sub_resource type="VisualShaderNodeScalarFunc" id=26]
 function = 31
 
-[sub_resource type="VisualShaderNodeScalarOp" id=29]
+[sub_resource type="VisualShaderNodeScalarOp" id=27]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=30]
+[sub_resource type="VisualShaderNodeVectorOp" id=28]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=31]
+[sub_resource type="VisualShaderNodeVectorOp" id=29]
 operator = 2
 
-[sub_resource type="VisualShaderNodeInput" id=32]
+[sub_resource type="VisualShaderNodeInput" id=30]
 input_name = "uv"
 
-[sub_resource type="VisualShaderNodeVectorFunc" id=33]
+[sub_resource type="VisualShaderNodeVectorFunc" id=31]
 function = 20
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=34]
+[sub_resource type="VisualShaderNodeScalarUniform" id=32]
 uniform_name = "TilingX"
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=35]
+[sub_resource type="VisualShaderNodeScalarUniform" id=33]
 uniform_name = "EmissionMultiplier"
 
-[sub_resource type="VisualShaderNodeColorUniform" id=36]
+[sub_resource type="VisualShaderNodeColorUniform" id=34]
 uniform_name = "Color"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=37]
+[sub_resource type="VisualShaderNodeScalarOp" id=35]
 default_input_values = [ 0, 0.0, 1, 0.05 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=38]
+[sub_resource type="VisualShaderNodeScalarUniform" id=36]
 uniform_name = "TilingY"
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=39]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=37]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=40]
+[sub_resource type="VisualShaderNodeScalarOp" id=38]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarOp" id=41]
+[sub_resource type="VisualShaderNodeScalarOp" id=39]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorCompose" id=42]
+[sub_resource type="VisualShaderNodeVectorCompose" id=40]
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=43]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=41]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=44]
+[sub_resource type="VisualShaderNodeScalarOp" id=42]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=45]
+[sub_resource type="VisualShaderNodeScalarFunc" id=43]
 function = 31
+
+[sub_resource type="VisualShaderNodeScalarOp" id=44]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=45]
+default_input_values = [ 0, 0.0, 1, 0.05 ]
+operator = 9
 
 [sub_resource type="VisualShaderNodeScalarOp" id=46]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=47]
-default_input_values = [ 0, 0.0, 1, 0.05 ]
-operator = 9
-
-[sub_resource type="VisualShaderNodeScalarOp" id=48]
-
-[sub_resource type="VisualShader" id=49]
+[sub_resource type="VisualShader" id=47]
 code = "shader_type spatial;
 render_mode specular_schlick_ggx;
 
@@ -401,129 +401,129 @@ void light() {
 "
 graph_offset = Vector2( -1745, -164 )
 nodes/fragment/0/position = Vector2( 1180, 140 )
-nodes/fragment/3/node = SubResource( 37 )
+nodes/fragment/3/node = SubResource( 35 )
 nodes/fragment/3/position = Vector2( -320, 160 )
-nodes/fragment/4/node = SubResource( 43 )
+nodes/fragment/4/node = SubResource( 41 )
 nodes/fragment/4/position = Vector2( -620, 180 )
-nodes/fragment/5/node = SubResource( 44 )
+nodes/fragment/5/node = SubResource( 42 )
 nodes/fragment/5/position = Vector2( -320, 40 )
-nodes/fragment/6/node = SubResource( 45 )
+nodes/fragment/6/node = SubResource( 43 )
 nodes/fragment/6/position = Vector2( -140, 60 )
-nodes/fragment/7/node = SubResource( 46 )
+nodes/fragment/7/node = SubResource( 44 )
 nodes/fragment/7/position = Vector2( 95, 99 )
-nodes/fragment/8/node = SubResource( 47 )
+nodes/fragment/8/node = SubResource( 45 )
 nodes/fragment/8/position = Vector2( -320, 420 )
-nodes/fragment/9/node = SubResource( 48 )
+nodes/fragment/9/node = SubResource( 46 )
 nodes/fragment/9/position = Vector2( 100, 380 )
-nodes/fragment/10/node = SubResource( 27 )
+nodes/fragment/10/node = SubResource( 25 )
 nodes/fragment/10/position = Vector2( -320, 300 )
-nodes/fragment/11/node = SubResource( 28 )
+nodes/fragment/11/node = SubResource( 26 )
 nodes/fragment/11/position = Vector2( -120, 320 )
-nodes/fragment/12/node = SubResource( 29 )
+nodes/fragment/12/node = SubResource( 27 )
 nodes/fragment/12/position = Vector2( 340, 260 )
-nodes/fragment/14/node = SubResource( 30 )
+nodes/fragment/14/node = SubResource( 28 )
 nodes/fragment/14/position = Vector2( 661, 178 )
-nodes/fragment/15/node = SubResource( 31 )
+nodes/fragment/15/node = SubResource( 29 )
 nodes/fragment/15/position = Vector2( 940, 280 )
-nodes/fragment/24/node = SubResource( 32 )
+nodes/fragment/24/node = SubResource( 30 )
 nodes/fragment/24/position = Vector2( -1880, -80 )
-nodes/fragment/26/node = SubResource( 33 )
+nodes/fragment/26/node = SubResource( 31 )
 nodes/fragment/26/position = Vector2( -860, -20 )
-nodes/fragment/27/node = SubResource( 34 )
+nodes/fragment/27/node = SubResource( 32 )
 nodes/fragment/27/position = Vector2( -1680, 80 )
-nodes/fragment/28/node = SubResource( 35 )
+nodes/fragment/28/node = SubResource( 33 )
 nodes/fragment/28/position = Vector2( 640, 360 )
-nodes/fragment/29/node = SubResource( 36 )
+nodes/fragment/29/node = SubResource( 34 )
 nodes/fragment/29/position = Vector2( 340, 120 )
-nodes/fragment/30/node = SubResource( 38 )
+nodes/fragment/30/node = SubResource( 36 )
 nodes/fragment/30/position = Vector2( -1680, 160 )
-nodes/fragment/31/node = SubResource( 39 )
+nodes/fragment/31/node = SubResource( 37 )
 nodes/fragment/31/position = Vector2( -1700, -60 )
-nodes/fragment/32/node = SubResource( 40 )
+nodes/fragment/32/node = SubResource( 38 )
 nodes/fragment/32/position = Vector2( -1462, -18 )
-nodes/fragment/33/node = SubResource( 41 )
+nodes/fragment/33/node = SubResource( 39 )
 nodes/fragment/33/position = Vector2( -1460, 100 )
-nodes/fragment/34/node = SubResource( 42 )
+nodes/fragment/34/node = SubResource( 40 )
 nodes/fragment/34/position = Vector2( -1220, 20 )
 nodes/fragment/connections = PoolIntArray( 4, 0, 3, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 7, 0, 3, 0, 7, 1, 10, 0, 11, 0, 11, 0, 9, 0, 8, 0, 9, 1, 4, 1, 10, 0, 4, 1, 8, 0, 7, 0, 12, 0, 9, 0, 12, 1, 12, 0, 14, 1, 14, 0, 0, 0, 14, 0, 15, 0, 15, 0, 0, 5, 26, 0, 4, 0, 28, 0, 15, 1, 29, 0, 14, 0, 24, 0, 31, 0, 31, 0, 32, 0, 27, 0, 32, 1, 30, 0, 33, 1, 32, 0, 34, 0, 33, 0, 34, 1, 34, 0, 26, 0, 31, 1, 33, 0 )
 
-[sub_resource type="ShaderMaterial" id=50]
-shader = SubResource( 49 )
+[sub_resource type="ShaderMaterial" id=48]
+shader = SubResource( 47 )
 shader_param/Color = Color( 0, 1, 1, 1 )
 shader_param/TilingX = 3.0
 shader_param/TilingY = 2.0
 shader_param/EmissionMultiplier = null
 
-[sub_resource type="PrismMesh" id=26]
-material = SubResource( 50 )
+[sub_resource type="PrismMesh" id=49]
+material = SubResource( 48 )
 left_to_right = -2.0
 size = Vector3( 5, 5, 2 )
 
-[sub_resource type="VisualShaderNodeScalarOp" id=51]
+[sub_resource type="VisualShaderNodeScalarOp" id=50]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=52]
+[sub_resource type="VisualShaderNodeScalarFunc" id=51]
 function = 31
 
-[sub_resource type="VisualShaderNodeScalarOp" id=53]
+[sub_resource type="VisualShaderNodeScalarOp" id=52]
+
+[sub_resource type="VisualShaderNodeVectorOp" id=53]
+operator = 2
 
 [sub_resource type="VisualShaderNodeVectorOp" id=54]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=55]
-operator = 2
-
-[sub_resource type="VisualShaderNodeInput" id=56]
+[sub_resource type="VisualShaderNodeInput" id=55]
 input_name = "uv"
 
-[sub_resource type="VisualShaderNodeVectorFunc" id=57]
+[sub_resource type="VisualShaderNodeVectorFunc" id=56]
 function = 20
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=58]
+[sub_resource type="VisualShaderNodeScalarUniform" id=57]
 uniform_name = "TilingX"
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=59]
+[sub_resource type="VisualShaderNodeScalarUniform" id=58]
 uniform_name = "EmissionMultiplier"
 
-[sub_resource type="VisualShaderNodeColorUniform" id=60]
+[sub_resource type="VisualShaderNodeColorUniform" id=59]
 uniform_name = "Color"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=61]
+[sub_resource type="VisualShaderNodeScalarOp" id=60]
 default_input_values = [ 0, 0.0, 1, 0.05 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=62]
+[sub_resource type="VisualShaderNodeScalarUniform" id=61]
 uniform_name = "TilingY"
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=63]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=62]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=63]
+operator = 2
 
 [sub_resource type="VisualShaderNodeScalarOp" id=64]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarOp" id=65]
-operator = 2
+[sub_resource type="VisualShaderNodeVectorCompose" id=65]
 
-[sub_resource type="VisualShaderNodeVectorCompose" id=66]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=66]
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=67]
-
-[sub_resource type="VisualShaderNodeScalarOp" id=68]
+[sub_resource type="VisualShaderNodeScalarOp" id=67]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=69]
+[sub_resource type="VisualShaderNodeScalarFunc" id=68]
 function = 31
 
-[sub_resource type="VisualShaderNodeScalarOp" id=70]
+[sub_resource type="VisualShaderNodeScalarOp" id=69]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=71]
+[sub_resource type="VisualShaderNodeScalarOp" id=70]
 default_input_values = [ 0, 0.0, 1, 0.05 ]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarOp" id=72]
+[sub_resource type="VisualShaderNodeScalarOp" id=71]
 
-[sub_resource type="VisualShader" id=73]
+[sub_resource type="VisualShader" id=72]
 code = "shader_type spatial;
 render_mode specular_schlick_ggx;
 
@@ -628,54 +628,54 @@ void light() {
 }
 "
 nodes/fragment/0/position = Vector2( 1180, 140 )
-nodes/fragment/3/node = SubResource( 61 )
+nodes/fragment/3/node = SubResource( 60 )
 nodes/fragment/3/position = Vector2( -320, 160 )
-nodes/fragment/4/node = SubResource( 67 )
+nodes/fragment/4/node = SubResource( 66 )
 nodes/fragment/4/position = Vector2( -620, 180 )
-nodes/fragment/5/node = SubResource( 68 )
+nodes/fragment/5/node = SubResource( 67 )
 nodes/fragment/5/position = Vector2( -320, 40 )
-nodes/fragment/6/node = SubResource( 69 )
+nodes/fragment/6/node = SubResource( 68 )
 nodes/fragment/6/position = Vector2( -140, 60 )
-nodes/fragment/7/node = SubResource( 70 )
+nodes/fragment/7/node = SubResource( 69 )
 nodes/fragment/7/position = Vector2( 95, 99 )
-nodes/fragment/8/node = SubResource( 71 )
+nodes/fragment/8/node = SubResource( 70 )
 nodes/fragment/8/position = Vector2( -320, 420 )
-nodes/fragment/9/node = SubResource( 72 )
+nodes/fragment/9/node = SubResource( 71 )
 nodes/fragment/9/position = Vector2( 100, 380 )
-nodes/fragment/10/node = SubResource( 51 )
+nodes/fragment/10/node = SubResource( 50 )
 nodes/fragment/10/position = Vector2( -320, 300 )
-nodes/fragment/11/node = SubResource( 52 )
+nodes/fragment/11/node = SubResource( 51 )
 nodes/fragment/11/position = Vector2( -120, 320 )
-nodes/fragment/12/node = SubResource( 53 )
+nodes/fragment/12/node = SubResource( 52 )
 nodes/fragment/12/position = Vector2( 340, 260 )
-nodes/fragment/14/node = SubResource( 54 )
+nodes/fragment/14/node = SubResource( 53 )
 nodes/fragment/14/position = Vector2( 661, 178 )
-nodes/fragment/15/node = SubResource( 55 )
+nodes/fragment/15/node = SubResource( 54 )
 nodes/fragment/15/position = Vector2( 940, 280 )
-nodes/fragment/24/node = SubResource( 56 )
+nodes/fragment/24/node = SubResource( 55 )
 nodes/fragment/24/position = Vector2( -1880, -80 )
-nodes/fragment/26/node = SubResource( 57 )
+nodes/fragment/26/node = SubResource( 56 )
 nodes/fragment/26/position = Vector2( -860, -20 )
-nodes/fragment/27/node = SubResource( 58 )
+nodes/fragment/27/node = SubResource( 57 )
 nodes/fragment/27/position = Vector2( -1680, 80 )
-nodes/fragment/28/node = SubResource( 59 )
+nodes/fragment/28/node = SubResource( 58 )
 nodes/fragment/28/position = Vector2( 640, 360 )
-nodes/fragment/29/node = SubResource( 60 )
+nodes/fragment/29/node = SubResource( 59 )
 nodes/fragment/29/position = Vector2( 340, 120 )
-nodes/fragment/30/node = SubResource( 62 )
+nodes/fragment/30/node = SubResource( 61 )
 nodes/fragment/30/position = Vector2( -1680, 160 )
-nodes/fragment/31/node = SubResource( 63 )
+nodes/fragment/31/node = SubResource( 62 )
 nodes/fragment/31/position = Vector2( -1700, -60 )
-nodes/fragment/32/node = SubResource( 64 )
+nodes/fragment/32/node = SubResource( 63 )
 nodes/fragment/32/position = Vector2( -1462, -18 )
-nodes/fragment/33/node = SubResource( 65 )
+nodes/fragment/33/node = SubResource( 64 )
 nodes/fragment/33/position = Vector2( -1460, 100 )
-nodes/fragment/34/node = SubResource( 66 )
+nodes/fragment/34/node = SubResource( 65 )
 nodes/fragment/34/position = Vector2( -1220, 20 )
 nodes/fragment/connections = PoolIntArray( 4, 0, 3, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 7, 0, 3, 0, 7, 1, 10, 0, 11, 0, 11, 0, 9, 0, 8, 0, 9, 1, 4, 1, 10, 0, 4, 1, 8, 0, 7, 0, 12, 0, 9, 0, 12, 1, 12, 0, 14, 1, 14, 0, 0, 0, 14, 0, 15, 0, 15, 0, 0, 5, 26, 0, 4, 0, 28, 0, 15, 1, 29, 0, 14, 0, 24, 0, 31, 0, 31, 0, 32, 0, 27, 0, 32, 1, 30, 0, 33, 1, 32, 0, 34, 0, 33, 0, 34, 1, 34, 0, 26, 0, 31, 1, 33, 0 )
 
-[sub_resource type="ShaderMaterial" id=74]
-shader = SubResource( 73 )
+[sub_resource type="ShaderMaterial" id=73]
+shader = SubResource( 72 )
 shader_param/Color = Color( 0, 1, 1, 1 )
 shader_param/TilingX = 1.0
 shader_param/TilingY = 1.0
@@ -728,13 +728,13 @@ use_collision = true
 
 [node name="CSGMesh" type="CSGMesh" parent="Obstacles"]
 transform = Transform( 0.986138, -0.165925, 0, 0.165925, 0.986138, 0, 0, 0, 1, 6.01502, 1.66817, -5 )
-mesh = SubResource( 26 )
+mesh = SubResource( 49 )
 
 [node name="CSGBox6" type="CSGBox" parent="Obstacles"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.71267, 1, 0 )
 width = 2.5
 depth = 18.0
-material = SubResource( 74 )
+material = SubResource( 73 )
 
 [node name="WinArea" parent="Obstacles" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.78865, 2.05116, 7.55994 )
@@ -744,13 +744,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.78865, 2.05116, 7.55994 )
 [node name="Door" parent="InteractionExample" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63563, 2, 3.0887 )
 
+[node name="Door2" parent="InteractionExample" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.26521, 0, 3.97633 )
+
 [node name="PedestalDoor" parent="InteractionExample" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63563, 2, -3.17643 )
 AnimationPlayerNodePath = NodePath("../PedestalDoor/AnimationPlayer")
 
 [node name="PressurePlate" parent="InteractionExample" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63966, 2.07189, 1.70631 )
-ActivationNodePath = NodePath("../Door")
 
 [node name="Pedestal" parent="InteractionExample" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.15068, 2.5, -7.537 )
@@ -763,3 +765,7 @@ transform = Transform( 1, 0, 0, 0, 0.404152, 0.914692, 0, -0.914692, 0.404152, 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 6 )
+[connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Activate"]
+[connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Activate"]
+[connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Deactivate"]
+[connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Deactivate"]
