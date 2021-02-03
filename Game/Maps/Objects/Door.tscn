@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Maps/Objects/Door.cs" type="Script" id=1]
 [ext_resource path="res://Maps/Materials/DefaultGrid.tres" type="Material" id=2]
@@ -30,7 +30,12 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 )
 }
 
-[node name="Door" type="Spatial"]
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 1, 1, 0.158487 )
+
+[node name="Door" type="StaticBody"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource( 1 )
 AnimationPlayerNodePath = NodePath("AnimationPlayer")
 
@@ -55,3 +60,7 @@ material = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/transition = SubResource( 5 )
+
+[node name="DoorShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 6 )

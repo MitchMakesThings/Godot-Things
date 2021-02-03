@@ -747,12 +747,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63563, 2, 3.0887 )
 [node name="Door2" parent="InteractionExample" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.26521, 0, 3.97633 )
 
+[node name="InteractableDoor" parent="InteractionExample" instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.62817, 0, -4.86307 )
+IsInteractable = true
+AnimationPlayerNodePath = NodePath("../InteractableDoor/AnimationPlayer")
+
 [node name="PedestalDoor" parent="InteractionExample" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63563, 2, -3.17643 )
 AnimationPlayerNodePath = NodePath("../PedestalDoor/AnimationPlayer")
 
 [node name="PressurePlate" parent="InteractionExample" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63966, 2.07189, 1.70631 )
+transform = Transform( 0.999976, 0.00398934, 0.00570103, -0.00403221, 0.999964, 0.00753182, -0.00567079, -0.00755461, 0.999955, -8.63966, 2.07189, 1.70631 )
 
 [node name="Pedestal" parent="InteractionExample" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.15068, 2.5, -7.537 )
@@ -765,7 +770,7 @@ transform = Transform( 1, 0, 0, 0, 0.404152, 0.914692, 0, -0.914692, 0.404152, 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 6 )
-[connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Activate"]
 [connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Activate"]
-[connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Deactivate"]
+[connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Activate"]
 [connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Deactivate"]
+[connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Deactivate"]
