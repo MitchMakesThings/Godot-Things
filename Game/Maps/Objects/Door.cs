@@ -13,7 +13,7 @@ public class Door : Spatial, IActivatable, IInteractable
 
 	private bool IsOpen = false;
 
-	public string InteractionText => IsInteractable && !IsOpen ? "Open" : "";
+	public string InteractionText => "Open";
 
 	public override void _Ready()
 	{
@@ -44,6 +44,6 @@ public class Door : Spatial, IActivatable, IInteractable
 
 	public bool CanInteract(Node caller)
 	{
-		return IsInteractable && caller is Character;
+		return IsInteractable && !IsOpen && caller is Character;
 	}
 }
