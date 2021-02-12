@@ -38,6 +38,9 @@ public class Character : KinematicBody
 
 	#endregion
 
+	[Export]
+	private NodePath AttachmentPointNodePath;
+
 	public override void _Ready()
 	{
 		Head = GetNode<Spatial>(HeadNodePath);
@@ -169,6 +172,10 @@ public class Character : KinematicBody
 				HandleCameraRotation(mouseMotion);
 			}
 		}
+	}
+
+	public Node GetAttachPoint() {
+		return GetNode(AttachmentPointNodePath);
 	}
 
 	private void HandleCameraRotation(InputEventMouseMotion mouseMotion) {

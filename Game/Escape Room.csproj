@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Character\Character.cs" />
     <Compile Include="GameModes\TestGameMode.cs" />
+    <Compile Include="Maps\Objects\CarryCube.cs" />
     <Compile Include="Maps\Objects\Door.cs" />
     <Compile Include="Maps\Objects\IActivatable.cs" />
     <Compile Include="Maps\Objects\IInteractable.cs" />

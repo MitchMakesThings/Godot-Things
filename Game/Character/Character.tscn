@@ -18,6 +18,7 @@ script = ExtResource( 1 )
 HeadNodePath = NodePath("Head")
 CameraNodePath = NodePath("Head/Camera")
 MaxSpeed = 4.0
+AttachmentPointNodePath = NodePath("Head/Camera/AttachmentPoint")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
@@ -39,6 +40,9 @@ current = true
 enabled = true
 cast_to = Vector3( 0, 0, -3 )
 collision_mask = 2
+
+[node name="AttachmentPoint" type="Spatial" parent="Head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.18759 )
 
 [node name="Body" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
