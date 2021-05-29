@@ -1,11 +1,15 @@
 using Godot;
 using System;
 
-public class CarryCube : RigidBody, IInteractable
+public class CarryCube2 : RigidBody, IInteractable
 {
-	public string InteractionText => OriginalParent == GetParent() ? "Pick up" : "Throw";
+
+    public string InteractionText => OriginalParent == GetParent() ? "Pick up" : "Throw";
 
 	public Spatial OriginalParent;
+
+	[Export]
+	float ThrowStrength = 100;
 
 	public override void _Ready()
 	{
@@ -16,7 +20,7 @@ public class CarryCube : RigidBody, IInteractable
 
 	public bool CanInteract(Node caller)
 	{
-		return caller is Character;
+		return caller is Character2;
 	}
 
 	public void Interact(Node caller)
@@ -26,7 +30,7 @@ public class CarryCube : RigidBody, IInteractable
 
 			var currentTransform = GlobalTransform;
 			GetParent().RemoveChild(this);
-			var attachPoint = ((Character)caller).GetAttachPoint();
+			var attachPoint = ((Character2)caller).GetAttachPoint();
 			if (attachPoint != null) {
 				attachPoint.AddChild(this);	
 			} else {
@@ -41,9 +45,8 @@ public class CarryCube : RigidBody, IInteractable
 			OriginalParent.AddChild(this);
 			GlobalTransform = currentTransform;
 			
-			// TODO Get throw strength from Character?
-			Character thrower = caller as Character;
-			ApplyCentralImpulse(-thrower.GlobalTransform.basis.z * 100);
+			Character2 thrower = caller as Character2;
+			ApplyCentralImpulse(-thrower.GlobalTransform.basis.z * ThrowStrength);
 		}
 	}
 }

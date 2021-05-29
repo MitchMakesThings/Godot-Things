@@ -27,6 +27,11 @@
     <Compile Include="Maps\Objects\PressurePlate.cs" />
     <Compile Include="Maps\Objects\WinArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tutorial\CarryCube2.cs" />
+    <Compile Include="Tutorial\Character2.cs" />
+    <Compile Include="Tutorial\Door2.cs" />
+    <Compile Include="Tutorial\PressurePlate2.cs" />
+    <Compile Include="Tutorial\UI.cs" />
     <Compile Include="UI\InteractableUI.cs" />
     <Compile Include="UI\VictoryScreen.cs" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=5 format=2]
 
 [ext_resource path="res://UI/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://UI/Fonts/ttf-iosevka-slab-4.4.0/iosevka-slab-extended.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/Fonts/Roboto-Black.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24

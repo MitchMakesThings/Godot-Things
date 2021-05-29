@@ -1,22 +1,25 @@
 using Godot;
 using System;
 
-public class Character : KinematicBody
+public class Character2 : KinematicBody
 {
-	[Export]
+    [Export]
 	NodePath HeadNodePath;
 	Spatial Head;
 
 	[Export]
 	NodePath CameraNodePath;
 	Camera Camera;
-	RayCast CameraRayCast;
-	Godot.Object CurrentInteractable;
+    RayCast CameraRayCast;
+    Godot.Object CurrentInteractable;
+
+	[Export]
+	NodePath AttachmentPointNodePath;
 
 	[Signal]
 	public delegate void InteractableUpdated(Godot.Object interactable);
 
-	const float MouseSensitivity = 0.05f;
+    const float MouseSensitivity = 0.05f;
 
 	#region Movement
 	private Vector3 Velocity;
@@ -38,38 +41,33 @@ public class Character : KinematicBody
 
 	#endregion
 
-	[Export]
-	private NodePath AttachmentPointNodePath;
 
-	public override void _Ready()
-	{
-		Head = GetNode<Spatial>(HeadNodePath);
+    public override void _Ready()
+    {
+        Head = GetNode<Spatial>(HeadNodePath);
 		Camera = GetNode<Camera>(CameraNodePath);
-		CameraRayCast = Camera.GetNode<RayCast>("RayCast");
+        CameraRayCast = Camera.GetNode<RayCast>("RayCast");
 
-		// We could take the gravity vector from project settings, instead of * -1
+        // We could take the gravity vector from project settings, instead of * -1
 		// However, we're not going to do any crazy non-standard physics, so nothing to worry about
 		Gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity") * -1;
-	}
+    }
 
-	public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(float delta)
 	{
 		base._PhysicsProcess(delta);
 
 		ProcessInput(delta);
 		ProcessMovement(delta);
 
-		var rayInteractable = CameraRayCast.GetCollider();
+        var rayInteractable = CameraRayCast.GetCollider();
 		if (CurrentInteractable != rayInteractable) {
 			CurrentInteractable = rayInteractable;
 			EmitSignal(nameof(InteractableUpdated), CurrentInteractable);
 		}
 	}
 
-
-	// TODO - extract this stuff out into a CharacterController - have it call a method to set Direction instead
-	// That should be able to simplify AI / network puppets
-	private void ProcessInput(float delta) {
+    private void ProcessInput(float delta) {
 		Direction = new Vector3();
 
 		var inputMovementVector = new Vector2();
@@ -107,7 +105,7 @@ public class Character : KinematicBody
 			}
 		}
 
-		// Handle interaction
+        // Handle interaction
 		if (CameraRayCast.IsColliding() && Input.IsActionJustPressed("interact")) {
 			var interactable = CameraRayCast.GetCollider() as IInteractable;
 			if (interactable != null && interactable.CanInteract(this)) {
@@ -119,7 +117,7 @@ public class Character : KinematicBody
 		}
 	}
 
-	private void ProcessMovement(float delta) {
+    private void ProcessMovement(float delta) {
 		// Calculate vertical movement
 		if (Direction.y != 0) {
 			// Add jump power
@@ -158,7 +156,7 @@ public class Character : KinematicBody
 		Velocity = MoveAndSlide(Velocity, Vector3.Up, true);
 	}
 
-	public override void _Input(InputEvent @event)
+    public override void _Input(InputEvent @event)
 	{
 		base._Input(@event);
 
@@ -175,7 +173,7 @@ public class Character : KinematicBody
 		return GetNode(AttachmentPointNodePath);
 	}
 
-	private void HandleCameraRotation(InputEventMouseMotion mouseMotion) {
+    private void HandleCameraRotation(InputEventMouseMotion mouseMotion) {
 		// Rotate up / down
 		Head.RotateX(Mathf.Deg2Rad(-mouseMotion.Relative.y * MouseSensitivity));
 		Head.RotationDegrees = new Vector3(Mathf.Clamp(Head.RotationDegrees.x, -70, 70), Head.RotationDegrees.y, Head.RotationDegrees.z);
@@ -183,4 +181,5 @@ public class Character : KinematicBody
 		// Rotate left / right
 		RotateY(Mathf.Deg2Rad(-mouseMotion.Relative.x * MouseSensitivity));
 	}
+
 }
