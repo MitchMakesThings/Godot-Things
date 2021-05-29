@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=107 format=2]
 
 [ext_resource path="res://Character/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Maps/Objects/WinArea.tscn" type="PackedScene" id=2]
@@ -232,243 +232,6 @@ shader_param/Color = Color( 0, 1, 1, 1 )
 shader_param/TilingX = 10.0
 shader_param/TilingY = 10.0
 shader_param/EmissionMultiplier = 2.0
-
-[sub_resource type="VisualShaderNodeScalarOp" id=25]
-default_input_values = [ 0, 0.0, 1, 0.95 ]
-operator = 9
-
-[sub_resource type="VisualShaderNodeScalarFunc" id=26]
-output_port_for_preview = 0
-function = 31
-
-[sub_resource type="VisualShaderNodeScalarOp" id=27]
-output_port_for_preview = 0
-
-[sub_resource type="VisualShaderNodeVectorOp" id=28]
-output_port_for_preview = 0
-operator = 2
-
-[sub_resource type="VisualShaderNodeVectorOp" id=29]
-output_port_for_preview = 0
-operator = 2
-
-[sub_resource type="VisualShaderNodeInput" id=30]
-output_port_for_preview = 0
-input_name = "uv"
-
-[sub_resource type="VisualShaderNodeVectorFunc" id=31]
-output_port_for_preview = 0
-function = 20
-
-[sub_resource type="VisualShaderNodeScalarUniform" id=32]
-uniform_name = "TilingX"
-
-[sub_resource type="VisualShaderNodeScalarUniform" id=33]
-uniform_name = "EmissionMultiplier"
-
-[sub_resource type="VisualShaderNodeColorUniform" id=34]
-output_port_for_preview = 0
-uniform_name = "Color"
-
-[sub_resource type="VisualShaderNodeScalarOp" id=35]
-output_port_for_preview = 0
-default_input_values = [ 0, 0.0, 1, 0.05 ]
-operator = 9
-
-[sub_resource type="VisualShaderNodeScalarUniform" id=36]
-uniform_name = "TilingY"
-
-[sub_resource type="VisualShaderNodeVectorDecompose" id=37]
-
-[sub_resource type="VisualShaderNodeScalarOp" id=38]
-operator = 2
-
-[sub_resource type="VisualShaderNodeScalarOp" id=39]
-operator = 2
-
-[sub_resource type="VisualShaderNodeVectorCompose" id=40]
-
-[sub_resource type="VisualShaderNodeVectorDecompose" id=41]
-output_port_for_preview = 1
-
-[sub_resource type="VisualShaderNodeScalarOp" id=42]
-output_port_for_preview = 0
-default_input_values = [ 0, 0.0, 1, 0.95 ]
-operator = 9
-
-[sub_resource type="VisualShaderNodeScalarFunc" id=43]
-output_port_for_preview = 0
-function = 31
-
-[sub_resource type="VisualShaderNodeScalarOp" id=44]
-output_port_for_preview = 0
-
-[sub_resource type="VisualShaderNodeScalarOp" id=45]
-output_port_for_preview = 0
-default_input_values = [ 0, 0.0, 1, 0.05 ]
-operator = 9
-
-[sub_resource type="VisualShaderNodeScalarOp" id=46]
-output_port_for_preview = 0
-
-[sub_resource type="VisualShader" id=47]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx;
-
-uniform vec4 Color : hint_color;
-uniform float TilingX;
-uniform float TilingY;
-uniform float EmissionMultiplier;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// ColorUniform:29
-	vec3 n_out29p0 = Color.rgb;
-	float n_out29p1 = Color.a;
-
-// Input:24
-	vec3 n_out24p0 = vec3(UV, 0.0);
-
-// VectorDecompose:31
-	float n_out31p0 = n_out24p0.x;
-	float n_out31p1 = n_out24p0.y;
-	float n_out31p2 = n_out24p0.z;
-
-// ScalarUniform:27
-	float n_out27p0 = TilingX;
-
-// ScalarOp:32
-	float n_out32p0 = n_out31p0 * n_out27p0;
-
-// ScalarUniform:30
-	float n_out30p0 = TilingY;
-
-// ScalarOp:33
-	float n_out33p0 = n_out31p1 * n_out30p0;
-
-// VectorCompose:34
-	float n_in34p2 = 0.00000;
-	vec3 n_out34p0 = vec3(n_out32p0, n_out33p0, n_in34p2);
-
-// VectorFunc:26
-	vec3 n_out26p0 = fract(n_out34p0);
-
-// VectorDecompose:4
-	float n_out4p0 = n_out26p0.x;
-	float n_out4p1 = n_out26p0.y;
-	float n_out4p2 = n_out26p0.z;
-
-// ScalarOp:5
-	float n_in5p1 = 0.95000;
-	float n_out5p0 = step(n_out4p0, n_in5p1);
-
-// ScalarFunc:6
-	float n_out6p0 = 1.0 - n_out5p0;
-
-// ScalarOp:3
-	float n_in3p1 = 0.05000;
-	float n_out3p0 = step(n_out4p0, n_in3p1);
-
-// ScalarOp:7
-	float n_out7p0 = n_out6p0 + n_out3p0;
-
-// ScalarOp:10
-	float n_in10p1 = 0.95000;
-	float n_out10p0 = step(n_out4p1, n_in10p1);
-
-// ScalarFunc:11
-	float n_out11p0 = 1.0 - n_out10p0;
-
-// ScalarOp:8
-	float n_in8p1 = 0.05000;
-	float n_out8p0 = step(n_out4p1, n_in8p1);
-
-// ScalarOp:9
-	float n_out9p0 = n_out11p0 + n_out8p0;
-
-// ScalarOp:12
-	float n_out12p0 = n_out7p0 + n_out9p0;
-
-// VectorOp:14
-	vec3 n_out14p0 = n_out29p0 * vec3(n_out12p0);
-
-// ScalarUniform:28
-	float n_out28p0 = EmissionMultiplier;
-
-// VectorOp:15
-	vec3 n_out15p0 = n_out14p0 * vec3(n_out28p0);
-
-// Output:0
-	ALBEDO = n_out14p0;
-	EMISSION = n_out15p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( -92, -20.75 )
-nodes/fragment/0/position = Vector2( 1180, 140 )
-nodes/fragment/3/node = SubResource( 35 )
-nodes/fragment/3/position = Vector2( -320, 160 )
-nodes/fragment/4/node = SubResource( 41 )
-nodes/fragment/4/position = Vector2( -620, 180 )
-nodes/fragment/5/node = SubResource( 42 )
-nodes/fragment/5/position = Vector2( -320, -60 )
-nodes/fragment/6/node = SubResource( 43 )
-nodes/fragment/6/position = Vector2( -140, -20 )
-nodes/fragment/7/node = SubResource( 44 )
-nodes/fragment/7/position = Vector2( 95, 99 )
-nodes/fragment/8/node = SubResource( 45 )
-nodes/fragment/8/position = Vector2( -320, 600 )
-nodes/fragment/9/node = SubResource( 46 )
-nodes/fragment/9/position = Vector2( 100, 380 )
-nodes/fragment/10/node = SubResource( 25 )
-nodes/fragment/10/position = Vector2( -320, 480 )
-nodes/fragment/11/node = SubResource( 26 )
-nodes/fragment/11/position = Vector2( -120, 320 )
-nodes/fragment/12/node = SubResource( 27 )
-nodes/fragment/12/position = Vector2( 340, 260 )
-nodes/fragment/14/node = SubResource( 28 )
-nodes/fragment/14/position = Vector2( 660, 180 )
-nodes/fragment/15/node = SubResource( 29 )
-nodes/fragment/15/position = Vector2( 940, 280 )
-nodes/fragment/24/node = SubResource( 30 )
-nodes/fragment/24/position = Vector2( -2180, -160 )
-nodes/fragment/26/node = SubResource( 31 )
-nodes/fragment/26/position = Vector2( -960, -20 )
-nodes/fragment/27/node = SubResource( 32 )
-nodes/fragment/27/position = Vector2( -1740, 80 )
-nodes/fragment/28/node = SubResource( 33 )
-nodes/fragment/28/position = Vector2( 640, 460 )
-nodes/fragment/29/node = SubResource( 34 )
-nodes/fragment/29/position = Vector2( 340, 0 )
-nodes/fragment/30/node = SubResource( 36 )
-nodes/fragment/30/position = Vector2( -1680, 160 )
-nodes/fragment/31/node = SubResource( 37 )
-nodes/fragment/31/position = Vector2( -1880, -160 )
-nodes/fragment/32/node = SubResource( 38 )
-nodes/fragment/32/position = Vector2( -1480, -160 )
-nodes/fragment/33/node = SubResource( 39 )
-nodes/fragment/33/position = Vector2( -1460, 100 )
-nodes/fragment/34/node = SubResource( 40 )
-nodes/fragment/34/position = Vector2( -1220, 0 )
-nodes/fragment/connections = PoolIntArray( 4, 0, 3, 0, 4, 0, 5, 0, 5, 0, 6, 0, 6, 0, 7, 0, 3, 0, 7, 1, 10, 0, 11, 0, 11, 0, 9, 0, 8, 0, 9, 1, 4, 1, 10, 0, 4, 1, 8, 0, 7, 0, 12, 0, 9, 0, 12, 1, 12, 0, 14, 1, 14, 0, 0, 0, 14, 0, 15, 0, 26, 0, 4, 0, 28, 0, 15, 1, 29, 0, 14, 0, 24, 0, 31, 0, 31, 0, 32, 0, 27, 0, 32, 1, 30, 0, 33, 1, 32, 0, 34, 0, 33, 0, 34, 1, 34, 0, 26, 0, 31, 1, 33, 0, 15, 0, 0, 5 )
-
-[sub_resource type="ShaderMaterial" id=48]
-shader = SubResource( 47 )
-shader_param/Color = Color( 0.141176, 0.403922, 0.133333, 1 )
-shader_param/TilingX = 5.0
-shader_param/TilingY = 2.0
-shader_param/EmissionMultiplier = 5.0
 
 [sub_resource type="VisualShaderNodeScalarOp" id=49]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
@@ -1176,13 +939,6 @@ height = 4.0
 depth = 0.002
 material = ExtResource( 7 )
 
-[node name="CSGBox4" type="CSGBox" parent="CoreRoom"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 9.37057, 0 )
-width = 20.0
-height = 4.0
-depth = 0.002
-material = SubResource( 48 )
-
 [node name="CSGBox6" type="CSGBox" parent="CoreRoom"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 0.8, 0, -3.49691e-08, 7, 2, 3 )
 width = 12.5
@@ -1199,6 +955,13 @@ material = SubResource( 73 )
 
 [node name="CSGBox5" type="CSGBox" parent="CoreRoom"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -10, 2, 0 )
+width = 20.0
+height = 4.0
+depth = 0.002
+material = ExtResource( 7 )
+
+[node name="CSGBox8" type="CSGBox" parent="CoreRoom"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10.0097, 2, 0 )
 width = 20.0
 height = 4.0
 depth = 0.002
