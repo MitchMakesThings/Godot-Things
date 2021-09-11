@@ -9,13 +9,43 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "State",
+"class": "BlockerState",
+"language": "GDScript",
+"path": "res://StateMachines/BlockerState.gd"
+}, {
+"base": "State",
+"class": "DeathState",
+"language": "GDScript",
+"path": "res://StateMachines/DeathState.gd"
+}, {
+"base": "State",
+"class": "DefaultState",
+"language": "GDScript",
+"path": "res://StateMachines/DefaultState.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Slime",
 "language": "GDScript",
 "path": "res://Workers/Slime.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://StateMachines/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://StateMachines/StateMachine.gd"
 } ]
 _global_script_class_icons={
-"Slime": ""
+"BlockerState": "",
+"DeathState": "",
+"DefaultState": "",
+"Slime": "",
+"State": "",
+"StateMachine": ""
 }
 
 [application]
