@@ -8,11 +8,30 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Slime",
+"language": "GDScript",
+"path": "res://Workers/Slime.gd"
+} ]
+_global_script_class_icons={
+"Slime": ""
+}
+
 [application]
 
 config/name="Bossman"
 run/main_scene="res://TEMP/TestTileMap.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameManager="*res://GameManager.gd"
+
+[layer_names]
+
+2d_physics/layer_1="default"
+2d_physics/layer_5="instadeath!"
 
 [physics]
 
