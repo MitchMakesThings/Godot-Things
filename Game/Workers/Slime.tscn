@@ -7,7 +7,8 @@
 extents = Vector2( 13.8956, 10 )
 
 [node name="Slime" type="KinematicBody2D"]
-collision_mask = 17
+input_pickable = true
+collision_mask = 18
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -19,4 +20,5 @@ animation = "walking"
 position = Vector2( 0, -10 )
 shape = SubResource( 1 )
 
+[connection signal="input_event" from="." to="." method="_on_Slime_input_event"]
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

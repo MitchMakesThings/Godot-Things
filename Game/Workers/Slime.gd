@@ -3,6 +3,8 @@ class_name Slime
 
 var _facing := Vector2.LEFT
 var _velocity := Vector2.ZERO
+var _state := "default" # TODO make state machine
+						# Valid values - default, blocker
 
 export var Speed : float = 150
 export var MaxSpeed : float = 100
@@ -16,7 +18,7 @@ func _exit_tree():
 	GameManager.remove_unit(self)
 
 func _physics_process(delta : float):
-	if is_dying():
+	if is_dying() or _state == "blocker":
 		return
 	if !is_on_floor():
 		_velocity += Vector2.DOWN * delta * 300
@@ -41,8 +43,6 @@ func _physics_process(delta : float):
 		var collision = get_slide_collision(i)
 		if collision.collider.collision_layer & 16 == 16:
 			kill()
-		
-
 
 func change_direction():
 	_facing.x *= -1
@@ -57,3 +57,12 @@ func kill():
 
 func is_dying():
 	return $AnimatedSprite.animation == "death"
+
+
+func _on_Slime_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.pressed:
+			# TODO - refactor!
+			# Make blocker. Note collision layer indexes are 0-based!
+			set_collision_layer_bit(1, true)
+			_state = "blocker"
