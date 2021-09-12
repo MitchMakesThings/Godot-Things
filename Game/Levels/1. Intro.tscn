@@ -1,16 +1,50 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Levels/TestTileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Props/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Theme.tres" type="Theme" id=4]
+[ext_resource path="res://UI/SpaceToStart.gd" type="Script" id=5]
 
 [node name="TileMap" type="TileMap"]
 tile_set = ExtResource( 1 )
 format = 1
-tile_data = PoolIntArray( 393219, 0, 4, 393225, 0, 4, 458755, 0, 0, 458756, 0, 2, 458757, 0, 2, 458758, 0, 2, 458759, 0, 2, 458760, 0, 2, 458761, 0, 0 )
+tile_data = PoolIntArray( 262147, 0, 4, 262154, 0, 4, 327683, 0, 0, 327684, 0, 2, 327685, 0, 2, 327686, 0, 2, 327687, 0, 2, 327688, 0, 2, 327689, 0, 2, 327690, 0, 0 )
 
 [node name="Door" parent="." instance=ExtResource( 2 )]
-position = Vector2( 544, 448 )
+position = Vector2( 540, 320 )
 
 [node name="Slime" parent="." instance=ExtResource( 3 )]
-position = Vector2( 408, 448 )
+position = Vector2( 421.676, 255.349 )
+
+[node name="SpaceToStart" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1024.0
+margin_bottom = 603.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SpaceToStart"]
+margin_right = 1024.0
+margin_bottom = 603.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SpaceToStart/HBoxContainer"]
+margin_left = 415.0
+margin_right = 608.0
+margin_bottom = 603.0
+alignment = 2
+
+[node name="Label" type="Label" parent="SpaceToStart/HBoxContainer/VBoxContainer"]
+margin_top = 543.0
+margin_right = 193.0
+margin_bottom = 603.0
+rect_min_size = Vector2( 0, 60 )
+theme = ExtResource( 4 )
+text = "Press space to start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
