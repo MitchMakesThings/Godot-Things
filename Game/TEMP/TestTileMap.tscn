@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://TEMP/TestTileMap.tres" type="TileSet" id=1]
+[ext_resource path="res://Levels/TestTileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TEMP/TestTileMap.gd" type="Script" id=3]
 [ext_resource path="res://Props/Door.tscn" type="PackedScene" id=4]

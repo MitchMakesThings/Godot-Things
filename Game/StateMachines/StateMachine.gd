@@ -37,6 +37,11 @@ func set_state(newStateName : String, extra_params := []) -> void:
 	_current_state = newState
 	_current_state.enter(extra_params)
 
+func next_state() -> void:
+	var nextChildIndex = _current_state.get_index() + 1
+	assert(get_children().size() >= nextChildIndex)
+	set_state(get_child(nextChildIndex).name)
+
 func process(delta : float) -> void:
 	assert(_current_state)
 	if _current_state.IsReady:
