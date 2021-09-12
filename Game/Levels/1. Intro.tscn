@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Levels/TestTileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Props/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/Theme.tres" type="Theme" id=4]
 [ext_resource path="res://UI/SpaceToStart.gd" type="Script" id=5]
+[ext_resource path="res://UI/EndScreen.tscn" type="PackedScene" id=6]
 
 [node name="TileMap" type="TileMap"]
 tile_set = ExtResource( 1 )
@@ -17,34 +18,43 @@ position = Vector2( 540, 320 )
 [node name="Slime" parent="." instance=ExtResource( 3 )]
 position = Vector2( 421.676, 255.349 )
 
-[node name="SpaceToStart" type="MarginContainer" parent="."]
+[node name="UI" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpaceToStart" type="MarginContainer" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1024.0
-margin_bottom = 603.0
+margin_bottom = -1.0
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SpaceToStart"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/SpaceToStart"]
 margin_right = 1024.0
-margin_bottom = 603.0
+margin_bottom = 599.0
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SpaceToStart/HBoxContainer"]
-margin_left = 415.0
-margin_right = 608.0
-margin_bottom = 603.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/SpaceToStart/HBoxContainer"]
+margin_left = 363.0
+margin_right = 661.0
+margin_bottom = 599.0
 alignment = 2
 
-[node name="Label" type="Label" parent="SpaceToStart/HBoxContainer/VBoxContainer"]
-margin_top = 543.0
-margin_right = 193.0
-margin_bottom = 603.0
+[node name="Label" type="Label" parent="UI/SpaceToStart/HBoxContainer/VBoxContainer"]
+margin_top = 539.0
+margin_right = 298.0
+margin_bottom = 599.0
 rect_min_size = Vector2( 0, 60 )
 theme = ExtResource( 4 )
 text = "Press space to start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EndScreen" parent="UI" instance=ExtResource( 6 )]
+visible = false

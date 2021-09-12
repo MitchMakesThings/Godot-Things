@@ -17,7 +17,7 @@ func remove_unit(unit) -> void:
 	var index = _units.find(unit)
 	if index >= 0:
 		_units.remove(index)
-	if _units.size():
+	if _units.size() == 0:
 		emit_signal("game_ended")
 
 func count_units():
