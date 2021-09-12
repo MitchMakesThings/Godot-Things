@@ -6,14 +6,14 @@ var _state_machine
 var _velocity := Vector2.ZERO
 var IsReady := false
 
-func enter():
+func enter(_extra_params := []) -> void:
 	_state_machine = get_parent()
 	assert(_state_machine)
 	_slime = _state_machine.get_slime()
 	assert(_slime)
 	IsReady = true
 
-func exit():
+func exit() -> void:
 	pass
 
 func process(delta : float) -> void:

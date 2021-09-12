@@ -8,7 +8,7 @@ func _ready():
 	# Pick the top state by default!
 	set_state(get_child(0).name)
 
-func push_state(newStateName : String) -> void:
+func push_state(newStateName : String, extra_params := []) -> void:
 	var newState = get_node(newStateName) as State
 	if _current_state == newState:
 		return
@@ -16,7 +16,7 @@ func push_state(newStateName : String) -> void:
 		_previous_states.append(_current_state)
 		_current_state.exit()
 	_current_state = newState
-	_current_state.enter()
+	_current_state.enter(extra_params)
 
 # Pop the current state off the stack.
 # If a previous state exists we'll return to it
@@ -27,7 +27,7 @@ func pop_state():
 		_current_state = _previous_states.pop_back()
 		_current_state.enter()
 	
-func set_state(newStateName : String) -> void:
+func set_state(newStateName : String, extra_params := []) -> void:
 	var newState = get_node(newStateName) as State
 	if _current_state == newState:
 		return
@@ -35,7 +35,7 @@ func set_state(newStateName : String) -> void:
 	if _current_state:
 		_current_state.exit()
 	_current_state = newState
-	_current_state.enter()
+	_current_state.enter(extra_params)
 
 func process(delta : float) -> void:
 	assert(_current_state)

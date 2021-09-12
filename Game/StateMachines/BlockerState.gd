@@ -3,8 +3,8 @@ class_name BlockerState
 
 var _previous_animation : String
 
-func enter() -> void:
-	.enter()
+func enter(extra_params := []) -> void:
+	.enter(extra_params)
 	_slime.set_collision_layer_bit(1, true)
 	_previous_animation = _slime.get_animated_sprite().animation
 	_slime.get_animated_sprite().play("idle")

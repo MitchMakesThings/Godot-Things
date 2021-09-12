@@ -30,6 +30,12 @@ func get_facing() -> Vector2:
 func get_animated_sprite() -> AnimatedSprite:
 	return $AnimatedSprite as AnimatedSprite
 
+# Get the state machine for this slime
+# Unfortunately this argument can't be typed, because then we ahve a cyclic 
+# dependency between Slimes and State Machines. Godot typing is weird like that.
+func get_state_machine():
+	return $StateMachine
+
 func _on_Slime_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:

@@ -1,8 +1,8 @@
 extends State
 class_name DefaultState
 
-func enter() -> void:
-	.enter()
+func enter(extra_params := []) -> void:
+	.enter(extra_params)
 	_slime.get_animated_sprite().play("walking")
 
 func process(delta : float) -> void:
