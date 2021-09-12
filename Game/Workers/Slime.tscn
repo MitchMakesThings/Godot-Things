@@ -28,14 +28,11 @@ shape = SubResource( 1 )
 
 [node name="Default" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
-animated_sprite = NodePath("../../AnimatedSprite")
 
 [node name="Blocker" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
-animated_sprite = NodePath("../../AnimatedSprite")
 
 [node name="Death" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
-animated_sprite = NodePath("../../AnimatedSprite")
 
 [connection signal="input_event" from="." to="." method="_on_Slime_input_event"]

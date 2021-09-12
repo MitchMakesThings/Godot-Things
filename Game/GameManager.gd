@@ -13,7 +13,7 @@ func remove_unit(unit) -> void:
 func count_units():
 	return _units.size()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# TODO move somewhere better than physics process!
 	if count_units() <= 0:
 		print("Game over!")

@@ -9,6 +9,8 @@ export var Speed : float = 150
 export var MaxSpeed : float = 100
 export var SplatSpeed : float = 300
 
+var debug := false
+
 func _ready():
 	GameManager.add_unit(self)
 	
@@ -24,10 +26,17 @@ func change_direction():
 
 func get_facing() -> Vector2:
 	return _facing
+	
+func get_animated_sprite() -> AnimatedSprite:
+	return $AnimatedSprite as AnimatedSprite
 
-func _on_Slime_input_event(viewport, event, shape_idx):
+func _on_Slime_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			# TODO - refactor!
 			# Make blocker. Note collision layer indexes are 0-based!
-			$StateMachine.push_state("Blocker")
+			if !debug:
+				$StateMachine.push_state("Blocker")
+			else:
+				$StateMachine.pop_state()
+			debug = !debug

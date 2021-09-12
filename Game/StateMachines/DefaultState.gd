@@ -5,7 +5,7 @@ var _velocity := Vector2.ZERO
 
 func enter() -> void:
 	.enter()
-	_animated_sprite.play("walking")
+	_slime.get_animated_sprite().play("walking")
 
 func process(delta : float) -> void:
 	assert(_slime)
