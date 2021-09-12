@@ -15,7 +15,7 @@ func exit() -> void:
 	_slime.set_collision_layer_bit(1, false)
 	_slime.get_animated_sprite().play(_previous_animation)
 
-func process(_delta : float) -> void:
+func process(delta : float) -> void:
 	# Blockers don't do anything!
 	# TODO - add timer and count-down until blocker state expires
-	pass
+	.process(delta)
