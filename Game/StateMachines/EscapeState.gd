@@ -19,5 +19,5 @@ func process(_delta : float) -> void:
 	pass
 
 func _on_Tween_tween_all_completed():
-	GameManager.add_score()
+	GameManager.save_unit(_slime)
 	_slime.queue_free()

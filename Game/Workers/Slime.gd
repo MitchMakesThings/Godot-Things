@@ -2,8 +2,6 @@ extends KinematicBody2D
 class_name Slime
 
 var _facing := Vector2.LEFT
-var _state := "default" # TODO make state machine
-						# Valid values - default, blocker
 
 export var Speed : float = 150
 export var MaxSpeed : float = 100
@@ -15,7 +13,10 @@ func _ready():
 	GameManager.add_unit(self)
 	
 func _exit_tree():
-	GameManager.remove_unit(self)
+	# Ensure we always get cleaned up!
+	# States are expected to have already cleaned us up. 
+	# But in case they don't, we'll die.
+	GameManager.kill_unit(self)
 
 func _physics_process(delta : float):
 	$StateMachine.process(delta)

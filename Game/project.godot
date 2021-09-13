@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://StateMachines/IdleState.gd"
 }, {
+"base": "TileMap",
+"class": "MicroManagerLevel",
+"language": "GDScript",
+"path": "res://Levels/MicroManagerLevel.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Slime",
 "language": "GDScript",
@@ -55,6 +60,7 @@ _global_script_class_icons={
 "DefaultState": "",
 "EscapeState": "",
 "IdleState": "",
+"MicroManagerLevel": "",
 "Slime": "",
 "State": "",
 "StateMachine": ""
@@ -63,7 +69,7 @@ _global_script_class_icons={
 [application]
 
 config/name="MicroManager"
-run/main_scene="res://TEMP/TestTileMap.tscn"
+run/main_scene="res://Levels/1. Intro.tscn"
 config/icon="res://icon.png"
 
 [autoload]
