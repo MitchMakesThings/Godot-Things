@@ -7,6 +7,7 @@ var _acceptable_losses := 0
 
 var _is_game_running := false
 var _next_level : PackedScene
+var _current_level : MicroManagerLevel
 
 var _player_mode := "Default" # None, State node names
 
@@ -18,7 +19,8 @@ signal unit_escaped
 signal player_mode_changed # Indicates player mode changed. One parameter, with the new mode
 
 # Clears and reconfigures the game state
-func initialise(next_level, acceptable_losses) -> void:
+func initialise(level, next_level, acceptable_losses) -> void:
+	_current_level = level
 	_next_level = next_level
 	_acceptable_losses = acceptable_losses
 	
@@ -84,6 +86,9 @@ func set_player_mode(newMode : String):
 
 func get_player_mode() -> String:
 	return _player_mode
+
+func get_current_level() -> MicroManagerLevel:
+	return _current_level
 
 # This needs to be called to start the game!
 # Any initialisation stuff can start here

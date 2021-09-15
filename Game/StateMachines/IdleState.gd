@@ -10,4 +10,4 @@ func enter(_extra_params := []) -> void:
 	_slime.get_animated_sprite().play("idle")
 
 func _on_game_started():
-	_slime.get_state_machine().set_state("Default")
+	_slime.get_state_machine().set_state("Digger")

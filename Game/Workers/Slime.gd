@@ -10,7 +10,8 @@ export var SplatSpeed : float = 300
 
 func _ready():
 	GameManager.add_unit(self)
-	GameManager.connect("game_started", self, "_on_game_started")
+	var conn = GameManager.connect("game_started", self, "_on_game_started")
+	assert(conn == OK)
 	
 func _exit_tree():
 	# Ensure we always get cleaned up!
@@ -46,3 +47,4 @@ func _on_Slime_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			$StateMachine.push_state(GameManager.get_player_mode())
+			print(GameManager.get_player_mode())

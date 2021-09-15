@@ -12,10 +12,7 @@ func push_state(newStateName : String, extra_params := []) -> void:
 	if has_node(newStateName):
 		newState = get_node(newStateName) as State
 
-	if !newState:
-		pop_state()
-		return
-	if _current_state == newState:
+	if !newState or _current_state == newState:
 		pop_state()
 		return
 	if _current_state:

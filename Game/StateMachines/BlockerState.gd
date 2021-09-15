@@ -13,7 +13,7 @@ func enter(extra_params := []) -> void:
 func exit() -> void:
 	.exit()
 	_slime.set_collision_layer_bit(1, false)
-	_slime.get_animated_sprite().play(_previous_animation)
+	#_slime.get_animated_sprite().play(_previous_animation)
 
 func process(delta : float) -> void:
 	# Blockers don't do anything!

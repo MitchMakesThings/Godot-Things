@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Levels/TestTileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Props/Door.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Mine/StopSign.png" type="Texture" id=5]
 [ext_resource path="res://UI/JobUI.gd" type="Script" id=6]
+[ext_resource path="res://UI/Theme.tres" type="Theme" id=7]
+[ext_resource path="res://Assets/Mine/Shovel.png" type="Texture" id=8]
 
 [node name="Level" type="TileMap"]
 tile_set = ExtResource( 1 )
@@ -32,7 +34,7 @@ position = Vector2( 206.54, 368.633 )
 position = Vector2( 257.594, 150.999 )
 
 [node name="Slime4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 593.414, 172.435 )
+position = Vector2( 592, 176 )
 
 [node name="DeathMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -40,7 +42,7 @@ collision_layer = 16
 format = 1
 tile_data = PoolIntArray( 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 589824, 1, 65536, 589825, 1, 65536, 589826, 1, 65536, 589827, 1, 65536, 589828, 1, 65536, 589829, 1, 65536, 589830, 1, 65536, 589831, 1, 65536, 589832, 1, 65536, 589833, 1, 65536, 589834, 1, 65536, 589835, 1, 65536, 589836, 1, 65536, 589837, 1, 65536, 589838, 1, 65536, 589839, 1, 65536 )
 
-[node name="UnitUI" type="Control" parent="."]
+[node name="JobUI" type="Control" parent="."]
 margin_right = 320.0
 margin_bottom = 128.0
 script = ExtResource( 6 )
@@ -48,13 +50,55 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UnitUI"]
+[node name="HBoxContainer" type="HBoxContainer" parent="JobUI"]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Blocker" type="TextureButton" parent="UnitUI/HBoxContainer"]
+[node name="BlockerJob" type="VBoxContainer" parent="JobUI/HBoxContainer"]
 margin_right = 32.0
-margin_bottom = 40.0
+margin_bottom = 54.0
+
+[node name="Blocker" type="TextureButton" parent="JobUI/HBoxContainer/BlockerJob"]
+margin_right = 32.0
+margin_bottom = 32.0
 texture_normal = ExtResource( 5 )
 
-[connection signal="button_down" from="UnitUI/HBoxContainer/Blocker" to="UnitUI" method="_on_Blocker_button_down"]
+[node name="CenterContainer" type="CenterContainer" parent="JobUI/HBoxContainer/BlockerJob"]
+margin_top = 36.0
+margin_right = 32.0
+margin_bottom = 54.0
+
+[node name="Label" type="Label" parent="JobUI/HBoxContainer/BlockerJob/CenterContainer"]
+margin_left = 12.0
+margin_right = 19.0
+margin_bottom = 18.0
+theme = ExtResource( 7 )
+text = "1"
+
+[node name="DiggerJob" type="VBoxContainer" parent="JobUI/HBoxContainer"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 54.0
+
+[node name="Digger" type="TextureButton" parent="JobUI/HBoxContainer/DiggerJob"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture_normal = ExtResource( 8 )
+
+[node name="CenterContainer" type="CenterContainer" parent="JobUI/HBoxContainer/DiggerJob"]
+margin_top = 36.0
+margin_right = 32.0
+margin_bottom = 54.0
+
+[node name="Label" type="Label" parent="JobUI/HBoxContainer/DiggerJob/CenterContainer"]
+margin_left = 10.0
+margin_right = 21.0
+margin_bottom = 18.0
+theme = ExtResource( 7 )
+text = "2"
+
+[connection signal="button_down" from="JobUI/HBoxContainer/BlockerJob/Blocker" to="JobUI" method="_on_Blocker_button_down"]
+[connection signal="button_down" from="JobUI/HBoxContainer/DiggerJob/Digger" to="JobUI" method="_on_Digger_button_down"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Workers/SpriteFrames/yellow.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Workers/Slime.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://StateMachines/DeathState.gd" type="Script" id=6]
 [ext_resource path="res://StateMachines/EscapeState.gd" type="Script" id=7]
 [ext_resource path="res://StateMachines/IdleState.gd" type="Script" id=8]
+[ext_resource path="res://StateMachines/DiggerState.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Mine/Shovel.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13.8956, 10 )
@@ -45,6 +47,27 @@ script = ExtResource( 6 )
 script = ExtResource( 7 )
 
 [node name="Tween" type="Tween" parent="StateMachine/Escape"]
+
+[node name="Digger" type="Node" parent="StateMachine"]
+script = ExtResource( 9 )
+
+[node name="Offset" type="Node2D" parent="StateMachine/Digger"]
+position = Vector2( 0, -38.238 )
+
+[node name="TextureProgress" type="TextureProgress" parent="StateMachine/Digger/Offset"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture_progress = ExtResource( 10 )
+fill_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="input_event" from="." to="." method="_on_Slime_input_event"]
 [connection signal="tween_all_completed" from="StateMachine/Escape/Tween" to="StateMachine/Escape" method="_on_Tween_tween_all_completed"]
