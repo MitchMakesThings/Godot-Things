@@ -29,11 +29,11 @@ shape = SubResource( 1 )
 
 [node name="StateMachine" parent="." instance=ExtResource( 3 )]
 
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource( 8 )
-
 [node name="Default" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
 
 [node name="Blocker" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )

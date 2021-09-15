@@ -2,21 +2,24 @@ extends KinematicBody2D
 class_name Slime
 
 var _facing := Vector2.LEFT
+var _interactable := false
 
 export var Speed : float = 150
 export var MaxSpeed : float = 100
 export var SplatSpeed : float = 300
 
-var debug := false
-
 func _ready():
 	GameManager.add_unit(self)
+	GameManager.connect("game_started", self, "_on_game_started")
 	
 func _exit_tree():
 	# Ensure we always get cleaned up!
 	# States are expected to have already cleaned us up. 
 	# But in case they don't, we'll die.
 	GameManager.kill_unit(self)
+
+func _on_game_started():
+	_interactable = true
 
 func _physics_process(delta : float):
 	$StateMachine.process(delta)
@@ -38,12 +41,8 @@ func get_state_machine():
 	return $StateMachine
 
 func _on_Slime_input_event(_viewport, event, _shape_idx):
+	if !_interactable:
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
-			# TODO - refactor!
-			# Make blocker. Note collision layer indexes are 0-based!
-			if !debug:
-				$StateMachine.push_state("Blocker")
-			else:
-				$StateMachine.pop_state()
-			debug = !debug
+			$StateMachine.push_state(GameManager.get_player_mode())

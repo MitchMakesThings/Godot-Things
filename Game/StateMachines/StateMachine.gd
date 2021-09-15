@@ -5,12 +5,18 @@ var _current_state : State
 var _previous_states : Array = []
 
 func _ready():
-	# Pick the top state by default!
-	set_state(get_child(0).name)
+	set_state("Idle")
 
 func push_state(newStateName : String, extra_params := []) -> void:
-	var newState = get_node(newStateName) as State
+	var newState : State
+	if has_node(newStateName):
+		newState = get_node(newStateName) as State
+
+	if !newState:
+		pop_state()
+		return
 	if _current_state == newState:
+		pop_state()
 		return
 	if _current_state:
 		_previous_states.append(_current_state)
@@ -26,6 +32,8 @@ func pop_state():
 	if _previous_states.size() > 0:
 		_current_state = _previous_states.pop_back()
 		_current_state.enter()
+	else:
+		set_to_default_state()
 	
 func set_state(newStateName : String, extra_params := []) -> void:
 	var newState = get_node(newStateName) as State
@@ -38,9 +46,16 @@ func set_state(newStateName : String, extra_params := []) -> void:
 	_current_state.enter(extra_params)
 
 func next_state() -> void:
+	if !_current_state:
+		set_to_default_state()
+		return
 	var nextChildIndex = _current_state.get_index() + 1
 	assert(get_children().size() >= nextChildIndex)
 	set_state(get_child(nextChildIndex).name)
+
+func set_to_default_state() -> void:
+	# Pick the top state by default!
+	set_state(get_child(0).name)
 
 func process(delta : float) -> void:
 	assert(_current_state)

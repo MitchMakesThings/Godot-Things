@@ -8,11 +8,14 @@ var _acceptable_losses := 0
 var _is_game_running := false
 var _next_level : PackedScene
 
+var _player_mode := "Default" # None, State node names
+
 signal game_initialised # Called at the end of initialise() to let UI do it's initial state etc
 signal game_started
 signal game_ended # Signal to indicate the game ended. One parameter, true if you won.
 signal unit_died
 signal unit_escaped
+signal player_mode_changed # Indicates player mode changed. One parameter, with the new mode
 
 # Clears and reconfigures the game state
 func initialise(next_level, acceptable_losses) -> void:
@@ -73,6 +76,14 @@ func go_to_next_level() -> void:
 
 func has_next_level() -> bool:
 	return _next_level != null
+
+func set_player_mode(newMode : String):
+	# TODO  -this whole thing should probably be a state machine!
+	_player_mode = newMode
+	emit_signal("player_mode_changed", get_player_mode())
+
+func get_player_mode() -> String:
+	return _player_mode
 
 # This needs to be called to start the game!
 # Any initialisation stuff can start here
