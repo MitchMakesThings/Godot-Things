@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Workers/SpriteFrames/yellow.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Workers/Slime.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://StateMachines/DeathState.gd" type="Script" id=6]
 [ext_resource path="res://StateMachines/EscapeState.gd" type="Script" id=7]
 [ext_resource path="res://StateMachines/IdleState.gd" type="Script" id=8]
+[ext_resource path="res://StateMachines/LadderClimbState.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13.8956, 10 )
@@ -46,5 +47,11 @@ script = ExtResource( 7 )
 
 [node name="Tween" type="Tween" parent="StateMachine/Escape"]
 
+[node name="LadderClimb" type="Node" parent="StateMachine"]
+script = ExtResource( 9 )
+
+[node name="Tween" type="Tween" parent="StateMachine/LadderClimb"]
+
 [connection signal="input_event" from="." to="." method="_on_Slime_input_event"]
 [connection signal="tween_all_completed" from="StateMachine/Escape/Tween" to="StateMachine/Escape" method="_on_Tween_tween_all_completed"]
+[connection signal="tween_all_completed" from="StateMachine/LadderClimb/Tween" to="StateMachine/LadderClimb" method="_on_Tween_tween_all_completed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Levels/TestTileMap.tres" type="TileSet" id=1]
 [ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=2]
@@ -6,12 +6,22 @@
 [ext_resource path="res://Props/Door.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Mine/StopSign.png" type="Texture" id=5]
 [ext_resource path="res://UI/JobUI.gd" type="Script" id=6]
+[ext_resource path="res://Props/Ladder.tscn" type="PackedScene" id=7]
 
 [node name="Level" type="TileMap"]
 tile_set = ExtResource( 1 )
 format = 1
-tile_data = PoolIntArray( 131072, 0, 4, 131087, 0, 4, 196608, 0, 0, 196617, 0, 1, 196618, 0, 2, 196619, 0, 2, 196620, 0, 2, 196621, 0, 2, 196622, 0, 2, 196623, 0, 0, 262144, 0, 0, 262145, 0, 2, 262146, 0, 2, 262147, 0, 2, 262148, 0, 2, 262149, 0, 2, 262150, 0, 3, 262159, 0, 0, 327680, 0, 0, 327695, 0, 0, 393216, 0, 0, 393217, 0, 2, 393218, 0, 2, 393219, 0, 2, 393220, 0, 2, 393221, 0, 2, 393222, 0, 2, 393223, 0, 2, 393224, 0, 2, 393225, 0, 2, 393226, 0, 2, 393227, 0, 2, 393228, 0, 2, 393229, 0, 2, 393230, 0, 2, 393231, 0, 0 )
+tile_data = PoolIntArray( 131072, 0, 4, 131081, 0, 4, 131087, 0, 4, 196608, 0, 0, 196614, 0, 4, 196617, 0, 0, 196618, 0, 2, 196619, 0, 2, 196620, 0, 2, 196621, 0, 2, 196622, 0, 2, 196623, 0, 0, 262144, 0, 0, 262145, 0, 3, 262147, 0, 1, 262148, 0, 2, 262149, 0, 2, 262150, 0, 0, 262159, 0, 0, 327680, 0, 0, 327695, 0, 0, 393216, 0, 0, 393217, 0, 2, 393218, 0, 2, 393219, 0, 2, 393220, 0, 2, 393221, 0, 2, 393222, 0, 2, 393223, 0, 2, 393224, 0, 2, 393225, 0, 2, 393226, 0, 2, 393227, 0, 2, 393228, 0, 2, 393229, 0, 2, 393230, 0, 2, 393231, 0, 0 )
 script = ExtResource( 3 )
+
+[node name="Ladder" parent="." instance=ExtResource( 7 )]
+position = Vector2( 348.787, 222.725 )
+
+[node name="Ladder2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 674.411, 158.58 )
+
+[node name="Ladder3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 160.277, 287.578 )
 
 [node name="Door" parent="." instance=ExtResource( 4 )]
 position = Vector2( 864, 384 )
@@ -32,7 +42,7 @@ position = Vector2( 206.54, 368.633 )
 position = Vector2( 257.594, 150.999 )
 
 [node name="Slime4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 593.414, 172.435 )
+position = Vector2( 796.094, 186.689 )
 
 [node name="DeathMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
