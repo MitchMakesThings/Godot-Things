@@ -10,7 +10,8 @@ export var SplatSpeed : float = 300
 
 func _ready():
 	GameManager.add_unit(self)
-	GameManager.connect("game_started", self, "_on_game_started")
+	var conn = GameManager.connect("game_started", self, "_on_game_started")
+	assert(conn == OK)
 	
 func _exit_tree():
 	# Ensure we always get cleaned up!

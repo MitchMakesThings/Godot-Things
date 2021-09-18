@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Props/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=2]
@@ -8,24 +8,22 @@
 [ext_resource path="res://UI/SpaceToStart.gd" type="Script" id=6]
 [ext_resource path="res://UI/ScoreStuff.gd" type="Script" id=7]
 [ext_resource path="res://Levels/MicroManagerLevel.gd" type="Script" id=8]
-[ext_resource path="res://Levels/3. Blocker.tscn" type="PackedScene" id=9]
 
 [node name="TileMap" type="TileMap"]
 tile_set = ExtResource( 3 )
 format = 1
-tile_data = PoolIntArray( 393221, 0, 1, 393222, 0, 2, 393223, 0, 2, 393224, 0, 2, 393225, 0, 2, 393226, 0, 2, 393227, 0, 2, 393228, 0, 2, 393229, 0, 2, 393230, 0, 3 )
+tile_data = PoolIntArray( 393219, 0, 1, 393220, 0, 2, 393221, 0, 2, 393222, 0, 2, 393223, 0, 2, 393224, 0, 2, 393225, 0, 2, 393226, 0, 2, 393227, 0, 2, 393228, 0, 2, 393229, 0, 2, 393230, 0, 3 )
 script = ExtResource( 8 )
 acceptable_losses = 1
-next_level = ExtResource( 9 )
 
 [node name="Door" parent="." instance=ExtResource( 1 )]
-position = Vector2( 550.325, 383.972 )
+position = Vector2( 845.74, 383.972 )
 
 [node name="Slime" parent="." instance=ExtResource( 2 )]
-position = Vector2( 889.574, 383.972 )
+position = Vector2( 742, 383.972 )
 
 [node name="Slime2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 347.658, 383.972 )
+position = Vector2( 502, 383.972 )
 
 [node name="DeathMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
