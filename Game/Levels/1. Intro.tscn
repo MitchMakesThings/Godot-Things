@@ -14,6 +14,8 @@ format = 1
 tile_data = PoolIntArray( 2, 327690, 0, 4, 262154, 0, 327684, 0, 4, 327691, 0, 4, 393220, 0, 0, 393221, 0, 2, 393222, 0, 2, 393223, 0, 2, 393224, 0, 2, 393225, 0, 2, 393226, 0, 2, 393227, 0, 0 )
 script = ExtResource( 7 )
 next_level = ExtResource( 8 )
+blocker_count = 0
+digger_count = 0
 
 [node name="Door" parent="." instance=ExtResource( 2 )]
 position = Vector2( 540, 383.797 )
@@ -48,4 +50,3 @@ __meta__ = {
 }
 
 [node name="UI" parent="." instance=ExtResource( 5 )]
-mouse_filter = 2

@@ -4,8 +4,12 @@ class_name MicroManagerLevel
 export var acceptable_losses := 0
 export var next_level : PackedScene
 
+export var blocker_count := 1
+export var digger_count := 1
+export var ladder_count := 1
+
 func _ready():
-	GameManager.initialise(self, next_level, acceptable_losses)
+	GameManager.initialise(self, next_level, acceptable_losses, blocker_count, digger_count, ladder_count)
 
 func dig_under_unit(unit : Node2D) -> void:
 	var mapPos := world_to_map(to_local(unit.global_position))

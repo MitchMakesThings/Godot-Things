@@ -13,6 +13,7 @@ func push_state(newStateName : String, extra_params := []) -> void:
 		newState = get_node(newStateName) as State
 
 	if !newState or _current_state == newState:
+		# TODO debug
 		pop_state()
 		return
 	if _current_state:

@@ -24,7 +24,7 @@ signal player_mode_changed # Indicates player mode changed. One parameter, with 
 signal job_count_changed
 
 # Clears and reconfigures the game state
-func initialise(level, next_level, acceptable_losses) -> void:
+func initialise(level, next_level, acceptable_losses, blockers, diggers, builders) -> void:
 	_current_level = level
 	_next_level = next_level
 	_acceptable_losses = acceptable_losses
@@ -32,6 +32,10 @@ func initialise(level, next_level, acceptable_losses) -> void:
 	_score = 0
 	_total_units = _units.size()
 	_is_game_running = false
+	
+	set_blocker_count(blockers)
+	set_digger_count(diggers)
+	set_ladder_count(builders)
 	emit_signal("game_initialised")
 
 func add_unit(unit) -> void:
