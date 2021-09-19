@@ -47,4 +47,3 @@ func _on_Slime_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			$StateMachine.push_state(GameManager.get_player_mode())
-			print(GameManager.get_player_mode())

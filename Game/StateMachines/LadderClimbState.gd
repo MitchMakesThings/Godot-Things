@@ -15,6 +15,9 @@ func enter(extra_params := []) -> void:
 	# I'm hoping this won't be a problem with a skinnier ladder
 	top_position += _slime.get_facing() * 32
 
+	if !$Tween.is_connected("tween_all_completed", self, "_on_Tween_tween_all_completed"):
+		var conn = $Tween.connect("tween_all_completed", self, "_on_Tween_tween_all_completed")
+		assert(conn == OK)
 	$Tween.interpolate_property(_slime, "position", _slime.position, top_position, 2, Tween.TRANS_QUART, Tween.EASE_OUT)
 	$Tween.start()
 

@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "State",
+"class": "ActionState",
+"language": "GDScript",
+"path": "res://StateMachines/ActionState.gd"
+}, {
+"base": "ActionState",
 "class": "BlockerState",
 "language": "GDScript",
 "path": "res://StateMachines/BlockerState.gd"
@@ -24,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://StateMachines/DefaultState.gd"
 }, {
-"base": "State",
+"base": "ActionState",
 "class": "DiggerState",
 "language": "GDScript",
 "path": "res://StateMachines/DiggerState.gd"
@@ -38,6 +43,11 @@ _global_script_classes=[ {
 "class": "IdleState",
 "language": "GDScript",
 "path": "res://StateMachines/IdleState.gd"
+}, {
+"base": "VBoxContainer",
+"class": "JobWidget",
+"language": "GDScript",
+"path": "res://UI/JobWidget.gd"
 }, {
 "base": "State",
 "class": "LadderClimbState",
@@ -54,23 +64,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Workers/Slime.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "State",
 "language": "GDScript",
 "path": "res://StateMachines/State.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://StateMachines/StateMachine.gd"
 } ]
 _global_script_class_icons={
+"ActionState": "",
 "BlockerState": "",
 "DeathState": "",
 "DefaultState": "",
 "DiggerState": "",
 "EscapeState": "",
 "IdleState": "",
+"JobWidget": "",
 "LadderClimbState": "",
 "MicroManagerLevel": "",
 "Slime": "",
@@ -97,12 +109,17 @@ window/stretch/aspect="keep"
 
 job_1={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
  ]
 }
 job_2={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+job_3={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
 

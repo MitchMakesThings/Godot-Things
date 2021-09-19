@@ -11,12 +11,17 @@ var _current_level : MicroManagerLevel
 
 var _player_mode := "Default" # None, State node names
 
+var blocker_count := 1 setget set_blocker_count
+var digger_count := 1 setget set_digger_count
+var ladder_count := 1 setget set_ladder_count
+
 signal game_initialised # Called at the end of initialise() to let UI do it's initial state etc
 signal game_started
 signal game_ended # Signal to indicate the game ended. One parameter, true if you won.
 signal unit_died
 signal unit_escaped
 signal player_mode_changed # Indicates player mode changed. One parameter, with the new mode
+signal job_count_changed
 
 # Clears and reconfigures the game state
 func initialise(level, next_level, acceptable_losses) -> void:
@@ -111,3 +116,13 @@ func start_game() -> void:
 func _process(_delta):
 	if !_is_game_running and Input.is_action_just_pressed("ui_select"):
 		start_game()
+
+func set_blocker_count(new_val):
+	blocker_count = new_val
+	emit_signal("job_count_changed", "Blocker")
+func set_digger_count(new_val):
+	digger_count = new_val
+	emit_signal("job_count_changed", "Digger")
+func set_ladder_count(new_val):
+	ladder_count = new_val
+	emit_signal("job_count_changed", "LadderClimb")

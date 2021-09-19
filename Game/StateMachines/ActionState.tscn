@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Mine/Shovel.png" type="Texture" id=1]
+[ext_resource path="res://StateMachines/ActionState.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.313726, 0.313726, 0.313726, 1 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ActionState" type="Node2D"]
+script = ExtResource( 2 )
+texture_nodepath = NodePath("Offset/Panel/TextureProgress")
+
+[node name="Offset" type="Node2D" parent="."]
+position = Vector2( 0, -38.238 )
+
+[node name="Panel" type="Panel" parent="Offset"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="Offset/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture_progress = ExtResource( 1 )
+fill_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}

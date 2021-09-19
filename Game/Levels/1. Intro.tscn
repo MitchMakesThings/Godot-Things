@@ -48,3 +48,4 @@ __meta__ = {
 }
 
 [node name="UI" parent="." instance=ExtResource( 5 )]
+mouse_filter = 2
