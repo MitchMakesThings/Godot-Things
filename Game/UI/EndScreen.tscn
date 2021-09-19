@@ -1,57 +1,54 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://UI/EndScreen.gd" type="Script" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 24
-font_data = ExtResource( 2 )
+[ext_resource path="res://UI/MainFont.tres" type="DynamicFont" id=4]
 
 [sub_resource type="Theme" id=2]
-default_font = SubResource( 1 )
+default_font = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 24
+[sub_resource type="DynamicFont" id=7]
+size = 32
 font_data = ExtResource( 2 )
 
 [sub_resource type="Theme" id=5]
-default_font = SubResource( 4 )
+default_font = ExtResource( 4 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "enter"
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:rect_position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( -828, 150 ), Vector2( 212, 150 ) ]
-}
+[sub_resource type="DynamicFont" id=6]
+size = 18
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
 
 [node name="EndScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -600.0
+margin_bottom = -600.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-score_label_nodepath = NodePath("ColorRect/ScoreContainer/Label")
-next_level_button_nodepath = NodePath("ColorRect/VBoxContainer/HBoxContainer/BtnNextLevel")
-end_game_label_nodepath = NodePath("ColorRect/VBoxContainer/HBoxContainer/EndGameLabel")
+score_label_nodepath = NodePath("ColorRect/ScoreContainer/SlimeMessage")
+next_level_button_nodepath = NodePath("ColorRect/ScoreContainer/HBoxContainer/BtnNextLevel")
+retry_level_button_nodepath = NodePath("ColorRect/ScoreContainer/HBoxContainer/BtnRetry")
+end_game_label_nodepath = NodePath("ColorRect/ScoreContainer/HBoxContainer/EndGameLabel")
+main_message_nodepath = NodePath("ColorRect/ScoreContainer/MainMessage")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1340.0
+margin_left = -300.0
 margin_top = -150.0
-margin_right = -740.0
+margin_right = 300.0
 margin_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -60,11 +57,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="ScoreContainer" type="VBoxContainer" parent="ColorRect"]
 anchor_right = 1.0
-margin_top = 20.0
-margin_bottom = 38.0
+anchor_bottom = 1.0
+custom_constants/separation = 30
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMessage" type="Label" parent="ColorRect/ScoreContainer"]
+margin_top = 79.0
+margin_right = 600.0
+margin_bottom = 115.0
 theme = SubResource( 2 )
+custom_fonts/font = SubResource( 7 )
 text = "You win!"
 align = 1
 valign = 1
@@ -72,57 +79,49 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScoreContainer" type="VBoxContainer" parent="ColorRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="ColorRect/ScoreContainer"]
-margin_top = 136.0
+[node name="SlimeMessage" type="Label" parent="ColorRect/ScoreContainer"]
+margin_top = 145.0
 margin_right = 600.0
-margin_bottom = 163.0
-theme = SubResource( 2 )
+margin_bottom = 166.0
+theme = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "X slimes finished work"
 align = 1
 valign = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
-margin_top = 267.0
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/ScoreContainer"]
+margin_top = 196.0
 margin_right = 600.0
-margin_bottom = 300.0
+margin_bottom = 220.0
+custom_constants/separation = 30
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BtnNextLevel" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer"]
-margin_left = 261.0
-margin_right = 338.0
-margin_bottom = 33.0
+[node name="BtnRetry" type="Button" parent="ColorRect/ScoreContainer/HBoxContainer"]
+margin_left = 225.0
+margin_right = 290.0
+margin_bottom = 24.0
+theme = ExtResource( 1 )
+text = "Retry"
+
+[node name="BtnNextLevel" type="Button" parent="ColorRect/ScoreContainer/HBoxContainer"]
+margin_left = 320.0
+margin_right = 374.0
+margin_bottom = 24.0
 theme = ExtResource( 1 )
 text = "Next"
 
-[node name="EndGameLabel" type="Label" parent="ColorRect/VBoxContainer/HBoxContainer"]
+[node name="EndGameLabel" type="Label" parent="ColorRect/ScoreContainer/HBoxContainer"]
 visible = false
-margin_left = 200.0
-margin_top = 3.0
-margin_right = 481.0
-margin_bottom = 30.0
-theme = SubResource( 5 )
+margin_left = 249.0
+margin_right = 530.0
+margin_bottom = 27.0
+theme = SubResource( 4 )
 text = "Thanks for playing!"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/enter = SubResource( 3 )
+[node name="Tween" type="Tween" parent="."]
 
-[connection signal="pressed" from="ColorRect/VBoxContainer/HBoxContainer/BtnNextLevel" to="." method="_on_BtnNextLevel_pressed"]
+[connection signal="pressed" from="ColorRect/ScoreContainer/HBoxContainer/BtnRetry" to="." method="_on_BtnRetry_pressed"]
+[connection signal="pressed" from="ColorRect/ScoreContainer/HBoxContainer/BtnNextLevel" to="." method="_on_BtnNextLevel_pressed"]

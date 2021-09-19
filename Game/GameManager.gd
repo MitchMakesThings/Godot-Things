@@ -37,7 +37,7 @@ func save_unit(unit) -> void:
 	if _remove_unit(unit):
 		_add_score()
 		emit_signal("unit_escaped")
-	_check_game_ended()
+		_check_game_ended()
 
 func kill_unit(unit) -> void:
 	if _remove_unit(unit):
@@ -46,10 +46,16 @@ func kill_unit(unit) -> void:
 		_check_game_ended()
 
 func _check_game_ended() -> void:
-	if _units.size() == 0:
-		emit_signal("game_ended", true)
-	if _acceptable_losses <= 0:
+	if !_is_game_running:
+		return
+	if _acceptable_losses < 0:
 		emit_signal("game_ended", false)
+		_is_game_running = false
+		return
+	if _units.size() == 0:
+		_is_game_running = false
+		emit_signal("game_ended", true)
+		return
 
 func _remove_unit(unit) -> bool:
 	var index = _units.find(unit)
@@ -75,6 +81,10 @@ func go_to_next_level() -> void:
 	# TODO scene change animation
 	var changed = get_tree().change_scene_to(_next_level)
 	assert(changed == OK)
+
+func restart_level() -> void:
+	var result = get_tree().reload_current_scene()
+	assert(result == OK)
 
 func has_next_level() -> bool:
 	return _next_level != null
