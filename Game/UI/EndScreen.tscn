@@ -69,9 +69,9 @@ __meta__ = {
 }
 
 [node name="MainMessage" type="Label" parent="ColorRect/ScoreContainer"]
-margin_top = 78.0
+margin_top = 70.0
 margin_right = 600.0
-margin_bottom = 114.0
+margin_bottom = 106.0
 theme = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 text = "You win!"
@@ -82,9 +82,9 @@ __meta__ = {
 }
 
 [node name="SlimeMessage" type="Label" parent="ColorRect/ScoreContainer"]
-margin_top = 144.0
+margin_top = 136.0
 margin_right = 600.0
-margin_bottom = 165.0
+margin_bottom = 157.0
 theme = SubResource( 3 )
 custom_fonts/font = SubResource( 4 )
 text = "X slimes finished work"
@@ -92,9 +92,9 @@ align = 1
 valign = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/ScoreContainer"]
-margin_top = 195.0
+margin_top = 187.0
 margin_right = 600.0
-margin_bottom = 222.0
+margin_bottom = 229.0
 custom_constants/separation = 30
 alignment = 1
 __meta__ = {
@@ -102,16 +102,16 @@ __meta__ = {
 }
 
 [node name="BtnRetry" type="Button" parent="ColorRect/ScoreContainer/HBoxContainer"]
-margin_left = 216.0
-margin_right = 291.0
-margin_bottom = 27.0
+margin_left = 173.0
+margin_right = 296.0
+margin_bottom = 42.0
 theme = ExtResource( 1 )
 text = "Retry"
 
 [node name="BtnNextLevel" type="Button" parent="ColorRect/ScoreContainer/HBoxContainer"]
-margin_left = 321.0
-margin_right = 383.0
-margin_bottom = 27.0
+margin_left = 326.0
+margin_right = 426.0
+margin_bottom = 42.0
 theme = ExtResource( 1 )
 text = "Next"
 

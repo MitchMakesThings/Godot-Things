@@ -93,7 +93,7 @@ _global_script_class_icons={
 [application]
 
 config/name="MicroManager"
-run/main_scene="res://Levels/1. Intro.tscn"
+run/main_scene="res://Levels/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

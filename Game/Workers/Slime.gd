@@ -7,11 +7,14 @@ var _interactable := false
 export var Speed : float = 150
 export var MaxSpeed : float = 100
 export var SplatSpeed : float = 300
+export var face_right : bool = false
 
 func _ready():
 	GameManager.add_unit(self)
 	var conn = GameManager.connect("game_started", self, "_on_game_started")
 	assert(conn == OK)
+	if face_right:
+		change_direction()
 	
 func _exit_tree():
 	# Ensure we always get cleaned up!
@@ -46,4 +49,16 @@ func _on_Slime_input_event(_viewport, event, _shape_idx):
 		return
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
-			$StateMachine.push_state(GameManager.get_player_mode())
+			var new_state := ""
+			match GameManager.get_player_mode():
+				"Blocker":
+					if GameManager.blocker_count > 0:
+						new_state = "Blocker"
+				"Digger":
+					if GameManager.digger_count > 0:
+						new_state = "Digger"
+				"LadderBuilder":
+					if GameManager.ladder_count > 0:
+						new_state = "LadderBuilder"
+			if new_state != "":
+				$StateMachine.push_state(GameManager.get_player_mode())

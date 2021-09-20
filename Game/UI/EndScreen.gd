@@ -34,6 +34,7 @@ func _on_game_finished(player_won : bool):
 	if !GameManager.has_next_level():
 		get_node(next_level_button_nodepath).visible = false
 		get_node(end_game_label_nodepath).visible = true
+		get_node(retry_level_button_nodepath).visible = false
 
 
 func _on_BtnNextLevel_pressed():
