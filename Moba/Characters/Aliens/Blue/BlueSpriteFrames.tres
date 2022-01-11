@@ -1,0 +1,24 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://yro4ypo6sek5"]
+
+[ext_resource type="Texture2D" uid="uid://xjnyqosqdmw1" path="res://Characters/Aliens/Blue/alienBlue_walk1.png" id="1_vxe2r"]
+[ext_resource type="Texture2D" uid="uid://dqvapuxsemele" path="res://Characters/Aliens/Blue/alienBlue_walk2.png" id="2_rr0el"]
+[ext_resource type="Texture2D" uid="uid://5h3y5ya1ow8t" path="res://Characters/Aliens/Blue/alienBlue_jump.png" id="3_3nfgu"]
+[ext_resource type="Texture2D" uid="uid://cqkcjr0xlr7g" path="res://Characters/Aliens/Blue/alienBlue_stand.png" id="4_3uof1"]
+
+[resource]
+animations = [{
+"frames": [ExtResource( "4_3uof1" )],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [ExtResource( "1_vxe2r" ), ExtResource( "2_rr0el" )],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}, {
+"frames": [ExtResource( "3_3nfgu" )],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}]
