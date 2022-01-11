@@ -15,3 +15,7 @@ frames = ExtResource( "1_bgwyd" )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( "CapsuleShape2D_b0aad" )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
