@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://scjoku8kmkqj"]
+[gd_scene load_steps=5 format=3 uid="uid://scjoku8kmkqj"]
 
 [ext_resource type="SpriteFrames" uid="uid://yro4ypo6sek5" path="res://Characters/Aliens/Blue/BlueSpriteFrames.tres" id="1_bgwyd"]
 [ext_resource type="Script" path="res://Characters/Aliens/Player.gd" id="1_ytcn0"]
@@ -6,6 +6,11 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b0aad"]
 radius = 30.0
 height = 100.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xxb0"]
+properties/0/path = NodePath(":sync_position")
+properties/0/spawn = true
+properties/0/sync = true
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource( "1_ytcn0" )
@@ -17,5 +22,8 @@ frames = ExtResource( "1_bgwyd" )
 shape = SubResource( "CapsuleShape2D_b0aad" )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 smoothing_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("..")
+resource = SubResource( "SceneReplicationConfig_7xxb0" )
