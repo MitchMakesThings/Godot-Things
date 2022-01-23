@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "CharacterBody2D",
+"class": &"Player",
+"language": &"GDScript",
+"path": "res://Characters/Aliens/Player.gd"
+}]
+_global_script_class_icons={
+"Player": ""
+}
+
 [application]
 
 config/name="Moba"

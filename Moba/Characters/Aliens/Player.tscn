@@ -13,6 +13,7 @@ properties/0/spawn = true
 properties/0/sync = true
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 3
 script = ExtResource( "1_ytcn0" )
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

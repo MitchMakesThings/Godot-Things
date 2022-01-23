@@ -24,6 +24,12 @@ func start_network(server: bool):
 		peer.create_client("localhost", 4242)
 
 	multiplayer.set_multiplayer_peer(peer)
+	
+	# Spawn test button
+	var btn = preload("res://Items/blue_button.tscn").instantiate()
+	btn.position = Vector2(386, 351)
+	btn.name = str(randi())
+	$NetworkedNodes.add_child(btn)
 
 func create_player(id):
 	# Instantiate a new player for this client.
@@ -33,8 +39,8 @@ func create_player(id):
 	p.name = str(id)
 	
 	print('added player: ', str(id), ' owned by: ', p.get_multiplayer_authority())
-	$Players.add_child(p)
+	$NetworkedNodes.add_child(p)
 
 func destroy_player(id):
 	# Delete this peer's node.
-	$Players.get_node(str(id)).queue_free()
+	$NetworkedNodes.get_node(str(id)).queue_free()
