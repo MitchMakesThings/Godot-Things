@@ -25,11 +25,11 @@ func start_network(server: bool):
 
 	multiplayer.set_multiplayer_peer(peer)
 	
-	# Spawn test button
-	var btn = preload("res://Items/blue_button.tscn").instantiate()
-	btn.position = Vector2(386, 351)
-	btn.name = str(randi())
-	$NetworkedNodes.add_child(btn)
+	if server:
+		# Spawn test button
+		var btn = preload("res://Items/blue_button.tscn").instantiate()
+		btn.position = Vector2(386, 351)
+		$NetworkedNodes.add_child(btn)
 
 func create_player(id):
 	# Instantiate a new player for this client.
