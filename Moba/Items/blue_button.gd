@@ -5,15 +5,11 @@ var pressed_texture : Texture2D
 
 var isPressed : bool:
 	set (newValue):
-		if newValue == isPressed:
-			return
 		if newValue:
 			$Sprite2D.texture = pressed_texture
 		isPressed = newValue
 
 func _on_blue_button_body_entered(body):
-	if not is_multiplayer_authority():
-		return
 	if isPressed:
 		return
 	if not body is Player:
