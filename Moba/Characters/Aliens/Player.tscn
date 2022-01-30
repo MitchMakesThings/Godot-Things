@@ -35,8 +35,9 @@ gradient = SubResource( "Gradient_168qg" )
 collision_layer = 3
 script = ExtResource( "1_ytcn0" )
 
-[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="JetpackParticles" type="CPUParticles2D" parent="."]
 position = Vector2(-4, 47)
+emitting = false
 amount = 32
 local_coords = false
 draw_order = 1
@@ -51,6 +52,7 @@ color_ramp = SubResource( "Gradient_oqb3v" )
 frames = ExtResource( "1_bgwyd" )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( "CapsuleShape2D_b0aad" )
 
 [node name="Camera2D" type="Camera2D" parent="."]

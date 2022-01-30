@@ -10,7 +10,14 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var sync_position : Vector2
 var jump_fuel := MAX_JUMP_FUEL
-var sync_is_jumping := false
+var sync_is_jumping : bool:
+	set(value):
+		sync_is_jumping = value
+		if not is_local_authority():
+			# Note, this is a CPU Particles node!
+			# Godot 4 currently has a bug where GPU Particles in global space are incorrectly offset
+			# https://github.com/godotengine/godot/issues/56892
+			$JetpackParticles.emitting = value
 
 func _ready():
 	$Camera2D.current = is_local_authority()
@@ -22,11 +29,6 @@ func is_local_authority() -> bool:
 func _process(_delta):
 	$UI/TextureProgressBar.value = jump_fuel
 	$UI/TextureProgressBar.visible = jump_fuel < MAX_JUMP_FUEL
-	
-	# Note, this is a CPU Particles node named GPUParticles!
-	# Godot 4 currently has a bug where GPU Particles in global space are incorrectly offset
-	# https://github.com/godotengine/godot/issues/56892
-	$GPUParticles2D.emitting = sync_is_jumping
 
 func _physics_process(delta):
 	if !is_local_authority():
@@ -43,8 +45,14 @@ func _physics_process(delta):
 		motion_velocity.y = JUMP_FORCE
 		jump_fuel -= 1
 		sync_is_jumping = true
+		# If we drive particles based on sync_is_jumping, our locally written value
+		# gets overridden on the next packet from the server.
+		# So we'll handle our particles locally, 
+		# and let sync_is_jumping manage the other clients.
+		$JetpackParticles.emitting = true
 	else:
 		sync_is_jumping = false
+		$JetpackParticles.emitting = false
 	
 	if is_on_floor():
 		jump_fuel = MAX_JUMP_FUEL
