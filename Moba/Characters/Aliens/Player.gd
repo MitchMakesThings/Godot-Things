@@ -8,8 +8,15 @@ const MAX_JUMP_FUEL = 100.0
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var sync_position : Vector2
 var jump_fuel := MAX_JUMP_FUEL
+
+var sync_position : Vector2:
+	set(value):
+		sync_position = value
+		if not is_local_authority():
+			position = value
+
+var sync_motion_velocity : Vector2
 var sync_is_jumping : bool:
 	set(value):
 		sync_is_jumping = value
@@ -32,8 +39,13 @@ func _process(_delta):
 
 func _physics_process(delta):
 	if !is_local_authority():
-		# TODO lerp to sync_position
-		position = sync_position
+		# TODO look at these numbers in depth!
+		# We're trying to smoothly sync the local position of other clients to the server
+		if position.distance_squared_to(sync_position) > 100:
+			position = position.lerp(sync_position, 0.8)
+			print(position.distance_squared_to(sync_position))
+		motion_velocity = sync_motion_velocity
+		move_and_slide()
 		return
 
 	# Add the gravity.
@@ -65,17 +77,18 @@ func _physics_process(delta):
 	else:
 		motion_velocity.x = move_toward(motion_velocity.x, 0, SPEED)
 	
+	# Sync position to the server
+	rpc_id(1, StringName('push_to_server'), position, motion_velocity, sync_is_jumping)
+	
 	# Move locally
 	move_and_slide()
-	
-	# Sync position to the server
-	rpc_id(1, StringName('push_to_server'), position, sync_is_jumping)
 
 @rpc(any_peer, unreliable_ordered)
-func push_to_server(newPosition : Vector2, is_jumping : bool):
+func push_to_server(newPosition : Vector2, motion : Vector2, is_jumping : bool):
 	# Validate!
 	if name != str(multiplayer.get_remote_sender_id()):
 		print('someone being naughty! ', multiplayer.get_remote_sender_id(), ' tried to update ', name)
 		return
 	sync_position = newPosition
 	sync_is_jumping = is_jumping
+	sync_motion_velocity = motion
