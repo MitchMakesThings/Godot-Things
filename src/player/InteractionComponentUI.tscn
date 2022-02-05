@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/MySprites/interaction/interactionhand.png" type="Texture" id=1]
+[ext_resource path="res://src/player/InteractionComponentUI.gd" type="Script" id=2]
+[ext_resource path="res://assets/MySprites/interaction/interactionsphere.png" type="Texture" id=3]
+
+[node name="InteractionComponentUI" type="Control"]
+margin_right = 128.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 128, 16 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+interaction_texture_nodepath = NodePath("HBoxContainer/TextureRect")
+interaction_text_nodepath = NodePath("HBoxContainer/RichTextLabel")
+interaction_default_texture = ExtResource( 3 )
+interaction_default_text = "Interact!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+margin_left = 20.0
+margin_right = 128.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Interact"
+__meta__ = {
+"_edit_use_anchors_": false
+}
