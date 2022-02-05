@@ -1,0 +1,38 @@
+﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Tools</Configuration>
+    <ProjectGuid>{9852B6AB-CDAF-4BA6-8F1D-2527ED551270}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>EscapeRoom</RootNamespace>
+    <AssemblyName>Escape Room</AssemblyName>
+    <GodotProjectGeneratorVersion>1.0.7333.3918</GodotProjectGeneratorVersion>
+    <TargetFramework>net472</TargetFramework>
+    <!--The following properties were overriden during migration to prevent errors.
+    Enabling them may require other manual changes to the project and its files.-->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>false</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Character\Character.cs" />
+    <Compile Include="GameModes\TestGameMode.cs" />
+    <Compile Include="Maps\Objects\CarryCube.cs" />
+    <Compile Include="Maps\Objects\Door.cs" />
+    <Compile Include="Maps\Objects\IActivatable.cs" />
+    <Compile Include="Maps\Objects\IInteractable.cs" />
+    <Compile Include="Maps\Objects\Pedestal.cs" />
+    <Compile Include="Maps\Objects\PressurePlate.cs" />
+    <Compile Include="Maps\Objects\WinArea.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tutorial\CarryCube2.cs" />
+    <Compile Include="Tutorial\Character2.cs" />
+    <Compile Include="Tutorial\Door2.cs" />
+    <Compile Include="Tutorial\PressurePlate2.cs" />
+    <Compile Include="Tutorial\UI.cs" />
+    <Compile Include="UI\InteractableUI.cs" />
+    <Compile Include="UI\VictoryScreen.cs" />
+  </ItemGroup>
+</Project>

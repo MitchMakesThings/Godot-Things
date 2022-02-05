@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Maps/Objects/Door.cs" type="Script" id=1]
+[ext_resource path="res://Maps/Materials/DefaultGrid.tres" type="Material" id=2]
+[ext_resource path="res://Maps/Materials/PillarGrid.tres" type="Material" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.75, 1, 0.1 )
+
+[sub_resource type="CubeMesh" id=2]
+material = ExtResource( 3 )
+size = Vector3( 1.5, 2, 0.15 )
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 1.8, 2.2, 0.2 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 1.5, 2, 0.3 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "transition"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sliding:translation:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1.08979, -0.25, 0, 0.25, 0, -1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 1, 1.09621, 0.158487 )
+
+[node name="Door" type="StaticBody"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 1 )
+AnimationPlayerNodePath = NodePath("AnimationPlayer")
+
+[node name="Sliding" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08979, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Sliding"]
+shape = SubResource( 1 )
+
+[node name="Sliding" type="CSGMesh" parent="Sliding"]
+mesh = SubResource( 2 )
+
+[node name="Frame" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08979, 0 )
+mesh = SubResource( 3 )
+material = ExtResource( 2 )
+
+[node name="Cutout" type="CSGMesh" parent="Frame"]
+operation = 2
+mesh = SubResource( 4 )
+material = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/transition = SubResource( 5 )
+
+[node name="DoorShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08915, 0 )
+shape = SubResource( 6 )

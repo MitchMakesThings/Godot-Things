@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Tutorial/Character2.cs" type="Script" id=1]
+[ext_resource path="res://UI/Fonts/Roboto-MediumItalic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Tutorial/UI.cs" type="Script" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
+
+[sub_resource type="CapsuleMesh" id=2]
+radius = 0.5
+
+[sub_resource type="DynamicFont" id=3]
+size = 36
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[node name="Character2" type="KinematicBody"]
+script = ExtResource( 1 )
+HeadNodePath = NodePath("Head")
+CameraNodePath = NodePath("Head/Eyes")
+AttachmentPointNodePath = NodePath("Head/Eyes/AttachmentPoint")
+MaxSpeed = 5.0
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58594, 0 )
+
+[node name="Eyes" type="Camera" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00757092, 0, 0 )
+current = true
+
+[node name="RayCast" type="RayCast" parent="Head/Eyes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -3 )
+collision_mask = 2
+
+[node name="AttachmentPoint" type="Spatial" parent="Head/Eyes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.36407 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 3 )
+interactionLabelNodePath = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -29.0
+margin_top = -125.0
+margin_right = 302.0
+margin_bottom = 68.0
+theme = SubResource( 4 )
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

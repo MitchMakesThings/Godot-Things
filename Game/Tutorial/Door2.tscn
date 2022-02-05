@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Tutorial/Door2.cs" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 0.17533 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 1, 0.158 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.866667, 0.411765, 0.992157, 1 )
+
+[sub_resource type="Animation" id=4]
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Door:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Door/CollisionShape:shape:extents:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[sub_resource type="Animation" id=5]
+
+[node name="Door" type="StaticBody"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+AnimationPlayerNodePath = NodePath("AnimationPlayer")
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="Door" type="KinematicBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Door"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="Door"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+width = 1.39665
+depth = 0.280631
+
+[node name="DoorFrame" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+height = 2.01
+depth = 0.327205
+material = SubResource( 3 )
+
+[node name="CSGBox2" type="CSGBox" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.083, 0 )
+operation = 2
+width = 1.39665
+height = 1.702
+depth = 0.628691
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DoorOpen = SubResource( 4 )
+anims/jhksadg.fkjasdg = SubResource( 5 )
