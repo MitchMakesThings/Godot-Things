@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/levels/FirstLevel.png" type="Texture" id=1]
+[ext_resource path="res://src/destruction/Destructible.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/scripts/Camera.gd" type="Script" id=3]
+[ext_resource path="res://src/destruction/parent_material.shader" type="Shader" id=4]
+[ext_resource path="res://src/character/wizard.tscn" type="PackedScene" id=5]
+[ext_resource path="res://icon.png" type="Texture" id=6]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+
+[node name="FirstLevel" type="Node2D"]
+
+[node name="Test1" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 2203.09, 1696 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Destructible" parent="Test1" instance=ExtResource( 2 )]
+
+[node name="Test2" type="Sprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( 2274.35, 1617.93 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Destructible" parent="Test2" instance=ExtResource( 2 )]
+
+[node name="DestructibleForeground" type="Sprite" parent="."]
+material = SubResource( 3 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Destructible" parent="DestructibleForeground" instance=ExtResource( 2 )]
+viewport_destruction_nodepath = NodePath("../Destructible/Viewport/Circle")
+collision_holder_node_path = NodePath("../Destructible/CollisionHolder")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 2497.4, 1786.07 )
+current = true
+script = ExtResource( 3 )
+
+[node name="Wizard" parent="." instance=ExtResource( 5 )]
+position = Vector2( 2608.36, 1602.25 )
