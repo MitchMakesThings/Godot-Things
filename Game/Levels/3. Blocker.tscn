@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Props/Door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Levels/TestTileMap.tres" type="TileSet" id=3]
+[ext_resource path="res://UI/Theme.tres" type="Theme" id=4]
+[ext_resource path="res://UI/MainUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Levels/4. Digger.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Levels/MicroManagerLevel.gd" type="Script" id=8]
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource( 3 )
+format = 1
+tile_data = PoolIntArray( 393219, 0, 1, 393220, 0, 2, 393221, 0, 2, 393222, 0, 2, 393223, 0, 2, 393224, 0, 2, 393225, 0, 2, 393226, 0, 2, 393227, 0, 2, 393228, 0, 2, 393229, 0, 2, 393230, 0, 3 )
+script = ExtResource( 8 )
+acceptable_losses = 1
+next_level = ExtResource( 6 )
+digger_count = 0
+
+[node name="Door" parent="." instance=ExtResource( 1 )]
+position = Vector2( 845.74, 383.972 )
+
+[node name="Slime" parent="." instance=ExtResource( 2 )]
+position = Vector2( 742, 383.972 )
+
+[node name="Slime2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 586, 383.972 )
+
+[node name="Instructions2" type="Node2D" parent="Slime2"]
+position = Vector2( -62.1937, -64 )
+
+[node name="Label" type="Label" parent="Slime2/Instructions2"]
+margin_right = 130.0
+margin_bottom = 18.0
+theme = ExtResource( 4 )
+text = "Stop that slime!
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeathMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+collision_layer = 16
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 524288, 1, 65536, 524289, 1, 65536, 524290, 1, 65536, 524291, 1, 65536, 524292, 1, 65536, 524293, 1, 65536, 524294, 1, 65536, 524295, 1, 65536, 524296, 1, 65536, 524297, 1, 65536, 524298, 1, 65536, 524299, 1, 65536, 524300, 1, 65536, 524301, 1, 65536, 524302, 1, 65536, 524303, 1, 65536, 589824, 1, 65536, 589825, 1, 65536, 589826, 1, 65536, 589827, 1, 65536, 589828, 1, 65536, 589829, 1, 65536, 589830, 1, 65536, 589831, 1, 65536, 589832, 1, 65536, 589833, 1, 65536, 589834, 1, 65536, 589835, 1, 65536, 589836, 1, 65536, 589837, 1, 65536, 589838, 1, 65536, 589839, 1, 65536 )
+
+[node name="Instructions" type="Node2D" parent="."]
+position = Vector2( 10, 114 )
+
+[node name="Label" type="Label" parent="Instructions"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.129412, 0.521569, 0.835294, 1 )
+text = "These are jobs. Assign them to slimes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" parent="." instance=ExtResource( 5 )]

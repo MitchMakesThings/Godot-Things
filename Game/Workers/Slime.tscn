@@ -1,0 +1,65 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Workers/SpriteFrames/yellow.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Workers/Slime.gd" type="Script" id=2]
+[ext_resource path="res://StateMachines/StateMachine.tscn" type="PackedScene" id=3]
+[ext_resource path="res://StateMachines/BlockerState.gd" type="Script" id=4]
+[ext_resource path="res://StateMachines/DefaultState.gd" type="Script" id=5]
+[ext_resource path="res://StateMachines/DeathState.gd" type="Script" id=6]
+[ext_resource path="res://StateMachines/EscapeState.gd" type="Script" id=7]
+[ext_resource path="res://StateMachines/IdleState.gd" type="Script" id=8]
+[ext_resource path="res://StateMachines/ActionState.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Mine/Shovel.png" type="Texture" id=10]
+[ext_resource path="res://StateMachines/LadderClimbState.gd" type="Script" id=11]
+[ext_resource path="res://StateMachines/DiggerState.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Mine/StopSign.png" type="Texture" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 13.8956, 10 )
+
+[node name="Slime" type="KinematicBody2D"]
+input_pickable = true
+collision_layer = 5
+collision_mask = 18
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
+frames = ExtResource( 1 )
+animation = "walking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -10 )
+shape = SubResource( 1 )
+
+[node name="StateMachine" parent="." instance=ExtResource( 3 )]
+
+[node name="Default" type="Node2D" parent="StateMachine"]
+script = ExtResource( 5 )
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource( 8 )
+
+[node name="Death" type="Node2D" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="Escape" type="Node2D" parent="StateMachine"]
+script = ExtResource( 7 )
+
+[node name="Tween" type="Tween" parent="StateMachine/Escape"]
+
+[node name="Digger" parent="StateMachine" instance=ExtResource( 9 )]
+script = ExtResource( 12 )
+texture_progress = ExtResource( 10 )
+
+[node name="Blocker" parent="StateMachine" instance=ExtResource( 9 )]
+script = ExtResource( 4 )
+texture_progress = ExtResource( 13 )
+
+[node name="LadderClimb" type="Node2D" parent="StateMachine"]
+script = ExtResource( 11 )
+
+[node name="Tween" type="Tween" parent="StateMachine/LadderClimb"]
+
+[connection signal="input_event" from="." to="." method="_on_Slime_input_event"]
+[connection signal="tween_all_completed" from="StateMachine/Escape/Tween" to="StateMachine/Escape" method="_on_Tween_tween_all_completed"]

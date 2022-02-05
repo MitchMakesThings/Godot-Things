@@ -1,0 +1,139 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "State",
+"class": "ActionState",
+"language": "GDScript",
+"path": "res://StateMachines/ActionState.gd"
+}, {
+"base": "ActionState",
+"class": "BlockerState",
+"language": "GDScript",
+"path": "res://StateMachines/BlockerState.gd"
+}, {
+"base": "State",
+"class": "DeathState",
+"language": "GDScript",
+"path": "res://StateMachines/DeathState.gd"
+}, {
+"base": "State",
+"class": "DefaultState",
+"language": "GDScript",
+"path": "res://StateMachines/DefaultState.gd"
+}, {
+"base": "ActionState",
+"class": "DiggerState",
+"language": "GDScript",
+"path": "res://StateMachines/DiggerState.gd"
+}, {
+"base": "State",
+"class": "EscapeState",
+"language": "GDScript",
+"path": "res://StateMachines/EscapeState.gd"
+}, {
+"base": "State",
+"class": "IdleState",
+"language": "GDScript",
+"path": "res://StateMachines/IdleState.gd"
+}, {
+"base": "VBoxContainer",
+"class": "JobWidget",
+"language": "GDScript",
+"path": "res://UI/JobWidget.gd"
+}, {
+"base": "State",
+"class": "LadderClimbState",
+"language": "GDScript",
+"path": "res://StateMachines/LadderClimbState.gd"
+}, {
+"base": "TileMap",
+"class": "MicroManagerLevel",
+"language": "GDScript",
+"path": "res://Levels/MicroManagerLevel.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Slime",
+"language": "GDScript",
+"path": "res://Workers/Slime.gd"
+}, {
+"base": "Node2D",
+"class": "State",
+"language": "GDScript",
+"path": "res://StateMachines/State.gd"
+}, {
+"base": "Node2D",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://StateMachines/StateMachine.gd"
+} ]
+_global_script_class_icons={
+"ActionState": "",
+"BlockerState": "",
+"DeathState": "",
+"DefaultState": "",
+"DiggerState": "",
+"EscapeState": "",
+"IdleState": "",
+"JobWidget": "",
+"LadderClimbState": "",
+"MicroManagerLevel": "",
+"Slime": "",
+"State": "",
+"StateMachine": ""
+}
+
+[application]
+
+config/name="MicroManager"
+run/main_scene="res://Levels/MainMenu.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+GameManager="*res://GameManager.gd"
+
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[input]
+
+job_1={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
+ ]
+}
+job_2={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+job_3={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="default"
+2d_physics/layer_2="blocker"
+2d_physics/layer_3="slime"
+2d_physics/layer_5="instadeath!"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

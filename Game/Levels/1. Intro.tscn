@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Levels/TestTileMap.tres" type="TileSet" id=1]
+[ext_resource path="res://Props/Door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Workers/Slime.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Theme.tres" type="Theme" id=4]
+[ext_resource path="res://UI/MainUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Levels/MicroManagerLevel.gd" type="Script" id=7]
+[ext_resource path="res://Levels/2. Acceptable Losses.tscn" type="PackedScene" id=8]
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource( 1 )
+format = 1
+tile_data = PoolIntArray( 2, 327690, 0, 4, 262154, 0, 327684, 0, 4, 327691, 0, 4, 393220, 0, 0, 393221, 0, 2, 393222, 0, 2, 393223, 0, 2, 393224, 0, 2, 393225, 0, 2, 393226, 0, 2, 393227, 0, 0 )
+script = ExtResource( 7 )
+next_level = ExtResource( 8 )
+blocker_count = 0
+digger_count = 0
+
+[node name="Door" parent="." instance=ExtResource( 2 )]
+position = Vector2( 540, 383.797 )
+
+[node name="Slime" parent="." instance=ExtResource( 3 )]
+position = Vector2( 421.676, 383.797 )
+
+[node name="DeathMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+collision_layer = 16
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 524288, 1, 65536, 524289, 1, 65536, 524290, 1, 65536, 524291, 1, 65536, 524292, 1, 65536, 524293, 1, 65536, 524294, 1, 65536, 524295, 1, 65536, 524296, 1, 65536, 524297, 1, 65536, 524298, 1, 65536, 524299, 1, 65536, 524300, 1, 65536, 524301, 1, 65536, 524302, 1, 65536, 524303, 1, 65536, 589824, 1, 65536, 589825, 1, 65536, 589826, 1, 65536, 589827, 1, 65536, 589828, 1, 65536, 589829, 1, 65536, 589830, 1, 65536, 589831, 1, 65536, 589832, 1, 65536, 589833, 1, 65536, 589834, 1, 65536, 589835, 1, 65536, 589836, 1, 65536, 589837, 1, 65536, 589838, 1, 65536, 589839, 1, 65536 )
+
+[node name="Tutorial text" type="Node2D" parent="."]
+position = Vector2( 554.983, 269.926 )
+
+[node name="Label" type="Label" parent="Tutorial text"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -70.5
+margin_top = -19.5
+margin_right = 70.5
+margin_bottom = 19.5
+theme = ExtResource( 4 )
+text = "Slimes go in.
+You get paid."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" parent="." instance=ExtResource( 5 )]

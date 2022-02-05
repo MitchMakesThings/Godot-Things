@@ -1,0 +1,127 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://UI/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/EndScreen.gd" type="Script" id=3]
+[ext_resource path="res://UI/MainFont.tres" type="DynamicFont" id=4]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=3]
+default_font = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 24
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
+
+[node name="EndScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -600.0
+margin_bottom = -600.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+score_label_nodepath = NodePath("ColorRect/ScoreContainer/SlimeMessage")
+next_level_button_nodepath = NodePath("ColorRect/ScoreContainer/HBoxContainer/BtnNextLevel")
+retry_level_button_nodepath = NodePath("ColorRect/ScoreContainer/HBoxContainer/BtnRetry")
+end_game_label_nodepath = NodePath("ColorRect/ScoreContainer/HBoxContainer/EndGameLabel")
+main_message_nodepath = NodePath("ColorRect/ScoreContainer/MainMessage")
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -150.0
+margin_right = 300.0
+margin_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color( 0.286275, 0.705882, 0.494118, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreContainer" type="VBoxContainer" parent="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 30
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMessage" type="Label" parent="ColorRect/ScoreContainer"]
+margin_top = 70.0
+margin_right = 600.0
+margin_bottom = 106.0
+theme = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "You win!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SlimeMessage" type="Label" parent="ColorRect/ScoreContainer"]
+margin_top = 136.0
+margin_right = 600.0
+margin_bottom = 157.0
+theme = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
+text = "X slimes finished work"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/ScoreContainer"]
+margin_top = 187.0
+margin_right = 600.0
+margin_bottom = 229.0
+custom_constants/separation = 30
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnRetry" type="Button" parent="ColorRect/ScoreContainer/HBoxContainer"]
+margin_left = 173.0
+margin_right = 296.0
+margin_bottom = 42.0
+theme = ExtResource( 1 )
+text = "Retry"
+
+[node name="BtnNextLevel" type="Button" parent="ColorRect/ScoreContainer/HBoxContainer"]
+margin_left = 326.0
+margin_right = 426.0
+margin_bottom = 42.0
+theme = ExtResource( 1 )
+text = "Next"
+
+[node name="EndGameLabel" type="Label" parent="ColorRect/ScoreContainer/HBoxContainer"]
+visible = false
+margin_left = 249.0
+margin_right = 530.0
+margin_bottom = 27.0
+theme = SubResource( 6 )
+text = "Thanks for playing!"
+
+[connection signal="pressed" from="ColorRect/ScoreContainer/HBoxContainer/BtnRetry" to="." method="_on_BtnRetry_pressed"]
+[connection signal="pressed" from="ColorRect/ScoreContainer/HBoxContainer/BtnNextLevel" to="." method="_on_BtnNextLevel_pressed"]

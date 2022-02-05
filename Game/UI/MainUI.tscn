@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://UI/ScoreStuff.gd" type="Script" id=1]
+[ext_resource path="res://UI/SpaceToStart.gd" type="Script" id=2]
+[ext_resource path="res://UI/JobUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/EndScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/Theme.tres" type="Theme" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "blink"
+length = 3.9
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Label:custom_colors/font_color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2, 3.9 )
+}
+
+[node name="UI" type="Control"]
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpaceToStart" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_top = -100.0
+margin_right = 115.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpaceToStart"]
+autoplay = "blink"
+anims/blink = SubResource( 1 )
+
+[node name="Label" type="Label" parent="SpaceToStart"]
+margin_top = 39.0
+margin_right = 230.0
+margin_bottom = 60.0
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 0.6357 )
+text = "Press space to start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score Stuff" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -117.0
+margin_top = 10.0
+margin_right = 117.0
+margin_bottom = 60.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+acceptable_losses_nodepath = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/AcceptableLosses")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Score Stuff"]
+margin_right = 234.0
+margin_bottom = 60.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Score Stuff/HBoxContainer"]
+margin_right = 234.0
+margin_bottom = 60.0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Score Stuff/HBoxContainer/VBoxContainer"]
+margin_right = 234.0
+margin_bottom = 60.0
+
+[node name="Label" type="Label" parent="Score Stuff/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 222.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+theme = ExtResource( 5 )
+text = "Acceptable Losses: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptableLosses" type="Label" parent="Score Stuff/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 226.0
+margin_right = 234.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+theme = ExtResource( 5 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EndScreen" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="UnitUI" parent="." instance=ExtResource( 3 )]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 250.0
+margin_bottom = 80.0
