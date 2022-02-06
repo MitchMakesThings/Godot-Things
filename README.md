@@ -5,6 +5,9 @@ Check out the individual projects for more details. Most have corresponding [you
 Unless otherwise specified, everything is MIT licensed. Feel free to use it however you want.
 
 ## Tutorials
+### [Networking](https://github.com/MitchReidNZ/Godot-Things/tree/main/Networking)
+Experimenting with the new networking changes in Godot 4
+
 ### [C# 3D](https://github.com/MitchReidNZ/Godot-Things/tree/main/C%23%203D)
 An introduction to 3D using C# instead of GDScript
 ![Screenshot](https://github.com/MitchReidNZ/Godot-Things/blob/main/C%23%203D/Assets/screenshot.png "Screenshot of the 3D project")

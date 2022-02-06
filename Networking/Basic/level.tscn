@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8wk0e30jn56"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_1r63b"]
+[ext_resource type="Texture2D" uid="uid://b28va6ysrynt6" path="res://icon.png" id="2_5vxko"]
+[ext_resource type="PackedScene" uid="uid://i3ubbq6i8h6u" path="res://character.tscn" id="3_q534t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_no7rp"]
+size = Vector2(600, 20)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( "1_1r63b" )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(497, 522)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( "RectangleShape2D_no7rp" )
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(-4, 282)
+scale = Vector2(9.20312, 9.20312)
+texture = ExtResource( "2_5vxko" )
+
+[node name="NetworkedNodes" type="Node2D" parent="."]
+position = Vector2(486, 427)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(512, 300)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+replication = [ExtResource( "3_q534t" )]
+spawn_path = NodePath("../NetworkedNodes")
+auto_spawn = true
