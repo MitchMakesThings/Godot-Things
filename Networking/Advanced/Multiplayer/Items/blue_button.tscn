@@ -19,6 +19,7 @@ properties/1/sync = true
 collision_mask = 2
 script = ExtResource( "1_35n0c" )
 pressed_texture = ExtResource( "2_kyogj" )
+default_texture = ExtResource( "2_3l0fu" )
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -36)
