@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://scjoku8kmkqj"]
+
+[ext_resource type="SpriteFrames" uid="uid://yro4ypo6sek5" path="res://Characters/Aliens/Blue/BlueSpriteFrames.tres" id="1_bgwyd"]
+[ext_resource type="Script" path="res://Characters/Aliens/Player.gd" id="1_ytcn0"]
+[ext_resource type="Texture2D" uid="uid://cdvmbhtt0c41x" path="res://Assets/Particles/smoke_01.png" id="2_bvf2j"]
+
+[sub_resource type="Gradient" id="Gradient_oqb3v"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b0aad"]
+radius = 30.0
+height = 100.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xxb0"]
+properties/0/path = NodePath(":sync_position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(":sync_is_jumping")
+properties/1/spawn = false
+properties/1/sync = true
+properties/2/path = NodePath(":sync_motion_velocity")
+properties/2/spawn = true
+properties/2/sync = true
+
+[sub_resource type="Gradient" id="Gradient_din52"]
+colors = PackedColorArray(0, 0.164706, 0.290196, 1, 0, 0.258824, 0.454902, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lsl6q"]
+gradient = SubResource( "Gradient_din52" )
+
+[sub_resource type="Gradient" id="Gradient_168qg"]
+colors = PackedColorArray(0, 0.278431, 0.486275, 1, 0, 0.576471, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cduq7"]
+gradient = SubResource( "Gradient_168qg" )
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 3
+script = ExtResource( "1_ytcn0" )
+
+[node name="JetpackParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-4, 47)
+emitting = false
+amount = 32
+local_coords = false
+draw_order = 1
+texture = ExtResource( "2_bvf2j" )
+emission_shape = 1
+emission_sphere_radius = 12.43
+gravity = Vector2(0, 98)
+scale_amount_min = 0.5
+color_ramp = SubResource( "Gradient_oqb3v" )
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+frames = ExtResource( "1_bgwyd" )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( "CapsuleShape2D_b0aad" )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+smoothing_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("..")
+resource = SubResource( "SceneReplicationConfig_7xxb0" )
+
+[node name="UI" type="Control" parent="."]
+offset_left = -56.0
+offset_top = -29.0
+offset_right = -16.0
+offset_bottom = 11.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
+offset_right = 15.0
+offset_bottom = 66.0
+value = 100.0
+texture_under = SubResource( "GradientTexture1D_lsl6q" )
+texture_progress = SubResource( "GradientTexture1D_cduq7" )
+fill_mode = 3
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
