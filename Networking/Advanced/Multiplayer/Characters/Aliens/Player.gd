@@ -14,32 +14,34 @@ var jump_fuel := MAX_JUMP_FUEL
 var sync_position : Vector2:
 	set(value):
 		sync_position = value
-		if not is_local_authority():
+		if not is_multiplayer_authority():
 			position = value
 
 var sync_motion_velocity : Vector2
 var sync_is_jumping : bool:
 	set(value):
 		sync_is_jumping = value
-		if not is_local_authority():
+		if not is_multiplayer_authority():
 			# Note, this is a CPU Particles node!
 			# Godot 4 currently has a bug where GPU Particles in global space are incorrectly offset
 			# https://github.com/godotengine/godot/issues/56892
 			$JetpackParticles.emitting = value
 
 func _ready():
-	$Camera2D.current = is_local_authority()
-	$UI.visible = is_local_authority()
-
-func is_local_authority() -> bool:
-	return name == str(multiplayer.get_unique_id())
+	# int constructor taking a string is currently broken :(
+	# https://github.com/godotengine/godot/issues/44407
+	# https://github.com/godotengine/godot/issues/55284
+	set_multiplayer_authority(str(name).to_int())
+	
+	$Camera2D.current = is_multiplayer_authority()
+	$UI.visible = is_multiplayer_authority()
 
 func _process(_delta):
 	$UI/TextureProgressBar.value = jump_fuel
 	$UI/TextureProgressBar.visible = jump_fuel < MAX_JUMP_FUEL
 
 func _physics_process(delta):
-	if !is_local_authority():
+	if !is_multiplayer_authority():
 		# TODO look at these numbers in depth!
 		# We're trying to smoothly sync the local position of other clients to the server
 		if position.distance_squared_to(sync_position) > 100:
@@ -89,10 +91,10 @@ func _physics_process(delta):
 	# Move locally
 	move_and_slide()
 
-@rpc(any_peer, unreliable_ordered)
+@rpc(unreliable_ordered)
 func push_to_server(newPosition : Vector2, motion : Vector2, is_jumping : bool):
 	# Validate!
-	if name != str(multiplayer.get_remote_sender_id()):
+	if not multiplayer.is_server():
 		print('someone being naughty! ', multiplayer.get_remote_sender_id(), ' tried to update ', name)
 		return
 	sync_position = newPosition
