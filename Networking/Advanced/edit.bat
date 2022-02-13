@@ -1,1 +1,1 @@
-C:\Users\Mitch\Documents\Godot\Godot\bin\godot.windows.opt.tools.64.exe -e --path .\Multiplayer\
+C:\Users\Mitch\Documents\godot\Godot_v4.0-alpha2_win64.exe -e --path .\Multiplayer\
