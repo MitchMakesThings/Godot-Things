@@ -4,7 +4,7 @@ extends Node
 var PlayerScene = preload("res://Characters/Aliens/Player.tscn")
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _enter_tree():
 	# Start the server if Godot is passed the "--server" argument,
 	# and start a client otherwise.
 	if "--server" in OS.get_cmdline_args():
