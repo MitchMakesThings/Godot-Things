@@ -22,5 +22,6 @@ func _on_blue_button_body_entered(body):
 		return
 	isPressed = true
 	if multiplayer.is_server():
+		GameState.button_press_count += 1
 		await get_tree().create_timer(reset_delay).timeout
 		isPressed = false

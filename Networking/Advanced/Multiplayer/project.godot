@@ -25,6 +25,10 @@ run/main_scene="res://Maps/TestMap.tscn"
 config/icon="res://icon.png"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 
+[autoload]
+
+GameState="*res://System/game_state.tscn"
+
 [input]
 
 move_left={
