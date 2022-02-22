@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cruxxhpoyibub"]
+[gd_scene load_steps=5 format=3 uid="uid://cruxxhpoyibub"]
 
 [ext_resource type="Script" path="res://System/main.gd" id="1_n31dg"]
 [ext_resource type="PackedScene" uid="uid://scjoku8kmkqj" path="res://Characters/Aliens/Player.tscn" id="2_tebs4"]
 [ext_resource type="PackedScene" uid="uid://dhvi1o1ili7f" path="res://Maps/TestMap.tscn" id="3_uwrpn"]
+[ext_resource type="Script" path="res://System/UI.gd" id="4_kv3lk"]
 
 [node name="MainGame" type="Node"]
 script = ExtResource( "1_n31dg" )
@@ -16,3 +17,17 @@ position = Vector2(325, 0)
 replication = [ExtResource( "2_tebs4" )]
 spawn_path = NodePath("../Players")
 auto_spawn = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( "4_kv3lk" )
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchor_right = 1.0
+offset_bottom = 26.0
+
+[node name="Label" type="Label" parent="UI/CenterContainer"]
+offset_left = 221.0
+offset_right = 802.0
+offset_bottom = 42.0
+theme_type_variation = &"HeaderLarge"
+text = "Button pressed X times since server restart"

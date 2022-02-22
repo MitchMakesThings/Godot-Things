@@ -28,7 +28,7 @@ shape = SubResource( "RectangleShape2D_8apkt" )
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 root_path = NodePath("..")
-replication_interval = 1.0
+replication_interval = 0.5
 resource = SubResource( "SceneReplicationConfig_ja6x7" )
 
 [connection signal="body_entered" from="." to="." method="_on_blue_button_body_entered"]
