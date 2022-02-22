@@ -38,14 +38,10 @@ func _process(_delta):
 
 func _physics_process(delta):
 	if !is_local_authority():
-		# TODO look at these numbers in depth!
-		# We're trying to smoothly sync the local position of other clients to the server
-		if position.distance_squared_to($Networking.sync_position) > 100:
-			position = position.lerp($Networking.sync_position, 0.8)
-			print(position.distance_squared_to($Networking.sync_position))
+		if not $Networking.processed_position:
+			position = $Networking.sync_position
+			$Networking.processed_position = true
 		motion_velocity = $Networking.sync_motion_velocity
-		
-		# Update our local is_jumping, to control jetpack particles
 		is_jumping = $Networking.sync_is_jumping
 		
 		move_and_slide()
@@ -74,6 +70,7 @@ func _physics_process(delta):
 		var zoom = $Camera2D.zoom.length()
 		if zoom > 1:
 			$Camera2D.zoom = $Camera2D.zoom.lerp(Vector2(1, 1), zoom * 0.005)
+	
 	if is_on_floor():
 		jump_fuel = MAX_JUMP_FUEL
 
