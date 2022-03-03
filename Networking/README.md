@@ -7,3 +7,10 @@ I'm trialling them, and putting the resulting projects here.
 
 ## [Basic](https://github.com/MitchReidNZ/Godot-Things/tree/main/Networking/Basic)
 This is the most straightforward example, showing off the new MultiplayerSpawner and MultiplayerSynchronizer nodes. It only has a few lines of networking code, and no custom assets.
+
+## [Explained](https://github.com/MitchReidNZ/Godot-Things/tree/main/Networking/Explained)
+A more complex project, with some actual "gameplay" going on (Players can press buttons to increase the score!)
+
+![Screenshot](https://github.com/MitchMakesThings/Godot-Things/blob/main/Networking/Explained/Screenshots/220.png)
+
+A youtube video has been released walking through the project - https://youtu.be/nQ4P3ogXp2Q
