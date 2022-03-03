@@ -6,7 +6,10 @@ Unless otherwise specified, everything is MIT licensed. Feel free to use it howe
 
 ## Tutorials
 ### [Networking](https://github.com/MitchReidNZ/Godot-Things/tree/main/Networking)
-Experimenting with the new networking changes in Godot 4
+Experimenting with the awesome new networking changes in Godot 4.
+There are a few youtube videos, focussing particularly on the new MultiplayerSpawner and MultiplayerSynchronizer nodes.
+
+![Screenshot](https://github.com/MitchMakesThings/Godot-Things/blob/main/Networking/Explained/Screenshots/220.png)
 
 ### [C# 3D](https://github.com/MitchReidNZ/Godot-Things/tree/main/C%23%203D)
 An introduction to 3D using C# instead of GDScript
