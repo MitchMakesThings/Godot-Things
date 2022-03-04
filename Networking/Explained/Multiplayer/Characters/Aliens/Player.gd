@@ -14,11 +14,10 @@ var jump_fuel := MAX_JUMP_FUEL
 var is_jumping : bool:
 	set(value):
 		is_jumping = value
-		if not is_local_authority():
-			# Note, this is a CPU Particles node!
-			# Godot 4 currently has a bug where GPU Particles in global space are incorrectly offset
-			# https://github.com/godotengine/godot/issues/56892
-			$JetpackParticles.emitting = value
+		# Note, this is a CPU Particles node!
+		# Godot 4 currently has a bug where GPU Particles in global space are incorrectly offset
+		# https://github.com/godotengine/godot/issues/56892
+		$JetpackParticles.emitting = value
 
 func is_local_authority():
 	return $Networking/MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()
@@ -56,11 +55,6 @@ func _physics_process(delta):
 		motion_velocity.y = JUMP_FORCE
 		jump_fuel -= 1
 		is_jumping = true
-		# If we drive particles based on is_jumping, our locally written value
-		# gets overridden on the next packet from the server.
-		# So we'll handle our particles locally, 
-		# and let is_jumping manage the other clients.
-		$JetpackParticles.emitting = true
 		
 		if $Camera2D.zoom.length() < CAMERA_MAX_ZOOM.length():
 			$Camera2D.zoom = $Camera2D.zoom.lerp(CAMERA_MAX_ZOOM, 0.01)
