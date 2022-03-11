@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://cday0n3k0g4ew"
-path="res://.godot/imported/tiles_spritesheet.png-9be423446f4a81a250967ebe388bb064.stex"
+path="res://.godot/imported/tiles_spritesheet.png-9be423446f4a81a250967ebe388bb064.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Maps/tiles_spritesheet.png"
-dest_files=["res://.godot/imported/tiles_spritesheet.png-9be423446f4a81a250967ebe388bb064.stex"]
+dest_files=["res://.godot/imported/tiles_spritesheet.png-9be423446f4a81a250967ebe388bb064.ctex"]
 
 [params]
 
@@ -29,6 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1

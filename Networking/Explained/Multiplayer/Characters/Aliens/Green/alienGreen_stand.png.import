@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://rk28wblygk8s"
-path="res://.godot/imported/alienGreen_stand.png-c84270e32b07bd3cf30dc8bdaad5eff8.stex"
+path="res://.godot/imported/alienGreen_stand.png-c84270e32b07bd3cf30dc8bdaad5eff8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Characters/Aliens/Green/alienGreen_stand.png"
-dest_files=["res://.godot/imported/alienGreen_stand.png-c84270e32b07bd3cf30dc8bdaad5eff8.stex"]
+dest_files=["res://.godot/imported/alienGreen_stand.png-c84270e32b07bd3cf30dc8bdaad5eff8.ctex"]
 
 [params]
 
@@ -29,6 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1

@@ -40,7 +40,7 @@ func _physics_process(delta):
 		if not $Networking.processed_position:
 			position = $Networking.sync_position
 			$Networking.processed_position = true
-		motion_velocity = $Networking.sync_motion_velocity
+		velocity = $Networking.sync_velocity
 		is_jumping = $Networking.sync_is_jumping
 		
 		move_and_slide()
@@ -48,11 +48,11 @@ func _physics_process(delta):
 
 	# Add the gravity.
 	if not is_on_floor():
-		motion_velocity.y += gravity * delta
+		velocity.y += gravity * delta
 
 	# Handle Jump.
 	if Input.is_action_pressed("jump") and jump_fuel >= 0:
-		motion_velocity.y = JUMP_FORCE
+		velocity.y = JUMP_FORCE
 		jump_fuel -= 1
 		is_jumping = true
 		
@@ -72,14 +72,14 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
-		motion_velocity.x = direction * SPEED
+		velocity.x = direction * SPEED
 	else:
-		motion_velocity.x = move_toward(motion_velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	# Move locally
 	move_and_slide()
 	
 	# Update sync variables, which will be replicated to everyone else
 	$Networking.sync_position = position
-	$Networking.sync_motion_velocity = motion_velocity
+	$Networking.sync_velocity = velocity
 	$Networking.sync_is_jumping = is_jumping

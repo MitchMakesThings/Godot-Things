@@ -28,11 +28,11 @@ gradient = SubResource( "Gradient_168qg" )
 properties/0/path = NodePath(":sync_position")
 properties/0/spawn = true
 properties/0/sync = true
-properties/1/path = NodePath(":sync_motion_velocity")
-properties/1/spawn = true
+properties/1/path = NodePath(":sync_is_jumping")
+properties/1/spawn = false
 properties/1/sync = true
-properties/2/path = NodePath(":sync_is_jumping")
-properties/2/spawn = true
+properties/2/path = NodePath(":sync_velocity")
+properties/2/spawn = false
 properties/2/sync = true
 
 [node name="Player" type="CharacterBody2D"]

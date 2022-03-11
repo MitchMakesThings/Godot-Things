@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://cf4jl1sryvt5k"
-path="res://.godot/imported/smoke_03.png-a1b8b18f5c92c7d63be2b13b89a0bf60.stex"
+path="res://.godot/imported/smoke_03.png-a1b8b18f5c92c7d63be2b13b89a0bf60.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Assets/Particles/smoke_03.png"
-dest_files=["res://.godot/imported/smoke_03.png-a1b8b18f5c92c7d63be2b13b89a0bf60.stex"]
+dest_files=["res://.godot/imported/smoke_03.png-a1b8b18f5c92c7d63be2b13b89a0bf60.ctex"]
 
 [params]
 
@@ -29,6 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1

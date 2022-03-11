@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://c6rbepun0qalo"
-path="res://.godot/imported/alienBlue_duck.png-17f39b3f07e954a0b8f10de94ce46280.stex"
+path="res://.godot/imported/alienBlue_duck.png-17f39b3f07e954a0b8f10de94ce46280.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Characters/Aliens/Blue/alienBlue_duck.png"
-dest_files=["res://.godot/imported/alienBlue_duck.png-17f39b3f07e954a0b8f10de94ce46280.stex"]
+dest_files=["res://.godot/imported/alienBlue_duck.png-17f39b3f07e954a0b8f10de94ce46280.ctex"]
 
 [params]
 
@@ -29,6 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1

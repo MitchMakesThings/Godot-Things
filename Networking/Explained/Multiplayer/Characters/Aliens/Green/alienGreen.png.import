@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bvnr0hhlfuatp"
-path="res://.godot/imported/alienGreen.png-a1f5d5abfe35f59165be1da2306c8f1c.stex"
+path="res://.godot/imported/alienGreen.png-a1f5d5abfe35f59165be1da2306c8f1c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Characters/Aliens/Green/alienGreen.png"
-dest_files=["res://.godot/imported/alienGreen.png-a1f5d5abfe35f59165be1da2306c8f1c.stex"]
+dest_files=["res://.godot/imported/alienGreen.png-a1f5d5abfe35f59165be1da2306c8f1c.ctex"]
 
 [params]
 
@@ -29,6 +29,6 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
 process/size_limit=0
 detect_3d/compress_to=1
