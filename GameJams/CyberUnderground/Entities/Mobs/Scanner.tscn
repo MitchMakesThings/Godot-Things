@@ -5,6 +5,7 @@
 
 [node name="Scanner" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+IsPlayerControlled = false
 ActivationTime = 2.0
 _movementSpeed = 100.0
 

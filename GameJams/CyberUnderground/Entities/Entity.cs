@@ -16,6 +16,8 @@ namespace CyberUnderground.Entities
         [Export]
         private Vector2 AttachmentOffsetLocation = new Vector2(24, 24);
 
+        // TODO replace Attachments as a List with a Y-Sort node, which will visually stack the attached children.
+        // We can then retrieve our Attachments from the Y-Sort children. Easy :)
         protected List<Entity> Attachments { get; private set; } = new List<Entity>();
         private Vector2 _attachPoint = Vector2.Inf;
 

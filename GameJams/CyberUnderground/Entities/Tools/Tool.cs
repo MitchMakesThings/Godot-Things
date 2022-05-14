@@ -4,6 +4,8 @@ namespace CyberUnderground.Entities.Tools
 {
     public class Tool : Entity
     {
+        [Export]
+        public bool IsPlayerControlled { get; protected set; } = true;
         private bool _selected = false;
 
         private float _activationCounter;
@@ -56,6 +58,8 @@ namespace CyberUnderground.Entities.Tools
         {
             base._UnhandledInput(@event);
 
+            if (!IsPlayerControlled) return;
+
             // Handle the mouse-button-up event.
             // This is for the case where the button is released while the Tool is lerping to the mouse position
             // AKA, OnArea2DInputEvent won't be called, because the Tool isn't there at the time.
@@ -67,6 +71,7 @@ namespace CyberUnderground.Entities.Tools
 
         public void OnArea2DInputEvent(Node viewport, InputEvent @event, int shapeIndex)
         {
+            if (!IsPlayerControlled) return;
             if (!(@event is InputEventMouseButton buttonEvent))
             {
                 return;
