@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Godot;
+﻿using Godot;
 
 namespace CyberUnderground.Entities.Tools
 {
@@ -141,6 +140,11 @@ namespace CyberUnderground.Entities.Tools
             IsWorking = true;
             _activationCounter = 0;
             _progressBar.Visible = true;
+        }
+        
+        public virtual void AbortTool()
+        {
+            ReleaseTarget();
         }
 
         protected virtual bool CanActivate(Entity target)

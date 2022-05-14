@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CyberUnderground.Core;
+using CyberUnderground.Entities.Tools;
 using Godot;
 
 namespace CyberUnderground.Entities
@@ -11,29 +12,32 @@ namespace CyberUnderground.Entities
         protected CoreSystem System { get; private set; }
 
         #region Attachments
+
         [Export]
         private Vector2 AttachmentOffsetLocation = new Vector2(24, 24);
+
         protected List<Entity> Attachments { get; private set; } = new List<Entity>();
         private Vector2 _attachPoint = Vector2.Inf;
 
         protected Entity AttachmentTarget;
+
         #endregion
-        
+
         public override void _Ready()
         {
             base._Ready();
-            
+
             // Blurgh, but there might be a regression causing [Export] nodepaths to be empty in inherited scenes...
             // https://github.com/godotengine/godot/issues/36480 was my original report
             Area2D = GetNode<Area2D>("Area2D");
-            
+
             System.Connect(nameof(CoreSystem.OnTick), this, nameof(OnTick));
         }
 
         public override void _EnterTree()
         {
             base._EnterTree();
-            
+
             System = GetNode<CoreSystem>("/root/System");
             System.EntityManager.Add(this);
         }
@@ -61,12 +65,21 @@ namespace CyberUnderground.Entities
         public virtual void Delete()
         {
             System.EntityManager.Remove(this);
-            
+
+            foreach (var attachment in new HashSet<Entity>(Attachments))
+            {
+                if (attachment is Tool tool)
+                {
+                    tool.AbortTool();
+                }
+            }
+
             // TODO popping/particle animation
-            QueueFree();
+            Free();
         }
 
         #region Attachments
+
         public void AttachTo(Entity target)
         {
             _attachPoint = target.GetAttachmentPoint();
@@ -99,6 +112,7 @@ namespace CyberUnderground.Entities
         {
             Attachments.Remove(e);
         }
+
         #endregion
     }
 }
