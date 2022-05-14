@@ -1,3 +1,4 @@
+using CyberUnderground.Entities;
 using Godot;
 
 namespace CyberUnderground.Core
@@ -11,6 +12,8 @@ namespace CyberUnderground.Core
     
         [Signal]
         public delegate void OnTick();
+
+        public readonly EntityManager EntityManager = new EntityManager();
 
         public float TickPercentage => (100f / TimePerTick) * _timeSinceTick;
     

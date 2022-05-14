@@ -1,4 +1,6 @@
-﻿using CyberUnderground.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CyberUnderground.Core;
 using Godot;
 
 namespace CyberUnderground.Entities
@@ -7,6 +9,15 @@ namespace CyberUnderground.Entities
     {
         protected Area2D Area2D { get; private set; }
         protected CoreSystem System { get; private set; }
+
+        #region Attachments
+        [Export]
+        private Vector2 AttachmentOffsetLocation = new Vector2(24, 24);
+        protected List<Entity> Attachments { get; private set; } = new List<Entity>();
+        private Vector2 _attachPoint = Vector2.Inf;
+
+        protected Entity AttachmentTarget;
+        #endregion
         
         public override void _Ready()
         {
@@ -16,12 +27,78 @@ namespace CyberUnderground.Entities
             // https://github.com/godotengine/godot/issues/36480 was my original report
             Area2D = GetNode<Area2D>("Area2D");
             
-            System = GetNode<CoreSystem>("/root/System");
             System.Connect(nameof(CoreSystem.OnTick), this, nameof(OnTick));
+        }
+
+        public override void _EnterTree()
+        {
+            base._EnterTree();
+            
+            System = GetNode<CoreSystem>("/root/System");
+            System.EntityManager.Add(this);
+        }
+
+        public override void _Process(float delta)
+        {
+            base._Process(delta);
+
+            if (_attachPoint != Vector2.Inf)
+            {
+                GlobalPosition = GlobalPosition.LinearInterpolate(_attachPoint, 25 * delta);
+                if (GlobalPosition.DistanceSquaredTo(_attachPoint) < 1f)
+                {
+                    // Snap the last of the way, and 'null' our _targetSnapPosition
+                    GlobalPosition = _attachPoint;
+                    _attachPoint = Vector2.Inf;
+                }
+            }
         }
 
         public virtual void OnTick()
         {
         }
+
+        public virtual void Delete()
+        {
+            System.EntityManager.Remove(this);
+            
+            // TODO popping/particle animation
+            QueueFree();
+        }
+
+        #region Attachments
+        public void AttachTo(Entity target)
+        {
+            _attachPoint = target.GetAttachmentPoint();
+            target.AddAttachment(this);
+            AttachmentTarget = target;
+        }
+
+        public void DetachAsAttachment()
+        {
+            AttachmentTarget?.RemoveAttachment(this);
+            _attachPoint = Vector2.Inf;
+            AttachmentTarget = null;
+
+            // TODO bounce away in a random direction
+        }
+
+        public Vector2 GetAttachmentPoint()
+        {
+            var lastAttachment = Attachments.LastOrDefault() ?? this;
+
+            return lastAttachment.GlobalPosition + AttachmentOffsetLocation;
+        }
+
+        public void AddAttachment(Entity e)
+        {
+            Attachments.Add(e);
+        }
+
+        public void RemoveAttachment(Entity e)
+        {
+            Attachments.Remove(e);
+        }
+        #endregion
     }
 }

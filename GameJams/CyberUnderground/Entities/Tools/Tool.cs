@@ -6,22 +6,15 @@ namespace CyberUnderground.Entities.Tools
     public class Tool : Entity
     {
         private bool _selected = false;
-        
-        [Export]
-        private Vector2 TargetOffsetLocation = new Vector2(24, 24);
-        protected Entity Target { get; private set; }
 
         private float _activationCounter;
-
-        // TODO think about whether individual tools should have their own timers.
-        // Or whether we should use the tick time, so each tool is measured in System Ticks.
-        // System Ticks would mean a big rush to reassign tools immediately after a tick, but might be easier to plan?
+        
         [Export]
-        private float ActivationTime = 5f;
+        protected float ActivationTime = 5f;
+
+        protected bool IsWorking { get; private set; } = false;
 
         public float ActivationPercentage => (100f / ActivationTime) * _activationCounter;
-
-        private Vector2 _targetSnapPosition = Vector2.Inf;
 
         private ProgressBar _progressBar;
 
@@ -37,10 +30,8 @@ namespace CyberUnderground.Entities.Tools
         public override void _PhysicsProcess(float delta)
         {
             base._PhysicsProcess(delta);
-
-            // TODO consider whether we'll have tools that don't target Entities
-            // (Smoke bombs?)
-            if (Target == null) return;
+            
+            if (!IsWorking) return;
             
             _activationCounter += delta;
             if (ActivationPercentage >= 100)
@@ -53,19 +44,10 @@ namespace CyberUnderground.Entities.Tools
         {
             base._Process(delta);
 
+            // Follow the mouse
             if (_selected)
             {
                 GlobalPosition = GlobalPosition.LinearInterpolate(GetGlobalMousePosition(), 25 * delta);
-            }
-            else if (_targetSnapPosition != Vector2.Inf)
-            {
-                GlobalPosition = GlobalPosition.LinearInterpolate(_targetSnapPosition, 25 * delta);
-                if (GlobalPosition.DistanceSquaredTo(_targetSnapPosition) < 1f)
-                {
-                    // Snap the last of the way, and 'null' our _targetSnapPosition
-                    GlobalPosition = _targetSnapPosition;
-                    _targetSnapPosition = Vector2.Inf;
-                }
             }
 
             UpdateUi();
@@ -103,7 +85,7 @@ namespace CyberUnderground.Entities.Tools
 
         protected virtual void UpdateUi()
         {
-            if (_activationCounter > 0)
+            if (ActivationPercentage > 0)
             {
                 _progressBar.Visible = true;
             }
@@ -114,8 +96,8 @@ namespace CyberUnderground.Entities.Tools
         private void ReleaseTarget()
         {
             _activationCounter = 0;
-            Target = null;
-            _targetSnapPosition = Vector2.Inf;
+            IsWorking = false;
+            DetachAsAttachment();
 
             _progressBar.Visible = false;
         }
@@ -154,12 +136,11 @@ namespace CyberUnderground.Entities.Tools
 
         protected virtual void ActivateTool(Entity target)
         {
-            Target = target;
+            AttachTo(target);
 
+            IsWorking = true;
             _activationCounter = 0;
-
-            // Snap to position offset from target
-            _targetSnapPosition = target.GlobalPosition + TargetOffsetLocation;
+            _progressBar.Visible = true;
         }
 
         protected virtual bool CanActivate(Entity target)
@@ -170,6 +151,7 @@ namespace CyberUnderground.Entities.Tools
         protected virtual void ToolFinished()
         {
             ReleaseTarget();
+            IsWorking = false;
         }
     }
 }

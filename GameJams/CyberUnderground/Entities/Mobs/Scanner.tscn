@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Entities/Tools/Tool.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Mobs/Scanner.cs" type="Script" id=2]
+
+[node name="Scanner" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+_movementSpeed = 100.0
+
+[node name="Sprite" parent="." index="0"]
+modulate = Color( 1, 0.164706, 0.427451, 1 )
