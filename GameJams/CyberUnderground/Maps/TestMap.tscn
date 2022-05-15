@@ -44,3 +44,5 @@ position = Vector2( 838, 357 )
 
 [node name="AnalyzerTool" parent="." instance=ExtResource( 8 )]
 position = Vector2( 859, 556 )
+DeleteAnnotationScene = null
+DownloadAnnotationScene = null

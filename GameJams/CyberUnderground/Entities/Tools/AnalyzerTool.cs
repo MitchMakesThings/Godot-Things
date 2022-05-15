@@ -6,14 +6,11 @@ namespace CyberUnderground.Entities.Tools
     public class AnalyzerTool : Tool
     {
         [Export]
-        private PackedScene AnnotationScene;
+        private PackedScene DeleteAnnotationScene;
 
         [Export]
-        private Color _deleteTargetColor;
+        private PackedScene DownloadAnnotationScene;
 
-        [Export]
-        private Color _downloadTargetColor;
-        
         protected override bool CanActivate(Entity target)
         {
             return target is FileEntity;
@@ -27,16 +24,14 @@ namespace CyberUnderground.Entities.Tools
             // TODO
             if (System.ObjectiveManager.ShouldDeleteFile(file))
             {
-                var annotation = AnnotationScene.Instance<Annotation>();
+                var annotation = DeleteAnnotationScene.Instance();
                 file?.AddChild(annotation);
-                annotation.SetColor(_deleteTargetColor);
             }
 
             if (System.ObjectiveManager.ShouldDownloadFile(file))
             {
-                var annotation = AnnotationScene.Instance<Annotation>();
+                var annotation = DownloadAnnotationScene.Instance();
                 file?.AddChild(annotation);
-                annotation.SetColor(_downloadTargetColor);
             }
         }
     }

@@ -1,0 +1,21 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+// Random logic copied from https://godotshaders.com/snippet/random-value/
+float random (vec2 uv) {
+    return fract(sin(dot(uv.xy,
+        vec2(12.9898,78.233))));
+}
+
+void fragment(){
+    vec2 newuv = UV;
+    newuv.y -= TIME;
+	newuv.y += random(UV);
+	if (UV.x < .05f || UV.x > .95f) {
+		newuv.x = random(UV);
+	}
+    vec4 c = texture(TEXTURE, newuv);
+    COLOR = c;
+}"

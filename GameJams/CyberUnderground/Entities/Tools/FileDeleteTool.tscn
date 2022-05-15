@@ -5,6 +5,7 @@
 
 [node name="FileDeleteTool" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+IsPlayerControlled = true
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1, 0.431373, 0.152941, 1 )

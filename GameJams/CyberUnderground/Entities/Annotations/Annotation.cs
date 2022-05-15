@@ -9,7 +9,7 @@ namespace CyberUnderground.Entities.Annotations
         public override void _Ready()
         {
             base._Ready();
-
+            
             _sprite = GetNode<Sprite>("Sprite");
         }
 

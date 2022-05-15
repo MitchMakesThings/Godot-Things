@@ -10,7 +10,7 @@ IsPlayerControlled = true
 ActivationTime = 8.0
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 2, 2, 2, 1 )
+modulate = Color( 0.45098, 1, 0.996078, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 
