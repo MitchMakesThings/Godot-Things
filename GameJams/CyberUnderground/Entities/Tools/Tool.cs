@@ -79,7 +79,37 @@ namespace CyberUnderground.Entities.Tools
 
             if (buttonEvent.Pressed && buttonEvent.ButtonIndex == (int)ButtonList.Left)
             {
-                PickupTool();
+                // Make sure we're the tool on top!
+                bool imOnTop = true;
+                foreach(var overlap in Area2D.GetOverlappingAreas())
+                {
+                    var area = overlap as Area2D;
+                    var entity = area.GetParent<Entity>();
+                    var sprite = entity.GetNode<Sprite>("Sprite");
+
+                    // Ignore overlapping entities that aren't under the mouse!
+                    if (!sprite.GetRect().HasPoint(sprite.ToLocal(GetGlobalMousePosition())))
+                    {
+                        continue;
+                    }
+
+                    if (area.ZIndex > ZIndex)
+                    {
+                        imOnTop = false;
+                        break;
+                    }
+
+                    if (entity.GetPositionInParent() > GetPositionInParent())
+                    {
+                        imOnTop = false;
+                        break;
+                    }
+                }
+
+                if (imOnTop)
+                {
+                    PickupTool();
+                }
             }
             else
             {
@@ -97,11 +127,11 @@ namespace CyberUnderground.Entities.Tools
             _progressBar.Value = ActivationPercentage;
         }
 
-        private void ReleaseTarget()
+        private void ReleaseTarget(bool succeeded)
         {
             _activationCounter = 0;
             IsWorking = false;
-            DetachAsAttachment();
+            this.DetachAttachment(succeeded ? 0 : 3);
 
             _progressBar.Visible = false;
         }
@@ -110,7 +140,8 @@ namespace CyberUnderground.Entities.Tools
         {
             _selected = true;
 
-            ReleaseTarget();
+            // Succeeded flag doesn't matter, since _selected will snap to the mouse all the time
+            ReleaseTarget(false);
         }
 
         private void DropTool()
@@ -140,7 +171,7 @@ namespace CyberUnderground.Entities.Tools
 
         protected virtual void ActivateTool(Entity target)
         {
-            AttachTo(target);
+            this.AttachTo(target);
 
             IsWorking = true;
             _activationCounter = 0;
@@ -149,7 +180,7 @@ namespace CyberUnderground.Entities.Tools
         
         public virtual void AbortTool()
         {
-            ReleaseTarget();
+            ReleaseTarget(false);
         }
 
         protected virtual bool CanActivate(Entity target)
@@ -159,7 +190,7 @@ namespace CyberUnderground.Entities.Tools
 
         protected virtual void ToolFinished()
         {
-            ReleaseTarget();
+            ReleaseTarget(true);
             IsWorking = false;
         }
     }

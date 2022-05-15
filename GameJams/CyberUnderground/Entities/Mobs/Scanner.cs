@@ -5,7 +5,16 @@ namespace CyberUnderground.Entities.Mobs
 {
     public class Scanner : Tool
     {
-        private Entity _targetEntity;
+        private Entity _targetEntityInternal;
+        protected Entity TargetEntity
+        {
+            get => _targetEntityInternal;
+            set
+            {
+                _targetEntityInternal = value;
+                SetMovementTarget(Vector2.Zero);
+            }
+        }
 
         [Export]
         private float _movementSpeed = 100f;
@@ -19,29 +28,26 @@ namespace CyberUnderground.Entities.Mobs
             PickTarget();
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _Process(float delta)
         {
-            base._PhysicsProcess(delta);
-            if (IsWorking || !IsInstanceValid(_targetEntity) || _targetEntity.IsQueuedForDeletion()) return;
+            base._Process(delta);
+            if (IsWorking || !IsInstanceValid(TargetEntity) || TargetEntity.IsQueuedForDeletion()) return;
+            if(TargetEntity == null) PickTarget();
 
-            GlobalPosition = GlobalPosition.MoveToward(_targetEntity.GlobalPosition, _movementSpeed * delta);
+            GlobalPosition = GlobalPosition.MoveToward(TargetEntity.GlobalPosition, _movementSpeed * delta);
         }
 
         private void PickTarget()
         {
-            _targetEntity?.Disconnect("tree_exiting", this, nameof(AbortTool));
-            
-            _targetEntity = System.EntityManager.GetRandomEntity( new []{ this, _targetEntity});
-            if (_targetEntity == null) return;
+            TargetEntity = System.EntityManager.GetRandomEntity( new []{ this, TargetEntity});
+            if (TargetEntity == null) return;   // TODO pick area off map to go and despawn
 
-            _targetEntity.Connect("tree_exiting", this, nameof(AbortTool));
-            
             foreach (var area in Area2D.GetOverlappingAreas())
             {
                 var areaEntity = (area as Area2D)?.GetParent<Entity>();
-                if (areaEntity == _targetEntity)
+                if (areaEntity == TargetEntity)
                 {
-                    ActivateTool(_targetEntity);
+                    ActivateTool(TargetEntity);
                     break;
                 }
             }
@@ -50,7 +56,7 @@ namespace CyberUnderground.Entities.Mobs
         public void OnAreaEntered(Area2D area)
         {
             var areaOwner = area.GetParentOrNull<Entity>();
-            if (areaOwner != _targetEntity) return;
+            if (areaOwner == null || areaOwner != TargetEntity) return;
             
             ActivateTool(areaOwner);
         }
@@ -58,7 +64,7 @@ namespace CyberUnderground.Entities.Mobs
         public override void AbortTool()
         {
             base.AbortTool();
-            
+
             PickTarget();
         }
 

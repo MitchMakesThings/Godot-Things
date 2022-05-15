@@ -11,13 +11,14 @@ namespace CyberUnderground.Entities.Tools
 
         protected override void ToolFinished()
         {
-            if (AttachmentTarget is FileEntity file)
+            var file = this.GetAttachmentTarget() as FileEntity;
+            base.ToolFinished();
+            
+            if (file != null)
             {
                 System.ObjectiveManager.FileDeleted(file);
                 file.Delete();
             }
-            
-            base.ToolFinished();
         }
     }
 }

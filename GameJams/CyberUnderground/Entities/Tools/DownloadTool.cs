@@ -11,7 +11,7 @@ namespace CyberUnderground.Entities.Tools
         {
             base.ToolFinished();
             
-            System.ObjectiveManager.FileDownloaded(AttachmentTarget as FileEntity);
+            System.ObjectiveManager.FileDownloaded(this.GetAttachmentTarget() as FileEntity);
         }
     }
 }

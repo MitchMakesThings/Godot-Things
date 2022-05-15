@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Entities/Entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/MainUI.tscn" type="PackedScene" id=2]
@@ -6,8 +6,12 @@
 [ext_resource path="res://Entities/Tools/FileDeleteTool.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Entities/Mobs/Scanner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/Tools/DownloadTool.tscn" type="PackedScene" id=6]
+[ext_resource path="res://default_env.tres" type="Environment" id=7]
 
 [node name="TestMap" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 7 )
 
 [node name="EntryPoint" parent="." instance=ExtResource( 1 )]
 position = Vector2( 760, 439 )
@@ -30,6 +34,7 @@ position = Vector2( 331, 211 )
 
 [node name="FileDeleteTool" parent="." instance=ExtResource( 4 )]
 position = Vector2( 759, 360 )
+IsPlayerControlled = true
 
 [node name="Scanner" parent="." instance=ExtResource( 5 )]
 

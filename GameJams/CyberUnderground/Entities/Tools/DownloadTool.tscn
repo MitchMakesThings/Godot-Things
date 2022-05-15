@@ -6,8 +6,13 @@
 
 [node name="DownloadTool" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+IsPlayerControlled = true
 ActivationTime = 8.0
 
 [node name="Sprite" parent="." index="0"]
+modulate = Color( 2, 2, 2, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+visible = false
