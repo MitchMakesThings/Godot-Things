@@ -27,7 +27,7 @@ namespace CyberUnderground.Entities
             child.ZIndex = _attachments[parent].Count();
             _childLookup.Add(child, parent);
 
-            var target = parent.ToGlobal(parent.AttachmentOffsetLocation * (_attachments[parent].Count + 1));
+            var target = parent.ToGlobal(parent.AttachmentOffsetLocation * _attachments[parent].Count);
             child.SetMovementTarget(target);
         }
 

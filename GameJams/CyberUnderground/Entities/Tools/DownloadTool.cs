@@ -9,9 +9,8 @@ namespace CyberUnderground.Entities.Tools
 
         protected override void ToolFinished()
         {
-            base.ToolFinished();
-            
             System.ObjectiveManager.FileDownloaded(this.GetAttachmentTarget() as FileEntity);
+            base.ToolFinished();
         }
     }
 }

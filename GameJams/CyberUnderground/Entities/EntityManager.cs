@@ -21,6 +21,23 @@ namespace CyberUnderground.Entities
             _entities.Remove(e);
         }
 
+        public T GetRandomEntity<T>() where T : class
+        {
+            return GetRandomEntity<T>(new T[]{});
+        }
+
+        public T GetRandomEntity<T>(IEnumerable<T> excluded) where T : class
+        {
+            var workingSet = _entities.Where(e => e is T t && !excluded.Contains(t));
+            if (!workingSet.Any()) return default;
+            
+            return workingSet.ElementAt(_rnd.Next(workingSet.Count())) as T;
+        }
+
+        public Entity GetRandomEntity()
+        {
+            return GetRandomEntity(new Entity[]{});
+        }
         public Entity GetRandomEntity(Entity exclude)
         {
             return GetRandomEntity(new[] { exclude });

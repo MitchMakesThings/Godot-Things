@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Entities/Annotations/Annotation.cs" type="Script" id=1]
+[ext_resource path="res://Entities/Assets/border.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// Random logic copied from https://godotshaders.com/snippet/random-value/
+float random (vec2 uv) {
+    return fract(sin(dot(uv.xy,
+        vec2(12.9898,78.233))));
+}
+
+void fragment(){
+    vec2 newuv = UV;
+    newuv.y -= TIME;
+	newuv.y += random(UV);
+	newuv.x += random(UV);
+    vec4 c = texture(TEXTURE, newuv);
+    COLOR = c;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[node name="Annotation" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
+scale = Vector2( 2.5, 2.5 )
+z_index = -1
+texture = ExtResource( 2 )

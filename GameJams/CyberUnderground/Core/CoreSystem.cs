@@ -14,9 +14,18 @@ namespace CyberUnderground.Core
         public delegate void OnTick();
 
         public readonly EntityManager EntityManager = new EntityManager();
-        public readonly ObjectiveManager ObjectiveManager = new ObjectiveManager();
+        public ObjectiveManager ObjectiveManager { get; private set; }
 
         public float TickPercentage => (100f / TimePerTick) * _timeSinceTick;
+
+        public override void _Ready()
+        {
+            base._Ready();
+
+            ObjectiveManager = new ObjectiveManager(EntityManager);
+
+            ObjectiveManager.GenerateRandomObjectives();
+        }
 
         public override void _PhysicsProcess(float delta)
         {
