@@ -5,6 +5,7 @@
 
 [node name="Tool" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+IsPlayerControlled = true
 ActivationTime = 5.0
 
 [node name="ToolUI" type="Control" parent="." index="2"]
@@ -24,7 +25,7 @@ margin_bottom = 40.0
 [node name="ProgressBar" type="ProgressBar" parent="ToolUI/CenterContainer" index="0"]
 visible = false
 margin_left = -12.0
-margin_top = 13.0
+margin_top = 10.0
 margin_right = 52.0
-margin_bottom = 27.0
+margin_bottom = 29.0
 rect_min_size = Vector2( 64, 10 )

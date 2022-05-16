@@ -91,6 +91,7 @@ tracks/3/keys = {
 [node name="MainUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 1 )
 TickProgressNodePath = NodePath("CenterContainer/TickProgress")
 AnimationPlayerNodePath = NodePath("AnimationPlayer")
@@ -101,11 +102,13 @@ anchor_right = 0.5
 margin_left = -400.0
 margin_right = 400.0
 margin_bottom = 40.0
+mouse_filter = 2
 
 [node name="TickProgress" type="ProgressBar" parent="CenterContainer"]
 margin_right = 800.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 800, 40 )
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )

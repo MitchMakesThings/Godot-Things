@@ -33,11 +33,25 @@ position = Vector2( 157, 232 )
 [node name="File2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 331, 211 )
 
+[node name="Scanner" parent="." instance=ExtResource( 5 )]
+
+[node name="File3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 541, 112 )
+
+[node name="File4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 186, 110 )
+
+[node name="File5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 279, 380 )
+
+[node name="File6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 76, 497 )
+
+[node name="File7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 581, 397 )
+
 [node name="FileDeleteTool" parent="." instance=ExtResource( 4 )]
 position = Vector2( 759, 360 )
-IsPlayerControlled = true
-
-[node name="Scanner" parent="." instance=ExtResource( 5 )]
 
 [node name="DownloadTool" parent="." instance=ExtResource( 6 )]
 position = Vector2( 838, 357 )
