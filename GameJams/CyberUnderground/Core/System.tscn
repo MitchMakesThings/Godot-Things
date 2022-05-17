@@ -3,7 +3,9 @@
 [ext_resource path="res://Core/CoreSystem.cs" type="Script" id=1]
 
 [sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
+code = "// Copied from https://godotshaders.com/shader/vaporwave-grid/
+
+shader_type canvas_item;
 
 uniform float battery : hint_range(0.0,1.0) = 1.0;
 uniform float anchor : hint_range(-1.0,1.0) = -0.5;
