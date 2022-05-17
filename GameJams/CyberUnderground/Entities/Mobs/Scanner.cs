@@ -70,6 +70,25 @@ namespace CyberUnderground.Entities.Mobs
 
         protected override void ToolFinished()
         {
+            var target = this.GetAttachmentTarget();
+            if (target != null)
+            {
+                foreach (var otherAttachment in target.GetAttachments())
+                {
+                    // If we found a player tool attached, raise the alert!
+                    if (otherAttachment != this && otherAttachment is Tool)
+                    {
+                        System.RaiseAlertLevel();
+                    }
+                }
+
+                // If we've found the player ingress point we should alert
+                if (target is EntryPoint)
+                {
+                    System.RaiseAlertLevel();
+                }
+            }
+
             base.ToolFinished();
 
             PickTarget();

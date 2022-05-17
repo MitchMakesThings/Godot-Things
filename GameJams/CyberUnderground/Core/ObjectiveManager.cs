@@ -7,12 +7,14 @@ namespace CyberUnderground.Core
 {
     public class ObjectiveManager
     {
+        private readonly CoreSystem _system;
         private readonly EntityManager _entityManager;
         private HashSet<FileEntity> filesToDelete = new HashSet<FileEntity>();
         private HashSet<FileEntity> filesToDownload = new HashSet<FileEntity>();
 
-        public ObjectiveManager(EntityManager entityManager)
+        public ObjectiveManager(CoreSystem system, EntityManager entityManager)
         {
+            _system = system;
             _entityManager = entityManager;
         }
 
@@ -25,6 +27,25 @@ namespace CyberUnderground.Core
             var file2 = _entityManager.GetRandomEntity<FileEntity>(new [] {file});
             if (file2 == null) return;
             filesToDownload.Add(file2);
+            
+            _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
+        }
+
+        public IEnumerable<string> GetObjectives()
+        {
+            var objectives = new List<string>();
+
+            if (filesToDownload.Any())
+            {
+                objectives.Add($"Download {filesToDownload.Count()} pieces of incriminating evidence.");
+            }
+
+            if (filesToDelete.Any())
+            {
+                objectives.Add($"Delete {filesToDelete.Count()} log files");
+            }
+
+            return objectives;
         }
         
         public void FileDeleted(FileEntity file)
@@ -35,6 +56,7 @@ namespace CyberUnderground.Core
             {
                 // TODO check win conditions
                 GD.Print("You've deleted them all!");
+                _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
             }
         }
 
@@ -46,6 +68,7 @@ namespace CyberUnderground.Core
             {
                 // TODO check win conditions
                 GD.Print("You've downloaded them all!");
+                _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
             }
         }
 
