@@ -13,10 +13,3 @@ ActivationTime = 8.0
 modulate = Color( 0.45098, 1, 0.996078, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
-
-[node name="CollisionShape2D" parent="Area2D" index="0"]
-visible = false
-
-[node name="ProgressBar" parent="ToolUI/CenterContainer" index="0"]
-margin_top = 10.0
-margin_bottom = 29.0

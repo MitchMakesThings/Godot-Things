@@ -16,6 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+AudioManager="*res://Core/AudioManager.tscn"
 System="*res://Core/System.tscn"
 
 [display]

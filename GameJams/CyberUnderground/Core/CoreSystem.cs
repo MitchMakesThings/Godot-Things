@@ -17,6 +17,7 @@ namespace CyberUnderground.Core
 
         public readonly EntityManager EntityManager = new EntityManager();
         public ObjectiveManager ObjectiveManager { get; private set; }
+        public AudioManager AudioManager { get; private set; }
 
         public float TickPercentage => (100f / TimePerTick) * _timeSinceTick;
 
@@ -34,6 +35,8 @@ namespace CyberUnderground.Core
 
             ObjectiveManager = new ObjectiveManager(this, EntityManager);
             ObjectiveManager.GenerateRandomObjectives();
+
+            AudioManager = GetNode<AudioManager>("/root/AudioManager");
 
             Connect(nameof(OnAlertLevelUpdated), this, nameof(AlertLevelChanged));
             Connect(nameof(OnTick), this, nameof(Tick));

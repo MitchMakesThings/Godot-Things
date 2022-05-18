@@ -71,24 +71,71 @@ namespace CyberUnderground.UI
         public void OnObjectivesUpdated()
         {
             var objectives = _system.ObjectiveManager.GetObjectives();
+            GD.Print("Hi");
 
+            // TODO repurpose instead of deleting and replacing!
             foreach (var child in _objectivesParentNode.GetChildren())
             {
                 (child as Node)?.QueueFree();
             }
-            
-            if (!objectives.Any())
-            {
-                // TODO replace this with a sensible victory screen.
-                (objectives as List<string>)?.Add("You win!");
-            }
 
-            foreach (var objective in objectives)
+            // TODO rejig this to support quests (ie, objectives should provide their Instructions!)
+            var deleteObjectives = objectives.Where(o => o.Type == ObjectiveType.Delete);
+            if (deleteObjectives.Any())
             {
                 Label label = new Label();
-                label.Text = objective;
                 _objectivesParentNode.AddChild(label);
+
+                if (deleteObjectives.All(o => o.Complete))
+                {
+                    label.Set("custom_colors/font_color", new Color("fff073"));
+                }
+
+                var count = deleteObjectives.Count();
+                label.Text = $"Delete {(count > 1 ? count.ToString() : "")} {GetDeleteFilePurpose()}" + (count > 1 ? " files" : "");
             }
+            
+            var downloadObjectives = objectives.Where(o => o.Type == ObjectiveType.Download);
+            if (downloadObjectives.Any())
+            {
+                Label label = new Label();
+                _objectivesParentNode.AddChild(label);
+
+                if (downloadObjectives.All(o => o.Complete))
+                {
+                    label.Set("custom_colors/font_color", new Color("fff073"));
+                }
+
+                var count = downloadObjectives.Count();
+                label.Text = $"Download {(count > 1 ? count.ToString() : "")} {GetDownloadFilePurpose()}" +
+                             (count > 1 ? " files" : "");
+            }
+        }
+
+        private string GetDeleteFilePurpose()
+        {
+            var deleteReasons = new string[]
+            {
+                "log",
+                "research",
+                "blackmail",
+                "crypto",
+                "password"
+            };
+            return deleteReasons[new System.Random().Next(deleteReasons.Length)];
+        }
+
+        private string GetDownloadFilePurpose()
+        {
+            var reasons = new string[]
+            {
+                "log",
+                "evidence",
+                "blackmail",
+                "selfie",
+                "password"
+            };
+            return reasons[new System.Random().Next(reasons.Length)];
         }
     }
 }

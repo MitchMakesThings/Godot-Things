@@ -165,6 +165,10 @@ namespace CyberUnderground.Entities.Tools
             {
                 ActivateTool(target);
             }
+            else
+            {
+                SetMovementTarget(Vector2.Zero);
+            }
             // TODO if activation fails do a little shake animation?
             // TODO bounce off to the side of the entity as well
         }
