@@ -76,7 +76,8 @@ namespace CyberUnderground.Entities.Mobs
                 foreach (var otherAttachment in target.GetAttachments())
                 {
                     // If we found a player tool attached, raise the alert!
-                    if (otherAttachment != this && otherAttachment is Tool)
+                    var t = otherAttachment as Tool;
+                    if (otherAttachment != this && t?.IsPlayerControlled == true)
                     {
                         System.RaiseAlertLevel();
                     }

@@ -41,7 +41,7 @@ shader_param/anchor = -0.5
 shader_param/speed_scale = 1.0
 shader_param/fov = 0.01
 shader_param/background_color = Color( 0, 0.101961, 0.2, 0 )
-shader_param/grid_color = Color( 0.027451, 0.160784, 0.0980392, 1 )
+shader_param/grid_color = Color( 0.0392157, 0.235294, 0.227451, 1 )
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -131,6 +131,7 @@ tracks/3/keys = {
 
 [node name="System" type="Node"]
 script = ExtResource( 1 )
+_shaderRect = NodePath("ColorRect")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 show_behind_parent = true

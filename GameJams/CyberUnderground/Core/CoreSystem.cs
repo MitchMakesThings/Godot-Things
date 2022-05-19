@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CyberUnderground.Entities;
 using Godot;
 
@@ -11,6 +12,11 @@ namespace CyberUnderground.Core
 
         [Export]
         public float TimePerTick = 20f;
+
+        [Export]
+        private NodePath _shaderRect;
+
+        private Material _shaderMaterial;
 
         [Signal]
         public delegate void OnTick();
@@ -29,14 +35,24 @@ namespace CyberUnderground.Core
         [Signal]
         public delegate void OnObjectivesUpdated();
 
+        private List<Color> colors = new List<Color>()
+        {
+            new Color("0a3c3a"),
+            new Color("173c0a"),
+            new Color("3c2c0a"),
+            new Color("3c260a"),
+            new Color("3c0a0a")
+        };
+
         public override void _Ready()
         {
             base._Ready();
 
             ObjectiveManager = new ObjectiveManager(this, EntityManager);
-            ObjectiveManager.GenerateRandomObjectives();
 
             AudioManager = GetNode<AudioManager>("/root/AudioManager");
+            
+            _shaderMaterial = GetNode<ColorRect>(_shaderRect).Material;
 
             Connect(nameof(OnAlertLevelUpdated), this, nameof(AlertLevelChanged));
             Connect(nameof(OnTick), this, nameof(Tick));
@@ -64,6 +80,8 @@ namespace CyberUnderground.Core
             _alertLevel++;
             _isTicking = _alertLevel > 0;
 
+            ChangeAlertShader();
+
             EmitSignal(nameof(OnAlertLevelUpdated), _alertLevel);
         }
 
@@ -72,7 +90,16 @@ namespace CyberUnderground.Core
             _alertLevel--;
             _isTicking = _alertLevel <= 0;
 
+            ChangeAlertShader();
+
             EmitSignal(nameof(OnAlertLevelUpdated), _alertLevel);
+        }
+
+        private void ChangeAlertShader()
+        {
+            if (_alertLevel >= 5) return;
+            _shaderMaterial.Set("shader_param/grid_color", colors[_alertLevel]);
+            _shaderMaterial.Set("shader_param/speed_scale", 1 + _alertLevel);
         }
 
         private void AlertLevelChanged(int alertLevel)

@@ -137,9 +137,9 @@ anims/TickComplete = SubResource( 2 )
 [node name="ObjectiveContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 351.5
+margin_left = 288.0
 margin_top = 46.0
-margin_right = 443.5
+margin_right = 380.0
 margin_bottom = 86.0
 
 [node name="Label" type="Label" parent="ObjectiveContainer"]

@@ -71,7 +71,6 @@ namespace CyberUnderground.UI
         public void OnObjectivesUpdated()
         {
             var objectives = _system.ObjectiveManager.GetObjectives();
-            GD.Print("Hi");
 
             // TODO repurpose instead of deleting and replacing!
             foreach (var child in _objectivesParentNode.GetChildren())
