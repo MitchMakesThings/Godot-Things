@@ -158,10 +158,12 @@ namespace CyberUnderground.Entities.Tools
                 if (!(body is Area2D area)) continue;
 
                 target = area.GetParentOrNull<Entity>();
-                if (target != null)
+                if (target != null && !(target is Tool))
                 {
                     break;
                 }
+
+                target = null;
             }
 
             if (target != null && CanActivate(target))
