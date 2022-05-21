@@ -11,7 +11,8 @@ namespace CyberUnderground.Entities.Tools
 
         protected override void ToolFinished()
         {
-            var file = this.GetAttachmentTarget() as FileEntity;
+            var attachment = this.GetAttachmentTarget();
+            var file = attachment as FileEntity;
             base.ToolFinished();
             
             if (file != null)
@@ -20,9 +21,9 @@ namespace CyberUnderground.Entities.Tools
                 file.Delete();
             }
 
-            if (this.GetAttachmentTarget() is EntryPoint)
+            if (attachment is EntryPoint)
             {
-                // TODO back out a step, we've aborted / finished this run!
+                System.Disconnect(true);
             }
         }
     }

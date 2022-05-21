@@ -11,6 +11,7 @@ font_data = ExtResource( 3 )
 [node name="CoreGame" type="Node"]
 script = ExtResource( 2 )
 gameScene = ExtResource( 1 )
+_lftNodePath = NodePath("MainMenu/CenterContainer/VBoxContainer2/HBoxContainer/LTEValue")
 
 [node name="MainMenu" type="Control" parent="."]
 anchor_right = 1.0

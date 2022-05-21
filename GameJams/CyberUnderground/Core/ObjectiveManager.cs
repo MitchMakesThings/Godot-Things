@@ -60,6 +60,11 @@ namespace CyberUnderground.Core
             return _objectives.Values.Distinct();
         }
 
+        public void Clear()
+        {
+            _objectives.Clear();
+        }
+
         public void FileDeleted(FileEntity file)
         {
             if (!_objectives.ContainsKey(file))

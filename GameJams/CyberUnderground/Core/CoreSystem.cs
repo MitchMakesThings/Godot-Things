@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CyberUnderground.Entities;
 using Godot;
 
@@ -34,6 +35,9 @@ namespace CyberUnderground.Core
 
         [Signal]
         public delegate void OnObjectivesUpdated();
+
+        [Signal]
+        public delegate void OnGameEnded(int fundsEarned);
 
         private List<Color> colors = new List<Color>()
         {
@@ -75,10 +79,36 @@ namespace CyberUnderground.Core
             }
         }
 
+        public void Disconnect(bool playerControlled)
+        {
+            GD.Print("Disconnect");
+            var wonFunds = ObjectiveManager.GetObjectives().Where(o => o.Complete).Sum(o => o.Value);
+            
+            EmitSignal(nameof(OnGameEnded), wonFunds);
+            
+            Reset();
+        }
+
+        private void Reset()
+        {
+            ObjectiveManager.Clear();
+
+            _timeSinceTick = 0f;
+            _isTicking = false;
+            _alertLevel = 0;
+
+            ChangeAlertShader();
+        }
+
         public void RaiseAlertLevel()
         {
             _alertLevel++;
             _isTicking = _alertLevel > 0;
+
+            if (_alertLevel >= 5)
+            {
+                Disconnect(false);
+            }
 
             ChangeAlertShader();
 

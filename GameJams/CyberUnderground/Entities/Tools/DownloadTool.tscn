@@ -5,6 +5,7 @@
 [ext_resource path="res://Entities/Assets/download.png" type="Texture" id=3]
 
 [node name="DownloadTool" instance=ExtResource( 1 )]
+z_index = 5
 script = ExtResource( 2 )
 EntityName = "Download"
 ActivationTime = 8.0

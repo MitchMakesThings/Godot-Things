@@ -7,6 +7,7 @@
 [ext_resource path="res://Entities/Assets/analyze.png" type="Texture" id=5]
 
 [node name="AnalyzerTool" instance=ExtResource( 1 )]
+z_index = 5
 script = ExtResource( 2 )
 EntityName = "Analyze"
 ActivationTime = 2.0
@@ -17,7 +18,3 @@ DownloadAnnotationScene = ExtResource( 4 )
 modulate = Color( 0.45098, 1, 0.996078, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
-
-[node name="ProgressBar" parent="ToolUI/CenterContainer" index="0"]
-margin_top = 10.0
-margin_bottom = 29.0

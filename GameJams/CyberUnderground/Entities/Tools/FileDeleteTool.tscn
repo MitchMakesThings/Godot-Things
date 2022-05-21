@@ -5,6 +5,7 @@
 [ext_resource path="res://Entities/Assets/trash.png" type="Texture" id=3]
 
 [node name="FileDeleteTool" instance=ExtResource( 1 )]
+z_index = 5
 script = ExtResource( 2 )
 EntityName = "Delete"
 ActivationTime = 4.0
