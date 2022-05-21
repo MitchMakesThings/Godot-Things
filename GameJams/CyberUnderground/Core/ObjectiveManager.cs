@@ -23,29 +23,32 @@ namespace CyberUnderground.Core
         public void GenerateRandomObjectives()
         {
             var rnd = new System.Random();
+            var deleteObjective = new Objective()
+            {
+                Type = ObjectiveType.Delete
+            };
             for (int i = 0; i < rnd.Next(5); i++)
             {
                 var file = _entityManager.GetRandomEntity<FileEntity>(_objectives.Select(o => o.Key as FileEntity));
                 if (file != null)
                 {
-                    _objectives.Add(file, new Objective()
-                    {
-                        Target = file,
-                        Type = ObjectiveType.Delete
-                    });
+                    _objectives.Add(file, deleteObjective);
+                    deleteObjective.AddTarget(file);
                 }
             }
 
+            // TODO fold into loop above, looping over each objective type
+            var downloadObjective = new Objective()
+            {
+                Type = ObjectiveType.Download
+            };
             for (int i = 0; i < rnd.Next(3); i++)
             {
                 var file = _entityManager.GetRandomEntity<FileEntity>(_objectives.Select(o => o.Key as FileEntity));
                 if (file != null)
                 {
-                    _objectives.Add(file, new Objective()
-                    {
-                        Target = file,
-                        Type = ObjectiveType.Download
-                    });
+                    _objectives.Add(file, downloadObjective);
+                    downloadObjective.AddTarget(file);
                 }
             }
 
@@ -54,9 +57,9 @@ namespace CyberUnderground.Core
 
         public IEnumerable<Objective> GetObjectives()
         {
-            return _objectives.Values;
+            return _objectives.Values.Distinct();
         }
-        
+
         public void FileDeleted(FileEntity file)
         {
             if (!_objectives.ContainsKey(file))
@@ -64,8 +67,10 @@ namespace CyberUnderground.Core
                 return;
             }
 
-            _objectives[file].Complete = _objectives[file].Type == ObjectiveType.Delete;
+            var objective = _objectives[file];
+            if (objective.Type != ObjectiveType.Delete) return;
             
+            objective.CompleteTarget(file);
             _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
         }
 
@@ -76,8 +81,10 @@ namespace CyberUnderground.Core
                 return;
             }
 
-            _objectives[file].Complete = _objectives[file].Type == ObjectiveType.Download;
+            var objective = _objectives[file];
+            if (objective.Type != ObjectiveType.Download) return;
             
+            objective.CompleteTarget(file);
             _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
         }
 

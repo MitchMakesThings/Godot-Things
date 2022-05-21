@@ -19,6 +19,8 @@ namespace CyberUnderground.Entities.Tools
 
         private ProgressBar _progressBar;
 
+        private CPUParticles2D _particles;
+
         public override void _Ready()
         {
             base._Ready();
@@ -26,6 +28,7 @@ namespace CyberUnderground.Entities.Tools
 
             // TODO nodepath if we can figure out the inherited-nodepath problem
             _progressBar = GetNode<ProgressBar>("ToolUI/CenterContainer/ProgressBar");
+            _particles = GetNode<CPUParticles2D>("Particles");
         }
 
         public override void _PhysicsProcess(float delta)
@@ -196,6 +199,7 @@ namespace CyberUnderground.Entities.Tools
         {
             ReleaseTarget(true);
             IsWorking = false;
+            _particles.Emitting = true;
         }
     }
 }
