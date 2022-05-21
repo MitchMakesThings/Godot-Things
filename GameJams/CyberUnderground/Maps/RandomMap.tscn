@@ -63,17 +63,18 @@ margin_right = 499.0
 margin_bottom = 1.0
 
 [node name="FileSpawnPoint" type="Node2D" parent="."]
+position = Vector2( -30, 1 )
 
 [node name="FileDeleteTool" parent="." instance=ExtResource( 5 )]
-position = Vector2( 980, 360 )
+position = Vector2( 950, 361 )
 
 [node name="DownloadTool" parent="." instance=ExtResource( 4 )]
-position = Vector2( 980, 447 )
+position = Vector2( 950, 448 )
 
 [node name="AnalyzerTool" parent="." instance=ExtResource( 2 )]
-position = Vector2( 980, 536 )
+position = Vector2( 950, 537 )
 DeleteAnnotationScene = null
 DownloadAnnotationScene = null
 
 [node name="EntryPoint" parent="." instance=ExtResource( 3 )]
-position = Vector2( 980, 273 )
+position = Vector2( 950, 274 )

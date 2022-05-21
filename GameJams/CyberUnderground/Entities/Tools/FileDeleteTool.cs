@@ -6,7 +6,7 @@ namespace CyberUnderground.Entities.Tools
     {
         protected override bool CanActivate(Entity target)
         {
-            return base.CanActivate(target) && target is FileEntity;
+            return target is FileEntity || target is EntryPoint;;
         }
 
         protected override void ToolFinished()
@@ -18,6 +18,11 @@ namespace CyberUnderground.Entities.Tools
             {
                 System.ObjectiveManager.FileDeleted(file);
                 file.Delete();
+            }
+
+            if (this.GetAttachmentTarget() is EntryPoint)
+            {
+                // TODO back out a step, we've aborted / finished this run!
             }
         }
     }

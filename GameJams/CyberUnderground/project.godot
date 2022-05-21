@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Cyber Underground"
-run/main_scene="res://Maps/RandomMap.tscn"
+run/main_scene="res://Maps/CoreGame.tscn"
 config/icon="res://icon.png"
 
 [autoload]

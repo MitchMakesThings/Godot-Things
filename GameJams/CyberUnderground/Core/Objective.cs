@@ -41,6 +41,7 @@ namespace CyberUnderground.Core
         }
 
         public bool Complete => Targets.All(t => CompletedTargets.Contains(t));
+        public int Value;
         public string Instructions { get; set; }
 
         private ObjectiveType _type;
@@ -58,6 +59,11 @@ namespace CyberUnderground.Core
         private ICollection<Entity> Targets { get; set; } = new HashSet<Entity>();
         private ICollection<Entity> CompletedTargets { get; set; } = new HashSet<Entity>();
 
+        public Objective()
+        {
+            Value = new System.Random().Next(100, 600);
+        }
+
         public void AddTarget(Entity e)
         {
             Targets.Add(e);
@@ -74,10 +80,10 @@ namespace CyberUnderground.Core
             switch (_type)
             {
                 case ObjectiveType.Delete:
-                    Instructions = $"Delete {Targets.Count()} {GetDeleteFilePurpose()}";
+                    Instructions = $"${Value} - Delete {Targets.Count()} {GetDeleteFilePurpose()}";
                     break;
                 case ObjectiveType.Download:
-                    Instructions = $"Download {Targets.Count()} {GetDownloadFilePurpose()}";
+                    Instructions = $"${Value} - Download {Targets.Count()} {GetDownloadFilePurpose()}";
                     break;
             }
         }
