@@ -29,3 +29,8 @@ A basic recreation of the terrain destruction from the 2d Worms games.
 My first attempt at a game jam! I completely overscoped and ran out of time, but the bones are there :)
 
 [You can play it on Itch](https://mitchmakesthings.itch.io/slime-manager)
+
+### [Digital Underground](https://github.com/MitchMakesThings/Godot-Things/tree/main/GameJams/CyberUnderground)
+This is my second game jam attempt. I actually feel pretty good about it!
+
+[You can play it on Itch](https://mitchmakesthings.itch.io/digital-underground)
