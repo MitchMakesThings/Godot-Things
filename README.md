@@ -34,3 +34,4 @@ My first attempt at a game jam! I completely overscoped and ran out of time, but
 This is my second game jam attempt. I actually feel pretty good about it!
 
 [You can play it on Itch](https://mitchmakesthings.itch.io/digital-underground)
+![Screenshot](GameJams/Assets/du-screenshot.png "Screenshot of Digital Underground")
