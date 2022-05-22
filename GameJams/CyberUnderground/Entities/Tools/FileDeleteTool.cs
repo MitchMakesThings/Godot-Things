@@ -19,6 +19,8 @@ namespace CyberUnderground.Entities.Tools
             {
                 System.ObjectiveManager.FileDeleted(file);
                 file.Delete();
+                
+                System.AudioManager.PlayEffect(SuccessSound);
             }
 
             if (attachment is EntryPoint)

@@ -25,15 +25,21 @@ namespace CyberUnderground.Entities.Tools
             {
                 var annotation = DeleteAnnotationScene.Instance();
                 file?.AddChild(annotation);
+                
+                System.AudioManager.PlayEffect(SuccessSound);
             }
             else if (System.ObjectiveManager.ShouldDownloadFile(file))
             {
                 var annotation = DownloadAnnotationScene.Instance();
                 file?.AddChild(annotation);
+                
+                System.AudioManager.PlayEffect(SuccessSound);
             }
             else
             {
                 file?.LowerIntensity();
+                
+                System.AudioManager.PlayEffect(FailureSound);
             }
         }
     }

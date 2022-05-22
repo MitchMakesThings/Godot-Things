@@ -19,6 +19,9 @@ namespace CyberUnderground.Core
 
         private Material _shaderMaterial;
 
+        [Export]
+        private AudioStream AlertLevelIncreasedSound;
+
         [Signal]
         public delegate void OnTick();
 
@@ -37,7 +40,7 @@ namespace CyberUnderground.Core
         public delegate void OnObjectivesUpdated();
 
         [Signal]
-        public delegate void OnGameEnded(int fundsEarned);
+        public delegate void OnGameEnded(bool serverDisconnected, int fundsEarned);
 
         private List<Color> colors = new List<Color>()
         {
@@ -83,7 +86,7 @@ namespace CyberUnderground.Core
         {
             var wonFunds = ObjectiveManager.GetObjectives().Where(o => o.Complete).Sum(o => o.Value);
             
-            EmitSignal(nameof(OnGameEnded), wonFunds);
+            EmitSignal(nameof(OnGameEnded), !playerControlled, wonFunds);
             
             Reset();
         }
@@ -114,6 +117,8 @@ namespace CyberUnderground.Core
             }
 
             ChangeAlertShader();
+            
+            AudioManager.PlayEffect(AlertLevelIncreasedSound);
 
             EmitSignal(nameof(OnAlertLevelUpdated), _alertLevel);
         }

@@ -14,6 +14,10 @@ script = ExtResource( 2 )
 gameScene = ExtResource( 1 )
 _tutorialScene = ExtResource( 4 )
 _lftNodePath = NodePath("MainMenu/CenterContainer/VBoxContainer2/HBoxContainer/LTEValue")
+_popupNodepath = NodePath("ConnectionPopup")
+_popupLabelNodePath = NodePath("ConnectionPopup/CenterContainer/VBoxContainer/Label")
+_timerNodePath = NodePath("Timer")
+_earningsLabelNodePath = NodePath("ConnectionPopup/CenterContainer/VBoxContainer/EarningLabel")
 
 [node name="MainMenu" type="Control" parent="."]
 anchor_right = 1.0
@@ -82,6 +86,38 @@ margin_top = 90.0
 margin_right = 216.0
 margin_bottom = 115.0
 text = "Exit"
+
+[node name="ConnectionPopup" type="PopupDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="ConnectionPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConnectionPopup/CenterContainer"]
+margin_left = 455.0
+margin_top = 261.0
+margin_right = 569.0
+margin_bottom = 339.0
+custom_constants/separation = 40
+
+[node name="Label" type="Label" parent="ConnectionPopup/CenterContainer/VBoxContainer"]
+margin_right = 114.0
+margin_bottom = 19.0
+text = "Connecting"
+align = 1
+
+[node name="EarningLabel" type="Label" parent="ConnectionPopup/CenterContainer/VBoxContainer"]
+margin_top = 59.0
+margin_right = 114.0
+margin_bottom = 78.0
+text = "Earned: $456"
+align = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer2/VBoxContainer/btnHack" to="." method="StartGame"]
 [connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer2/VBoxContainer/tutorial" to="." method="StartTutorial"]

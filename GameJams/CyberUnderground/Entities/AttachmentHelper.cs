@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CyberUnderground.Entities.Tools;
 using Godot;
 
 namespace CyberUnderground.Entities
@@ -15,7 +16,8 @@ namespace CyberUnderground.Entities
         {
             if (_childLookup.ContainsKey(child))
             {
-                throw new ArgumentException($"Child is already attached to {_childLookup[child].Name}");
+                (child as Tool)?.ReleaseTarget(false);
+                //throw new ArgumentException($"Child is already attached to {_childLookup[child].Name}");
             }
 
             if (!_attachments.ContainsKey(parent))

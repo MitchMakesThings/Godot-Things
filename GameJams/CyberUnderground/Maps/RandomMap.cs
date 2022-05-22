@@ -50,7 +50,7 @@ namespace CyberUnderground.Maps
                 file.Position = pos;
             }
 
-            for (int i = 0; i < _rnd.Next(1, 4); i++)
+            for (int i = 0; i < _rnd.Next(2, 5); i++)
             {
                 var scanner = scannerScene.Instance<Node2D>();
                 AddChild(scanner);

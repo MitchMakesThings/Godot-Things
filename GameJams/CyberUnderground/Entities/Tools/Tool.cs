@@ -13,6 +13,12 @@ namespace CyberUnderground.Entities.Tools
         [Export]
         protected float ActivationTime = 5f;
 
+        [Export]
+        protected AudioStream SuccessSound;
+
+        [Export]
+        protected AudioStream FailureSound;
+
         protected bool IsWorking { get; private set; } = false;
 
         public float ActivationPercentage => (100f / ActivationTime) * _activationCounter;
@@ -102,11 +108,11 @@ namespace CyberUnderground.Entities.Tools
                         break;
                     }
 
-                    if (entity.GetPositionInParent() > GetPositionInParent())
-                    {
-                        imOnTop = false;
-                        break;
-                    }
+                    // if (entity.GetPositionInParent() > GetPositionInParent())
+                    // {
+                    //     imOnTop = false;
+                    //     break;
+                    // }
                 }
 
                 if (imOnTop)
@@ -130,7 +136,7 @@ namespace CyberUnderground.Entities.Tools
             _progressBar.Value = ActivationPercentage;
         }
 
-        private void ReleaseTarget(bool succeeded)
+        public void ReleaseTarget(bool succeeded)
         {
             _activationCounter = 0;
             IsWorking = false;

@@ -9,6 +9,7 @@ shader = ExtResource( 3 )
 
 [node name="Annotation" type="Node2D"]
 show_behind_parent = true
+z_index = -10
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
