@@ -1,0 +1,154 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/MainUI.cs" type="Script" id=1]
+[ext_resource path="res://UI/Rubik_Glitch/RubikGlitch-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "TickComplete"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.984314, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.964706, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.396078, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("CenterContainer/VBoxContainer/TickProgress:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1, 1 )
+}
+
+[node name="MainUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+TickProgressNodePath = NodePath("CenterContainer/VBoxContainer/TickProgress")
+AnimationPlayerNodePath = NodePath("AnimationPlayer")
+AlertLevelNodePath = NodePath("CenterContainer/VBoxContainer/AlertLevelLabel")
+ObjectivesNodePath = NodePath("ObjectiveContainer/ObjectiveParent")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -400.0
+margin_right = 400.0
+margin_bottom = 40.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_right = 800.0
+margin_bottom = 53.0
+mouse_filter = 2
+
+[node name="TickProgress" type="ProgressBar" parent="CenterContainer/VBoxContainer"]
+margin_right = 800.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 800, 20 )
+mouse_filter = 2
+
+[node name="AlertLevelLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 800.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 3 )
+text = "Alert Level 0"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/TickComplete = SubResource( 2 )
+
+[node name="ObjectiveContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 288.0
+margin_top = 46.0
+margin_right = 380.0
+margin_bottom = 86.0
+
+[node name="Label" type="Label" parent="ObjectiveContainer"]
+margin_right = 92.0
+margin_bottom = 19.0
+text = "Objectives"
+align = 1
+
+[node name="ObjectiveParent" type="VBoxContainer" parent="ObjectiveContainer"]
+margin_top = 23.0
+margin_right = 92.0
+margin_bottom = 23.0

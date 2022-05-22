@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Entities/Tools/Tool.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Tools/DownloadTool.cs" type="Script" id=2]
+[ext_resource path="res://Entities/Assets/download.png" type="Texture" id=3]
+
+[node name="DownloadTool" instance=ExtResource( 1 )]
+z_index = 5
+script = ExtResource( 2 )
+EntityName = "Download"
+ActivationTime = 8.0
+
+[node name="Sprite" parent="." index="0"]
+modulate = Color( 0.45098, 1, 0.996078, 1 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
