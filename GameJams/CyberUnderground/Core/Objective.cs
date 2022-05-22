@@ -70,6 +70,8 @@ namespace CyberUnderground.Core
             UpdateInstructions();
         }
 
+        public bool HasTarget(Entity e) => Targets.Contains(e);
+
         public void CompleteTarget(Entity e)
         {
             CompletedTargets.Add(e);

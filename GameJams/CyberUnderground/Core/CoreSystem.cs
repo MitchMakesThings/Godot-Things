@@ -81,7 +81,6 @@ namespace CyberUnderground.Core
 
         public void Disconnect(bool playerControlled)
         {
-            GD.Print("Disconnect");
             var wonFunds = ObjectiveManager.GetObjectives().Where(o => o.Complete).Sum(o => o.Value);
             
             EmitSignal(nameof(OnGameEnded), wonFunds);
@@ -91,13 +90,17 @@ namespace CyberUnderground.Core
 
         private void Reset()
         {
+            GD.Print("Resetting");
             ObjectiveManager.Clear();
+            EntityManager.Clear();
 
             _timeSinceTick = 0f;
             _isTicking = false;
             _alertLevel = 0;
 
             ChangeAlertShader();
+            
+            GD.Print("Reset");
         }
 
         public void RaiseAlertLevel()

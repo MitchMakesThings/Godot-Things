@@ -34,7 +34,7 @@ namespace CyberUnderground.Maps
                 Vector2 pos;
                 do
                 {
-                    pos = new Vector2(_rnd.Next(10, 720), _rnd.Next(80, 550));
+                    pos = new Vector2(_rnd.Next(40, 720), _rnd.Next(120, 550));
                     foreach (var existingPos in filePositions)
                     {
                         if (existingPos.DistanceSquaredTo(pos) < 6400)

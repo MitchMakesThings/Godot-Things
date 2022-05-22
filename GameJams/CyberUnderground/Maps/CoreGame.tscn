@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Maps/RandomMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Maps/CoreGame.cs" type="Script" id=2]
 [ext_resource path="res://UI/Rubik_Glitch/RubikGlitch-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Maps/Tutorials/First.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -11,6 +12,7 @@ font_data = ExtResource( 3 )
 [node name="CoreGame" type="Node"]
 script = ExtResource( 2 )
 gameScene = ExtResource( 1 )
+_tutorialScene = ExtResource( 4 )
 _lftNodePath = NodePath("MainMenu/CenterContainer/VBoxContainer2/HBoxContainer/LTEValue")
 
 [node name="MainMenu" type="Control" parent="."]
@@ -82,4 +84,5 @@ margin_bottom = 115.0
 text = "Exit"
 
 [connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer2/VBoxContainer/btnHack" to="." method="StartGame"]
+[connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer2/VBoxContainer/tutorial" to="." method="StartTutorial"]
 [connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer2/VBoxContainer/btnExit" to="." method="ExitGame"]

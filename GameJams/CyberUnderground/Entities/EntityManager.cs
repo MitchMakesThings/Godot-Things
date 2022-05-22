@@ -21,6 +21,11 @@ namespace CyberUnderground.Entities
             _entities.Remove(e);
         }
 
+        public void Clear()
+        {
+            _entities.Clear();
+        }
+
         public T GetRandomEntity<T>() where T : class
         {
             return GetRandomEntity<T>(new T[]{});

@@ -7,6 +7,10 @@ namespace CyberUnderground.Maps
     {
         [Export]
         private PackedScene gameScene;
+
+        [Export]
+        private PackedScene _tutorialScene;
+
         private Node _game;
 
         [Export]
@@ -17,7 +21,7 @@ namespace CyberUnderground.Maps
         private Control _mainMenuControl;
 
         public int LifetimeEarnings = 0;
-    
+
         public override void _Ready()
         {
             _mainMenuControl = GetNode<Control>("MainMenu");
@@ -35,7 +39,7 @@ namespace CyberUnderground.Maps
             _lftLabel.Text = LifetimeEarnings.ToString();
 
             _mainMenuControl.Visible = true;
-            
+
             _game.QueueFree();
         }
 
@@ -43,7 +47,7 @@ namespace CyberUnderground.Maps
         public void StartGame()
         {
             _mainMenuControl.Visible = false;
-            
+
             _game = gameScene.Instance();
             AddChild(_game);
         }
@@ -52,6 +56,15 @@ namespace CyberUnderground.Maps
         public void ExitGame()
         {
             GetTree().Quit();
+        }
+
+        // Called from button pressed signal, configured in editor
+        public void StartTutorial()
+        {
+            _mainMenuControl.Visible = false;
+            
+            _game = _tutorialScene.Instance();
+            AddChild(_game);
         }
     }
 }
