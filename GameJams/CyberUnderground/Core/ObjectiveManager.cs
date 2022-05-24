@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CyberUnderground.Entities;
+using CyberUnderground.Maps;
 using Godot;
 
 namespace CyberUnderground.Core
@@ -9,12 +10,12 @@ namespace CyberUnderground.Core
     // Hardcoded delete vs download should do enough for the game jam.
     public class ObjectiveManager
     {
-        private readonly CoreSystem _system;
+        private readonly Level _system;
         private readonly EntityManager _entityManager;
 
         private readonly Dictionary<Entity, Objective> _objectives = new Dictionary<Entity, Objective>();
 
-        public ObjectiveManager(CoreSystem system, EntityManager entityManager)
+        public ObjectiveManager(Level system, EntityManager entityManager)
         {
             _system = system;
             _entityManager = entityManager;
@@ -52,7 +53,7 @@ namespace CyberUnderground.Core
                 }
             }
 
-            _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
+            _system.EmitSignal(nameof(Level.OnObjectivesUpdated));
         }
 
         public IEnumerable<Objective> GetObjectives()
@@ -76,7 +77,7 @@ namespace CyberUnderground.Core
             if (objective.Type != ObjectiveType.Delete) return;
             
             objective.CompleteTarget(file);
-            _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
+            _system.EmitSignal(nameof(Level.OnObjectivesUpdated));
         }
 
         public void FileDownloaded(FileEntity file)
@@ -90,7 +91,7 @@ namespace CyberUnderground.Core
             if (objective.Type != ObjectiveType.Download) return;
             
             objective.CompleteTarget(file);
-            _system.EmitSignal(nameof(CoreSystem.OnObjectivesUpdated));
+            _system.EmitSignal(nameof(Level.OnObjectivesUpdated));
         }
 
         public bool ShouldDeleteFile(FileEntity file)

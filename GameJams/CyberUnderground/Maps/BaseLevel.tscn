@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[sub_resource type="Shader" id=5]
+[ext_resource path="res://Maps/Level.cs" type="Script" id=1]
+[ext_resource path="res://Audio/Effects/Alarm.wav" type="AudioStream" id=2]
+
+[sub_resource type="Shader" id=1]
 code = "// Copied from https://godotshaders.com/shader/vaporwave-grid/
 
 shader_type canvas_item;
@@ -33,7 +36,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 5 )
+shader = SubResource( 1 )
 shader_param/battery = 0.3
 shader_param/anchor = -0.5
 shader_param/speed_scale = 1.0
@@ -127,10 +130,12 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.4, 0.9 )
 }
 
-[node name="System" type="Node"]
+[node name="BaseLevel" type="Node"]
+script = ExtResource( 1 )
+_shaderRect = NodePath("ColorRect")
+AlertLevelIncreasedSound = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-show_behind_parent = true
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0

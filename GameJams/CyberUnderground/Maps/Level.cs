@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using CyberUnderground.Core;
 using CyberUnderground.Entities;
 using Godot;
 
-namespace CyberUnderground.Core
+namespace CyberUnderground.Maps
 {
-    public class CoreSystem : Node
+    public class Level : Node
     {
+        public static Level Instance { get; private set; }
+        
         private float _timeSinceTick;
 
         private bool _isTicking = false;
@@ -16,14 +20,10 @@ namespace CyberUnderground.Core
 
         [Export]
         private NodePath _shaderRect;
-
         private Material _shaderMaterial;
 
         [Export]
         private AudioStream AlertLevelIncreasedSound;
-
-        [Signal]
-        public delegate void OnTick();
 
         public readonly EntityManager EntityManager = new EntityManager();
         public ObjectiveManager ObjectiveManager { get; private set; }
@@ -32,6 +32,8 @@ namespace CyberUnderground.Core
         public float TickPercentage => (100f / TimePerTick) * _timeSinceTick;
 
         private int _alertLevel = 0;
+        
+        protected readonly Random Rnd = new Random();
 
         [Signal]
         public delegate void OnAlertLevelUpdated(int newLevel);
@@ -41,6 +43,9 @@ namespace CyberUnderground.Core
 
         [Signal]
         public delegate void OnGameEnded(bool serverDisconnected, int fundsEarned);
+        
+        [Signal]
+        public delegate void OnTick();
 
         private List<Color> colors = new List<Color>()
         {
@@ -51,13 +56,28 @@ namespace CyberUnderground.Core
             new Color("3c0a0a")
         };
 
+        public override void _EnterTree()
+        {
+            base._EnterTree();
+            
+            if (Instance != null) throw new Exception("Level already registered!");
+            Instance = this;
+            
+            ObjectiveManager = new ObjectiveManager(this, EntityManager);
+
+            AudioManager = AudioManager.Instance;
+        }
+
+        public override void _ExitTree()
+        {
+            base._ExitTree();
+
+            Instance = null;
+        }
+
         public override void _Ready()
         {
             base._Ready();
-
-            ObjectiveManager = new ObjectiveManager(this, EntityManager);
-
-            AudioManager = GetNode<AudioManager>("/root/AudioManager");
             
             _shaderMaterial = GetNode<ColorRect>(_shaderRect).Material;
 
@@ -93,7 +113,6 @@ namespace CyberUnderground.Core
 
         private void Reset()
         {
-            GD.Print("Resetting");
             ObjectiveManager.Clear();
             EntityManager.Clear();
 
@@ -102,8 +121,6 @@ namespace CyberUnderground.Core
             _alertLevel = 0;
 
             ChangeAlertShader();
-            
-            GD.Print("Reset");
         }
 
         public void RaiseAlertLevel()

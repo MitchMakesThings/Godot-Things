@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://default_env.tres" type="Environment" id=1]
 [ext_resource path="res://Entities/Tools/AnalyzerTool.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Maps/RandomMap.cs" type="Script" id=7]
 [ext_resource path="res://Entities/FileEntity.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Entities/Mobs/Scanner.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Maps/BaseLevel.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Pulse"
@@ -38,43 +39,36 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[node name="RandomMap" type="Node2D"]
+[node name="RandomMap" instance=ExtResource( 10 )]
 script = ExtResource( 7 )
+AlertLevelIncreasedSound = null
 fileScene = ExtResource( 8 )
 scannerScene = ExtResource( 9 )
 fileSpawnNodePath = NodePath("FileSpawnPoint")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
 environment = ExtResource( 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldEnvironment"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldEnvironment" index="0"]
 autoplay = "Pulse"
 anims/Pulse = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 
-[node name="MainUI" parent="." instance=ExtResource( 6 )]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 499.0
-margin_top = 1.0
-margin_right = 499.0
-margin_bottom = 1.0
+[node name="MainUI" parent="." index="3" instance=ExtResource( 6 )]
 
-[node name="FileSpawnPoint" type="Node2D" parent="."]
+[node name="FileSpawnPoint" type="Node2D" parent="." index="4"]
 position = Vector2( -30, 1 )
 
-[node name="FileDeleteTool" parent="." instance=ExtResource( 5 )]
+[node name="FileDeleteTool" parent="." index="5" instance=ExtResource( 5 )]
 position = Vector2( 950, 361 )
 
-[node name="DownloadTool" parent="." instance=ExtResource( 4 )]
+[node name="DownloadTool" parent="." index="6" instance=ExtResource( 4 )]
 position = Vector2( 950, 448 )
 
-[node name="AnalyzerTool" parent="." instance=ExtResource( 2 )]
+[node name="AnalyzerTool" parent="." index="7" instance=ExtResource( 2 )]
 position = Vector2( 950, 537 )
 DeleteAnnotationScene = null
 DownloadAnnotationScene = null
 
-[node name="EntryPoint" parent="." instance=ExtResource( 3 )]
+[node name="EntryPoint" parent="." index="8" instance=ExtResource( 3 )]
 position = Vector2( 950, 274 )

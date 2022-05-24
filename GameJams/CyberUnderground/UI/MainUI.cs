@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CyberUnderground.Core;
+using CyberUnderground.Maps;
 using Godot;
 
 namespace CyberUnderground.UI
@@ -22,7 +23,7 @@ namespace CyberUnderground.UI
 
         private AnimationPlayer _animation;
 
-        private CoreSystem _system;
+        private Level _system;
 
         private Label _alertLevelLabel;
 
@@ -36,16 +37,16 @@ namespace CyberUnderground.UI
 
         public override void _Ready()
         {
-            _system = GetNode<CoreSystem>("/root/System");
+            _system = Level.Instance;
             _progressBar = GetNode<ProgressBar>(TickProgressNodePath);
             _animation = GetNode<AnimationPlayer>(AnimationPlayerNodePath);
 
             _alertLevelLabel = GetNode<Label>(AlertLevelNodePath);
             _objectivesParentNode = GetNode<Node>(ObjectivesNodePath);
 
-            _system.Connect(nameof(CoreSystem.OnTick), this, nameof(OnTick));
-            _system.Connect(nameof(CoreSystem.OnAlertLevelUpdated), this, nameof(OnAlertLevelUpdated));
-            _system.Connect(nameof(CoreSystem.OnObjectivesUpdated), this, nameof(OnObjectivesUpdated));
+            _system.Connect(nameof(Level.OnTick), this, nameof(OnTick));
+            _system.Connect(nameof(Level.OnAlertLevelUpdated), this, nameof(OnAlertLevelUpdated));
+            _system.Connect(nameof(Level.OnObjectivesUpdated), this, nameof(OnObjectivesUpdated));
 
             // Fetch our first list of objectives
             OnObjectivesUpdated();

@@ -1,6 +1,7 @@
 ﻿using System;
 using CyberUnderground.Core;
 using CyberUnderground.Entities.Tools;
+using CyberUnderground.Maps;
 using Godot;
 
 namespace CyberUnderground.Entities
@@ -8,7 +9,7 @@ namespace CyberUnderground.Entities
     public class Entity : Node2D
     {
         protected Area2D Area2D { get; private set; }
-        protected CoreSystem System { get; private set; }
+        protected Level System { get; private set; }
         
         [Export]
         public string EntityName { get; protected set; }
@@ -23,6 +24,9 @@ namespace CyberUnderground.Entities
         {
             base._Ready();
 
+            System = Level.Instance;
+            System.EntityManager.Add(this);
+
             // Blurgh, but there might be a regression causing [Export] nodepaths to be empty in inherited scenes...
             // https://github.com/godotengine/godot/issues/36480 was my original report
             Area2D = GetNode<Area2D>("Area2D");
@@ -33,15 +37,7 @@ namespace CyberUnderground.Entities
                 nameLabel.Text = EntityName;
             }
 
-            System.Connect(nameof(CoreSystem.OnTick), this, nameof(OnTick));
-        }
-
-        public override void _EnterTree()
-        {
-            base._EnterTree();
-
-            System = GetNode<CoreSystem>("/root/System");
-            System.EntityManager.Add(this);
+            System.Connect(nameof(Level.OnTick), this, nameof(OnTick));
         }
 
         public override void _Process(float delta)

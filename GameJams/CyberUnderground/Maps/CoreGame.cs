@@ -49,8 +49,6 @@ namespace CyberUnderground.Maps
         {
             _mainMenuControl = GetNode<Control>("MainMenu");
 
-            GetNode<CoreSystem>("/root/System").Connect(nameof(CoreSystem.OnGameEnded), this, nameof(OnGameEnded));
-
             _lftLabel = GetNode<Label>(_lftNodePath);
             _lftLabel.Text = LifetimeEarnings.ToString();
 
@@ -122,6 +120,7 @@ namespace CyberUnderground.Maps
             _mainMenuControl.Visible = false;
 
             _game = _tutorialScene.Instance();
+            _game.Connect(nameof(Level.OnGameEnded), this, nameof(OnGameEnded));
             AddChild(_game);
         }
 
@@ -131,6 +130,7 @@ namespace CyberUnderground.Maps
             if (_connecting)
             {
                 _game = gameScene.Instance();
+                _game.Connect(nameof(Level.OnGameEnded), this, nameof(OnGameEnded));
                 AddChild(_game);
 
                 _connecting = false;

@@ -1,11 +1,52 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Maps/RandomMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Maps/CoreGame.cs" type="Script" id=2]
 [ext_resource path="res://UI/Rubik_Glitch/RubikGlitch-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Maps/Tutorials/First.tscn" type="PackedScene" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="Shader" id=1]
+code = "// Copied from https://godotshaders.com/shader/vaporwave-grid/
+
+shader_type canvas_item;
+
+uniform float battery : hint_range(0.0,1.0) = 1.0;
+uniform float anchor : hint_range(-1.0,1.0) = -0.5;
+uniform float speed_scale : hint_range(1.0, 10.0) = 1.0;
+uniform float fov : hint_range(0.01, 1.0) = 0.2;
+uniform vec4 background_color : hint_color = vec4(0.0, 0.1, 0.2, 1.0);
+uniform vec4 grid_color : hint_color = vec4(1.0, 0.5, 1.0, 1.0);
+
+float grid(vec2 uv, float batt) {
+    vec2 size = vec2(uv.y, uv.y * uv.y * 0.2) * 0.01;
+    uv += vec2(0.0, TIME * speed_scale * (batt + 0.05));
+    uv = abs(fract(uv) - 0.5);
+ 	vec2 lines = smoothstep(size, vec2(0.0), uv);
+ 	lines += smoothstep(size * 5.0, vec2(0.0), uv) * 0.4 * batt;
+    return clamp(lines.x + lines.y, 0.0, 3.0);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	vec4 col = background_color;
+    uv.y = 3.0 / (abs(uv.y + fov) + 0.05);
+	uv.x += anchor;
+    uv.x *= uv.y * 1.0;
+    float gridVal = grid(uv, battery);
+    col = mix(background_color, grid_color, gridVal);
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/battery = 0.3
+shader_param/anchor = -0.5
+shader_param/speed_scale = 1.0
+shader_param/fov = 0.01
+shader_param/background_color = Color( 0, 0.101961, 0.2, 0 )
+shader_param/grid_color = Color( 0.0392157, 0.235294, 0.227451, 1 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 3 )
 
@@ -18,6 +59,12 @@ _popupNodepath = NodePath("ConnectionPopup")
 _popupLabelNodePath = NodePath("ConnectionPopup/CenterContainer/VBoxContainer/Label")
 _timerNodePath = NodePath("Timer")
 _earningsLabelNodePath = NodePath("ConnectionPopup/CenterContainer/VBoxContainer/EarningLabel")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="MainMenu" type="Control" parent="."]
 anchor_right = 1.0
@@ -34,7 +81,7 @@ margin_bottom = 76.0
 [node name="Title" type="Label" parent="MainMenu/CenterContainer2"]
 margin_right = 690.0
 margin_bottom = 76.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Digital Underground"
 align = 1
 

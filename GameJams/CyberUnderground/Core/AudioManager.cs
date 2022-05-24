@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace CyberUnderground.Core
@@ -7,8 +8,14 @@ namespace CyberUnderground.Core
         [Export]
         private NodePath _effectsPlayerNodePath;
         private AudioStreamPlayer _effectsPlayer;
+
+        public static AudioManager Instance { get; private set; }
+        
         public override void _Ready()
         {
+            if (Instance != null) throw new Exception("AudioManager already registered!");
+            
+            Instance = this;
             _effectsPlayer = GetNode<AudioStreamPlayer>(_effectsPlayerNodePath);
         }
 
