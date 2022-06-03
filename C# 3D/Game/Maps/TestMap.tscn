@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=2]
+[gd_scene load_steps=108 format=2]
 
 [ext_resource path="res://Character/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Maps/Objects/WinArea.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://default_env.tres" type="Environment" id=6]
 [ext_resource path="res://Maps/Materials/DefaultGrid.tres" type="Material" id=7]
 [ext_resource path="res://Maps/Objects/CarryCube.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Maps/Objects/Turret.tscn" type="PackedScene" id=9]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=1]
 default_input_values = [ 0, 0.0, 1, 0.95 ]
@@ -981,6 +982,12 @@ width = 2.5
 depth = 13.4309
 material = SubResource( 122 )
 
+[node name="CSGBox7" type="CSGBox" parent="Obstacles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.2, 5.28733, 1, 2.69896 )
+width = 2.5
+depth = 13.4309
+material = SubResource( 122 )
+
 [node name="WinArea" parent="Obstacles" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.80159, 2.0691, 7.53506 )
 
@@ -1022,6 +1029,9 @@ environment = ExtResource( 6 )
 
 [node name="CarryCube" parent="Extra interactable" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 8.16767 )
+
+[node name="Turret" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.31001, 2, 3.16055 )
 
 [connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Activate"]
 [connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Activate"]

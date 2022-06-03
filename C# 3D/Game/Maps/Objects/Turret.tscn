@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Maps/Shaders/Grid.tres" type="Shader" id=1]
+[ext_resource path="res://Maps/Objects/Turret.cs" type="Script" id=2]
+[ext_resource path="res://Maps/Components/TargetingComponent.tscn" type="PackedScene" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/Color = Color( 1, 0, 0, 1 )
+shader_param/TilingX = 2.0
+shader_param/TilingY = 2.0
+shader_param/EmissionMultiplier = 2.0
+
+[node name="Turret" type="Spatial"]
+script = ExtResource( 2 )
+_targetingComponentNodePath = NodePath("TargetingComponent")
+
+[node name="Rotation" type="CSGCylinder" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0 )
+radius = 0.5
+height = 1.5
+sides = 24
+material = SubResource( 1 )
+
+[node name="Tilt" type="CSGBox" parent="Rotation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12548, 0 )
+height = 0.765148
+material = SubResource( 1 )
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="Rotation/Tilt"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.454972, 0.124521, -1 )
+radius = 0.2
+material = SubResource( 1 )
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="Rotation/Tilt"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.455, 0.125, -1 )
+radius = 0.2
+material = SubResource( 1 )
+
+[node name="TargetingComponent" parent="." instance=ExtResource( 3 )]
+RotationNodeNodePath = NodePath("../Rotation")
+ElevationNodeNodePath = NodePath("../Rotation/Tilt")
+RotationSpeed = 0.1

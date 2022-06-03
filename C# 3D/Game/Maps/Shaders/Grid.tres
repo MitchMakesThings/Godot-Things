@@ -66,7 +66,7 @@ operator = 9
 
 [resource]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode specular_schlick_ggx, async_visible;
 
 uniform vec4 Color : hint_color;
 uniform float TilingX;
@@ -168,7 +168,6 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -1745, -164 )
 nodes/fragment/0/position = Vector2( 1180, 140 )
 nodes/fragment/3/node = SubResource( 5 )
 nodes/fragment/3/position = Vector2( -320, 160 )

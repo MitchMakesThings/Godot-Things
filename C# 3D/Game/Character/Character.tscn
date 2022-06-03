@@ -13,7 +13,7 @@ size = Vector3( 0.5, 0.5, 0.5 )
 [sub_resource type="CapsuleMesh" id=3]
 radius = 0.5
 
-[node name="Character" type="KinematicBody"]
+[node name="Character" type="KinematicBody" groups=["player"]]
 transform = Transform( 0.994235, 0, 0.107219, 0, 1, 0, -0.107219, 0, 0.994235, 0, 0, 0 )
 script = ExtResource( 1 )
 HeadNodePath = NodePath("Head")
@@ -32,7 +32,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 transform = Transform( -1, 3.25841e-07, 0, 5.30863e-14, 1.62921e-07, -1, -3.25841e-07, -1, -1.62921e-07, 0, -0.0477421, -0.56784 )
 visible = false
 mesh = SubResource( 2 )
-material/0 = null
 
 [node name="Camera" type="Camera" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.294 )
@@ -49,7 +48,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.18759 )
 [node name="Body" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
 mesh = SubResource( 3 )
-material/0 = null
 
 [node name="InteractableUI" type="CanvasLayer" parent="."]
 script = ExtResource( 3 )
