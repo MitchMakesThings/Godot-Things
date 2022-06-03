@@ -34,6 +34,8 @@ public class Character : KinematicBody
 	[Export]
 	private float DecelerationSpeed = 16.0f;
 
+	private bool IsRunning = false;
+
 	private float Gravity;
 
 	#endregion
@@ -85,6 +87,9 @@ public class Character : KinematicBody
 		if (Input.IsActionPressed("movement_right")) {
 			inputMovementVector.x += 1;
 		}
+
+		// Check whether we're trying to run
+		IsRunning = Input.IsActionPressed("sprint");
 
 		// Theoretically this won't be necessary, since it was declared just before being set...
 		inputMovementVector = inputMovementVector.Normalized();
@@ -138,6 +143,10 @@ public class Character : KinematicBody
 
 		var target = Direction;
 		target *= MaxSpeed;
+		if (IsRunning)
+		{
+			target *= 3;
+		}
 
 		// Work out whether we're speeding up or slowing down
 		float acceleration;
