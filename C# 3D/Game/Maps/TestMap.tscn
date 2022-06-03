@@ -76,7 +76,7 @@ operator = 9
 
 [sub_resource type="VisualShader" id=23]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode specular_schlick_ggx, async_visible;
 
 uniform vec4 Color : hint_color;
 uniform float TilingX;
@@ -299,7 +299,7 @@ operator = 9
 
 [sub_resource type="VisualShader" id=71]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode specular_schlick_ggx, async_visible;
 
 uniform vec4 Color : hint_color;
 uniform float TilingX;
@@ -528,7 +528,7 @@ operator = 9
 
 [sub_resource type="VisualShader" id=96]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode specular_schlick_ggx, async_visible;
 
 uniform vec4 Color : hint_color;
 uniform float TilingX;
@@ -756,7 +756,7 @@ operator = 9
 
 [sub_resource type="VisualShader" id=121]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode specular_schlick_ggx, async_visible;
 
 uniform vec4 Color : hint_color;
 uniform float TilingX;
@@ -988,6 +988,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.80159, 2.0691, 7.53506 )
 
 [node name="Door" parent="InteractionExample" instance=ExtResource( 3 )]
 transform = Transform( 1.25459, 0, 0, 0, 1, 0, 0, 0, 1, -8.63563, 2, 4.2771 )
+IsInteractable = false
 
 [node name="Door2" parent="InteractionExample" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.26521, 0, 4.16473 )
@@ -998,6 +999,7 @@ AnimationPlayerNodePath = NodePath("../InteractableDoor/AnimationPlayer")
 
 [node name="PedestalDoor" parent="InteractionExample" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63563, 2, -0.17643 )
+IsInteractable = false
 AnimationPlayerNodePath = NodePath("../PedestalDoor/AnimationPlayer")
 
 [node name="PressurePlate" parent="InteractionExample" instance=ExtResource( 4 )]
@@ -1020,7 +1022,8 @@ environment = ExtResource( 6 )
 
 [node name="CarryCube" parent="Extra interactable" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 8.16767 )
-[connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Activate"]
+
 [connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Activate"]
-[connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Deactivate"]
+[connection signal="OnActivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Activate"]
 [connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door" method="Deactivate"]
+[connection signal="OnDeactivated" from="InteractionExample/PressurePlate" to="InteractionExample/Door2" method="Deactivate"]

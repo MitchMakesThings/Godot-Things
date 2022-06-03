@@ -43,7 +43,7 @@ public class CarryCube : RigidBody, IInteractable
 			
 			// TODO Get throw strength from Character?
 			Character thrower = caller as Character;
-			ApplyCentralImpulse(-thrower.GlobalTransform.basis.z * 100);
+			ApplyCentralImpulse(-thrower.GlobalTransform.basis.z * 10);
 		}
 	}
 }
