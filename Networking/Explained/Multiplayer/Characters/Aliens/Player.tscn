@@ -24,15 +24,15 @@ colors = PackedColorArray(0, 0.278431, 0.486275, 1, 0, 0.576471, 1, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_cduq7"]
 gradient = SubResource( "Gradient_168qg" )
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t66em"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_34p3j"]
 properties/0/path = NodePath(":sync_position")
 properties/0/spawn = true
 properties/0/sync = true
-properties/1/path = NodePath(":sync_is_jumping")
-properties/1/spawn = false
+properties/1/path = NodePath(":sync_velocity")
+properties/1/spawn = true
 properties/1/sync = true
-properties/2/path = NodePath(":sync_velocity")
-properties/2/spawn = false
+properties/2/path = NodePath(":sync_is_jumping")
+properties/2/spawn = true
 properties/2/sync = true
 
 [node name="Player" type="CharacterBody2D"]
@@ -67,22 +67,18 @@ offset_left = -56.0
 offset_top = -29.0
 offset_right = -16.0
 offset_bottom = 11.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
 offset_right = 15.0
 offset_bottom = 66.0
 value = 100.0
-texture_under = SubResource( "GradientTexture1D_lsl6q" )
-texture_progress = SubResource( "GradientTexture1D_cduq7" )
 fill_mode = 3
 nine_patch_stretch = true
+texture_under = SubResource( "GradientTexture1D_lsl6q" )
+texture_progress = SubResource( "GradientTexture1D_cduq7" )
 
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( "4_h5uv8" )
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Networking"]
-root_path = NodePath("..")
-resource = SubResource( "SceneReplicationConfig_t66em" )
+congiruation = SubResource( "SceneReplicationConfig_34p3j" )

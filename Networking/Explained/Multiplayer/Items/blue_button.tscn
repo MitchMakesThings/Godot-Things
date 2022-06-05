@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8apkt"]
 size = Vector2(64, 61)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ja6x7"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ntf3m"]
 properties/0/path = NodePath(":isPressed")
 properties/0/spawn = true
 properties/0/sync = true
@@ -27,8 +27,7 @@ position = Vector2(0, -29)
 shape = SubResource( "RectangleShape2D_8apkt" )
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-root_path = NodePath("..")
 replication_interval = 0.5
-resource = SubResource( "SceneReplicationConfig_ja6x7" )
+congiruation = SubResource( "SceneReplicationConfig_ntf3m" )
 
 [connection signal="body_entered" from="." to="." method="_on_blue_button_body_entered"]
