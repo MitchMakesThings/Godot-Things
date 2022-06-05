@@ -23,7 +23,7 @@ func start_network(server: bool) -> void:
 		peer.create_server(4242)
 		print('server listening on localhost 4242')
 	else:
-		peer.create_client("networking-explained.mitchmakesthings.online", 4242)
+		peer.create_client("localhost", 4242)
 
 	multiplayer.set_multiplayer_peer(peer)
 

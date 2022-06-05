@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cruxxhpoyibub"]
+[gd_scene load_steps=4 format=3 uid="uid://cruxxhpoyibub"]
 
 [ext_resource type="Script" path="res://System/main.gd" id="1_n31dg"]
-[ext_resource type="PackedScene" uid="uid://scjoku8kmkqj" path="res://Characters/Aliens/Player.tscn" id="2_tebs4"]
 [ext_resource type="PackedScene" uid="uid://dhvi1o1ili7f" path="res://Maps/TestMap.tscn" id="3_uwrpn"]
 [ext_resource type="Script" path="res://System/UI.gd" id="4_kv3lk"]
 
@@ -14,7 +13,7 @@ script = ExtResource( "1_n31dg" )
 position = Vector2(325, 0)
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-replication = [ExtResource( "2_tebs4" )]
+_spawnable_scenes = PackedStringArray("res://Characters/Aliens/Player.tscn")
 spawn_path = NodePath("../Players")
 auto_spawn = true
 
