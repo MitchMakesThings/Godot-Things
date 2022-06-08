@@ -40,4 +40,3 @@ material = SubResource( 1 )
 [node name="TargetingComponent" parent="." instance=ExtResource( 3 )]
 RotationNodeNodePath = NodePath("../Rotation")
 ElevationNodeNodePath = NodePath("../Rotation/Tilt")
-RotationSpeed = 0.1

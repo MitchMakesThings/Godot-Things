@@ -10,10 +10,10 @@ public class TargetingComponent : Node
     private NodePath ElevationNodeNodePath;
 
     [Export]
-    private float RotationSpeed = 30f;
+    private float RotationSpeed = 1f;
 
     [Export]
-    private float ElevationSpeed = 20f;
+    private float ElevationSpeed = 1f;
 
     private Spatial RotationNode;
     private Spatial ElevationNode;
@@ -38,18 +38,30 @@ public class TargetingComponent : Node
     {
         base._PhysicsProcess(delta);
         if (Target is null) return;
-        
-        // TODO it might be simpler to calculate rotation in the XZ plane
 
-        var targetDirection = Target.GlobalTransform.origin - RotationNode.GlobalTransform.origin;
-        var rotationForward = -RotationNode.GlobalTransform.basis.z;
+        if (RotationNode != null)
+        {
+            Pivot(RotationNode, Vector3.Up, RotationSpeed, delta);
+        }
 
-        // If we're within 1 degree that's probably good enough.
-        if (rotationForward.AngleTo(targetDirection) <= 0.0174533f) return;
+        if (ElevationNode != null)
+        {
+            Pivot(ElevationNode, Vector3.Right, ElevationSpeed, delta);
+        }
+    }
+
+    private void Pivot(Spatial pivotNode, Vector3 axis, float speed, float delta)
+    {
+        var current = new Quat(pivotNode.Transform.basis);
+        var target = new Quat(pivotNode.GlobalTransform.LookingAt(Target.GlobalTransform.origin, Vector3.Up).basis);
         
+        // Figure out how far we should travel between the current and target rotations
+        var step = current.Slerp(target, speed * delta);
         
-        var stepTarget = rotationForward.LinearInterpolate(targetDirection, RotationSpeed * delta);
-        RotationNode.Transform =
-            RotationNode.Transform.Rotated(RotationNode.Transform.basis.y, rotationForward.AngleTo(stepTarget));
+        // Simplify down to only the axis we want to rotate around.
+        step = new Quat(axis * step.GetEuler());
+
+        pivotNode.Transform = new Transform(new Basis(step), pivotNode.Transform.origin);
+        pivotNode.Orthonormalize(); // Make sure floating-point accumulation doesn't drive things crazy!
     }
 }
