@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://System/UI.gd" id="4_kv3lk"]
 
 [node name="MainGame" type="Node"]
-script = ExtResource( "1_n31dg" )
+script = ExtResource("1_n31dg")
 
-[node name="TestMap" parent="." instance=ExtResource( "3_uwrpn" )]
+[node name="TestMap" parent="." instance=ExtResource("3_uwrpn")]
 
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(325, 0)
@@ -18,7 +18,7 @@ spawn_path = NodePath("../Players")
 auto_spawn = true
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource( "4_kv3lk" )
+script = ExtResource("4_kv3lk")
 
 [node name="CenterContainer" type="CenterContainer" parent="UI"]
 anchor_right = 1.0

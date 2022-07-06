@@ -7,27 +7,27 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8apkt"]
 size = Vector2(64, 61)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ntf3m"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_a2ivw"]
 properties/0/path = NodePath(":isPressed")
 properties/0/spawn = true
 properties/0/sync = true
 
 [node name="BlueButton" type="Area2D"]
 collision_mask = 2
-script = ExtResource( "1_35n0c" )
-pressed_texture = ExtResource( "2_kyogj" )
-default_texture = ExtResource( "2_3l0fu" )
+script = ExtResource("1_35n0c")
+pressed_texture = ExtResource("2_kyogj")
+default_texture = ExtResource("2_3l0fu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -36)
-texture = ExtResource( "2_3l0fu" )
+texture = ExtResource("2_3l0fu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -29)
-shape = SubResource( "RectangleShape2D_8apkt" )
+shape = SubResource("RectangleShape2D_8apkt")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_interval = 0.5
-congiruation = SubResource( "SceneReplicationConfig_ntf3m" )
+replication_config = SubResource("SceneReplicationConfig_a2ivw")
 
 [connection signal="body_entered" from="." to="." method="_on_blue_button_body_entered"]

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cday0n3k0g4ew" path="res://Maps/tiles_spritesheet.png" id="1_c0bnl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ju6b1"]
-texture = ExtResource( "1_c0bnl" )
+texture = ExtResource("1_c0bnl")
 separation = Vector2i(2, 2)
 texture_region_size = Vector2i(70, 70)
 use_texture_padding = false
@@ -490,4 +490,4 @@ use_texture_padding = false
 [resource]
 tile_size = Vector2i(70, 70)
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource( "TileSetAtlasSource_ju6b1" )
+sources/1 = SubResource("TileSetAtlasSource_ju6b1")

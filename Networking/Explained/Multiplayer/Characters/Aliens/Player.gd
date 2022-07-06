@@ -4,7 +4,7 @@ class_name Player
 const SPEED = 300.0
 const JUMP_FORCE = -400.0
 const MAX_JUMP_FUEL = 100.0
-const CAMERA_MAX_ZOOM := Vector2(2.5, 2.5)
+const CAMERA_MAX_ZOOM := Vector2(0.5, 0.5)
 
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -56,13 +56,13 @@ func _physics_process(delta):
 		jump_fuel -= 1
 		is_jumping = true
 		
-		if $Camera2D.zoom.length() < CAMERA_MAX_ZOOM.length():
+		if $Camera2D.zoom.length() > CAMERA_MAX_ZOOM.length():
 			$Camera2D.zoom = $Camera2D.zoom.lerp(CAMERA_MAX_ZOOM, 0.01)
 	else:
 		is_jumping = false
 		$JetpackParticles.emitting = false
 		var zoom = $Camera2D.zoom.length()
-		if zoom > 1:
+		if zoom < 1:
 			$Camera2D.zoom = $Camera2D.zoom.lerp(Vector2(1, 1), zoom * 0.005)
 	
 	if is_on_floor():
