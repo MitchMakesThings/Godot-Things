@@ -22,7 +22,7 @@ func start_network(server: bool):
 		var targetIP = "localhost"
 		peer.create_client(targetIP, 4242)
 
-	multiplayer.set_multiplayer_peer(peer)
+	multiplayer.multiplayer_peer = peer
 
 func create_player(id):
 	# Instantiate a new player for this client.
