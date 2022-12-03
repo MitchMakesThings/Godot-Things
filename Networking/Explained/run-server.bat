@@ -1,1 +1,1 @@
-"C:\Users\Mitch\Documents\godot\Godot_v4.0-alpha12_win64.exe\Godot_v4.0-alpha12_win64.exe" --path .\Multiplayer\ --server
+"C:\Users\Mitch\Documents\godot\Godot_v4.0-beta7_mono_win64\Godot_v4.0-beta7_mono_win64.exe" --path .\Multiplayer\ --server

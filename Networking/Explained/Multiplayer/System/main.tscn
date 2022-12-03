@@ -15,12 +15,12 @@ position = Vector2(325, 0)
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Characters/Aliens/Player.tscn")
 spawn_path = NodePath("../Players")
-auto_spawn = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("4_kv3lk")
 
 [node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 26.0
 
