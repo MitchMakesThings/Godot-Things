@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform sampler2D destruction_mask : hint_black;
+uniform sampler2D destruction_mask : hint_default_black;
 
 void fragment() {
 	vec4 original_colour = texture(TEXTURE, UV).rgba;

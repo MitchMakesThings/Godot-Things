@@ -1,22 +1,22 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
-export (Vector2) var _speed = Vector2(400, 600)
-export (Vector2) var gravity = Vector2(0, 1200)
+@export var _speed = Vector2(400, 600)
+@export var gravity = Vector2(0, 1200)
 
 var _velocity : Vector2 = Vector2.ZERO
 
-export var _reticule_anchor_node_path : NodePath
-onready var reticule_anchor : Node2D = get_node(_reticule_anchor_node_path)
+@export var _reticule_anchor_node_path : NodePath
+@onready var reticule_anchor : Node2D = get_node(_reticule_anchor_node_path)
 
-export var weapon_projectile : PackedScene
-export var weapon_speed : float = 3
+@export var weapon_projectile : PackedScene
+@export var weapon_speed : float = 3
 
 var _attack_power : float = 0
 var _attack_scale : float = 3
 var _attack_clicked : bool = false
 
 # When _attack_power reaches this we'll force the shot. (ie, this is the max cap of power for any 1 shot)
-onready var _auto_attack_power : float = (reticule_anchor.get_child_count() / _attack_scale)
+@onready var _auto_attack_power : float = (reticule_anchor.get_child_count() / _attack_scale)
 
 func _process(_delta : float):
 	_rotate_reticule()
@@ -25,7 +25,7 @@ func _process(_delta : float):
 
 func _unhandled_input(event):
 	# Click and drag - begin / end clicking
-	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			_attack_clicked = true
 		else:
@@ -38,8 +38,8 @@ func _unhandled_input(event):
 
 func shoot():
 	# Spawn projectile
-	var new_projectile := weapon_projectile.instance() as RigidBody2D
-	var reticule := reticule_anchor.find_node("Reticule")
+	var new_projectile := weapon_projectile.instantiate() as RigidBody2D
+	var reticule := reticule_anchor.find_child("Reticule")
 	new_projectile.global_position = reticule.global_position
 	new_projectile.linear_velocity = (reticule.global_position - global_position) * weapon_speed * (_attack_power * _attack_scale)
 	get_parent().add_child(new_projectile)
@@ -65,7 +65,10 @@ func _physics_process(_delta : float):
 	
 	_velocity = _calculate_move_velocity(_velocity, input_direction, _speed)
 	
-	_velocity = move_and_slide(_velocity, Vector2(0, -1))
+	set_velocity(_velocity)
+	set_up_direction(Vector2(0, -1))
+	move_and_slide()
+	_velocity = velocity
 	
 	# Animation stuff
 	if _velocity.x >= 1:

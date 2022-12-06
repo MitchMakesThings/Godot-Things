@@ -1,20 +1,20 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/characters/wizard2.png" type="Texture" id=1]
+[ext_resource path="res://assets/characters/wizard2.png" type="Texture2D" id=1]
 [ext_resource path="res://src/character/wizard.gd" type="Script" id=2]
-[ext_resource path="res://assets/reticule.png" type="Texture" id=3]
-[ext_resource path="res://assets/weapons/slime-green.png" type="Texture" id=4]
+[ext_resource path="res://assets/reticule.png" type="Texture2D" id=3]
+[ext_resource path="res://assets/weapons/slime-green.png" type="Texture2D" id=4]
 [ext_resource path="res://src/weapons/Slime-Green.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 26.8793
 
-[node name="Wizard" type="KinematicBody2D"]
+[node name="Wizard" type="CharacterBody2D"]
 script = ExtResource( 2 )
 _reticule_anchor_node_path = NodePath("ReticuleAnchor")
 weapon_projectile = ExtResource( 5 )
 
-[node name="CharacterSprite" type="Sprite" parent="."]
+[node name="CharacterSprite" type="Sprite2D" parent="."]
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 
@@ -24,30 +24,30 @@ shape = SubResource( 1 )
 
 [node name="ReticuleAnchor" type="Node2D" parent="."]
 
-[node name="Sprite4" type="Sprite" parent="ReticuleAnchor"]
+[node name="Sprite4" type="Sprite2D" parent="ReticuleAnchor"]
 visible = false
 position = Vector2( 34, 0 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 
-[node name="Sprite3" type="Sprite" parent="ReticuleAnchor"]
+[node name="Sprite3" type="Sprite2D" parent="ReticuleAnchor"]
 visible = false
 position = Vector2( 50, 0 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 4 )
 
-[node name="Sprite2" type="Sprite" parent="ReticuleAnchor"]
+[node name="Sprite2" type="Sprite2D" parent="ReticuleAnchor"]
 visible = false
 position = Vector2( 70, 0 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="ReticuleAnchor"]
+[node name="Sprite2D" type="Sprite2D" parent="ReticuleAnchor"]
 visible = false
 position = Vector2( 100, 0 )
 texture = ExtResource( 4 )
 
-[node name="Reticule" type="Sprite" parent="ReticuleAnchor"]
+[node name="Reticule" type="Sprite2D" parent="ReticuleAnchor"]
 position = Vector2( 100, 0 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
