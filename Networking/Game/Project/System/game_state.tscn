@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg6vm67ubsvju"]
+
+[ext_resource type="Script" path="res://System/game_state.gd" id="1_g0bil"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d5pac"]
+properties/0/path = NodePath(":button_press_count")
+properties/0/spawn = true
+properties/0/sync = true
+
+[node name="GameState" type="Node"]
+script = ExtResource("1_g0bil")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 1.0
+replication_config = SubResource("SceneReplicationConfig_d5pac")
