@@ -23,10 +23,11 @@ script = ExtResource("4_kv3lk")
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 26.0
+grow_horizontal = 2
 
 [node name="Label" type="Label" parent="UI/CenterContainer"]
-offset_left = 221.0
-offset_right = 802.0
+offset_left = 285.0
+offset_right = 866.0
 offset_bottom = 42.0
 theme_type_variation = &"HeaderLarge"
 text = "Button pressed X times since server restart"

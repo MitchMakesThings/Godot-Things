@@ -1,10 +1,12 @@
 extends CharacterBody2D
 class_name Player
 
-const SPEED = 300.0
+const SPEED = 600.0
 const JUMP_FORCE = -400.0
 const MAX_JUMP_FUEL = 100.0
 const CAMERA_MAX_ZOOM := Vector2(0.5, 0.5)
+
+var is_using_controller := false
 
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -34,6 +36,24 @@ func _ready():
 func _process(_delta):
 	$UI/TextureProgressBar.value = jump_fuel
 	$UI/TextureProgressBar.visible = jump_fuel < MAX_JUMP_FUEL
+	
+	_rotate_weapon(_delta)
+
+func _rotate_weapon(_delta : float) -> void:
+	var weapon_angle : float = 0
+	var controller_input : Vector2 = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+	if controller_input.length_squared() > 0:
+		weapon_angle = controller_input.angle()
+		$WeaponParent.rotation = weapon_angle
+		is_using_controller = true # First time we aim with a controller we activate controller-only mode
+		return
+	else:
+		if is_using_controller:
+			# We don't want to use the mouse aiming from here on.
+			return
+		weapon_angle = $WeaponParent.get_angle_to(get_global_mouse_position())
+		$WeaponParent.rotate(weapon_angle)
+
 
 func _physics_process(delta):
 	if !is_local_authority():
