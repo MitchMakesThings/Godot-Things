@@ -1,7 +1,7 @@
 extends Node
 
 @export
-var PlayerScene = preload("res://Characters/Aliens/Player.tscn")
+var PlayerScene = preload("res://Characters/Aliens/Character.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree():
@@ -15,7 +15,7 @@ func _enter_tree():
 func start_network(server: bool) -> void:
 	var peer = ENetMultiplayerPeer.new()
 	if server:
-		# Listen to peer connections, and create new player for them
+		# Listen to peer connections, and create new character for them
 		multiplayer.peer_connected.connect(self.create_player)
 		# Listen to peer disconnections, and destroy their players
 		multiplayer.peer_disconnected.connect(self.destroy_player)
@@ -28,6 +28,7 @@ func start_network(server: bool) -> void:
 	multiplayer.set_multiplayer_peer(peer)
 
 func create_player(id : int) -> void:
+	print("create_player begin")
 	# Instantiate a new player for this client.
 	var p = PlayerScene.instantiate()
 
@@ -35,6 +36,7 @@ func create_player(id : int) -> void:
 	p.name = str(id)
 	
 	$Players.add_child(p)
+	print("create_player end")
 
 func destroy_player(id : int) -> void:
 	# Delete this peer's node.

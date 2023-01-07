@@ -13,7 +13,7 @@ script = ExtResource("1_n31dg")
 position = Vector2(325, 0)
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Characters/Aliens/Player.tscn")
+_spawnable_scenes = PackedStringArray("res://Characters/Aliens/Character.tscn")
 spawn_path = NodePath("../Players")
 
 [node name="UI" type="CanvasLayer" parent="."]

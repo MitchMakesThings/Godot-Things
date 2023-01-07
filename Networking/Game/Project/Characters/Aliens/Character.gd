@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Player
+class_name Character
 
 const SPEED = 600.0
 const JUMP_FORCE = -400.0
@@ -7,6 +7,9 @@ const MAX_JUMP_FUEL = 100.0
 const CAMERA_MAX_ZOOM := Vector2(0.5, 0.5)
 
 var is_using_controller := false
+
+@onready
+var weapon = get_node("WeaponParent/Weapon")
 
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -76,6 +79,8 @@ func _physics_process(delta):
 		jump_fuel -= 1
 		is_jumping = true
 		
+		Input.start_joy_vibration(0, .5, 0, 0.1)
+		
 		if $Camera2D.zoom.length() > CAMERA_MAX_ZOOM.length():
 			$Camera2D.zoom = $Camera2D.zoom.lerp(CAMERA_MAX_ZOOM, 0.01)
 	else:
@@ -87,6 +92,9 @@ func _physics_process(delta):
 	
 	if is_on_floor():
 		jump_fuel = MAX_JUMP_FUEL
+		
+	if Input.is_action_just_pressed("shoot_primary"):
+		shoot()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -103,3 +111,7 @@ func _physics_process(delta):
 	$Networking.sync_position = position
 	$Networking.sync_velocity = velocity
 	$Networking.sync_is_jumping = is_jumping
+
+func shoot():
+	if weapon != null:
+		weapon.shoot()

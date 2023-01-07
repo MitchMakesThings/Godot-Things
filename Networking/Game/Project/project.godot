@@ -10,17 +10,23 @@ config_version=5
 
 _global_script_classes=[{
 "base": "CharacterBody2D",
-"class": &"Player",
+"class": &"Character",
 "language": &"GDScript",
-"path": "res://Characters/Aliens/Player.gd"
+"path": "res://Characters/Aliens/Character.gd"
+}, {
+"base": "Sprite2D",
+"class": &"Weapon",
+"language": &"GDScript",
+"path": "res://Items/Weapons/weapon.gd"
 }]
 _global_script_class_icons={
-"Player": ""
+"Character": "",
+"Weapon": ""
 }
 
 [application]
 
-config/name="Multiplayer"
+config/name="Multiplayer Game"
 run/main_scene="res://System/main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
@@ -73,5 +79,11 @@ aim_up={
 aim_down={
 "deadzone": 0.1,
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":1.0,"script":null)
+]
+}
+shoot_primary={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":5,"axis_value":1.0,"script":null)
 ]
 }

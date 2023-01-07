@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyhw7cpqxneyb"]
+
+[ext_resource type="Texture2D" uid="uid://dlit317tiq6mv" path="res://Assets/Items/Guns/raygunPurpleBig.png" id="1_n256q"]
+[ext_resource type="Script" path="res://Items/Weapons/weapon.gd" id="2_1qmpy"]
+[ext_resource type="Texture2D" uid="uid://c1ekwo655xllq" path="res://Assets/UI/crossair_whiteOutline.png" id="2_rjsrw"]
+
+[node name="Weapon" type="Sprite2D"]
+position = Vector2(54, 0)
+texture = ExtResource("1_n256q")
+script = ExtResource("2_1qmpy")
+
+[node name="Reticule" type="Sprite2D" parent="."]
+position = Vector2(173, 0)
+texture = ExtResource("2_rjsrw")

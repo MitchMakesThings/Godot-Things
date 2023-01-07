@@ -18,7 +18,7 @@ var isPressed : bool:
 func _on_blue_button_body_entered(body):
 	if isPressed:
 		return
-	if not body is Player:
+	if not body is Character:
 		return
 	isPressed = true
 	if multiplayer.is_server():
