@@ -6,5 +6,6 @@ var sync_position : Vector2:
 		processed_position = false
 var sync_velocity : Vector2
 var sync_is_jumping : bool
+var sync_weapon_rotation : float
 
 var processed_position : bool

@@ -43,6 +43,9 @@ func _process(_delta):
 	_rotate_weapon(_delta)
 
 func _rotate_weapon(_delta : float) -> void:
+	if not is_local_authority():
+		$WeaponParent.rotation = $Networking.sync_weapon_rotation
+		return
 	var weapon_angle : float = 0
 	var controller_input : Vector2 = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 	if controller_input.length_squared() > 0:
@@ -56,6 +59,7 @@ func _rotate_weapon(_delta : float) -> void:
 			return
 		weapon_angle = $WeaponParent.get_angle_to(get_global_mouse_position())
 		$WeaponParent.rotate(weapon_angle)
+	$Networking.sync_weapon_rotation = $WeaponParent.rotation
 
 
 func _physics_process(delta):
