@@ -28,7 +28,6 @@ func start_network(server: bool) -> void:
 	multiplayer.set_multiplayer_peer(peer)
 
 func create_player(id : int) -> void:
-	print("create_player begin")
 	# Instantiate a new player for this client.
 	var p = PlayerScene.instantiate()
 
@@ -36,7 +35,6 @@ func create_player(id : int) -> void:
 	p.name = str(id)
 	
 	$Players.add_child(p)
-	print("create_player end")
 
 func destroy_player(id : int) -> void:
 	# Delete this peer's node.
