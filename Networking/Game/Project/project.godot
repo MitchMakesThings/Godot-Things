@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Multiplayer Game"
-run/main_scene="res://System/main.tscn"
+run/main_scene="res://System/main_menu.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 

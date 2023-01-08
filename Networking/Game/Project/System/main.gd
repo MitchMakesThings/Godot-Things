@@ -3,16 +3,7 @@ extends Node
 @export
 var PlayerScene = preload("res://Characters/Aliens/Character.tscn")
 
-# Called when the node enters the scene tree for the first time.
-func _enter_tree():
-	# Start the server if Godot is passed the "--server" argument,
-	# and start a client otherwise.
-	if "--server" in OS.get_cmdline_args():
-		start_network(true)
-	else:
-		start_network(false)
-
-func start_network(server: bool) -> void:
+func start_network(server: bool, ip: String = '', port: int = 4242) -> void:
 	var peer = ENetMultiplayerPeer.new()
 	if server:
 		# Listen to peer connections, and create new character for them
@@ -23,7 +14,7 @@ func start_network(server: bool) -> void:
 		peer.create_server(4242)
 		print('server listening on localhost 4242')
 	else:
-		peer.create_client("localhost", 4242)
+		peer.create_client(ip, port)
 
 	multiplayer.set_multiplayer_peer(peer)
 

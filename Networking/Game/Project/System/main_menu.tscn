@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://r10uvox154hl"]
+
+[ext_resource type="Script" path="res://System/main_menu.gd" id="1_v0wj0"]
+[ext_resource type="PackedScene" uid="uid://cruxxhpoyibub" path="res://System/main.tscn" id="2_2lpng"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("ip_input", "port_input")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_v0wj0")
+map_scene = ExtResource("2_2lpng")
+ip_input = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/txtIP")
+port_input = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/txtPort")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Multiplayer Game"
+
+[node name="btnHost" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="txtIP" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+
+[node name="txtPort" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "4242"
+
+[node name="btnJoin" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/btnHost" to="." method="_on_btn_host_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/btnJoin" to="." method="_on_btn_join_pressed"]
