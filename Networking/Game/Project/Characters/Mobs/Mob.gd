@@ -44,6 +44,10 @@ func flash_damage():
 	
 	# TODO explode in a cloud of red particles, then queue_free once they're done
 	if health_sync <= 0:
+		# Fade out of visibility and trigger blood particles
+		tween.tween_property($Sprite2D, "modulate", Color("ffffff00"), 0.1)
+		$GPUParticles2D.emitting = true
+		
 		if multiplayer.is_server():
 			GameState.mobs_killed += 1
 			# Note that we only queue_free on the server.
