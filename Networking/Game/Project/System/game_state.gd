@@ -1,8 +1,13 @@
 extends Node
 
-signal button_press_count_changed(newValue : int)
+signal state_changed
 
 var button_press_count := 0:
 	set(value):
 		button_press_count = value
-		emit_signal(StringName("button_press_count_changed"), value)
+		state_changed.emit()
+
+var mobs_killed := 0:
+	set(value):
+		mobs_killed = value
+		state_changed.emit()

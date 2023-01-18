@@ -6,6 +6,9 @@
 properties/0/path = NodePath(":button_press_count")
 properties/0/spawn = true
 properties/0/sync = true
+properties/1/path = NodePath(".:mobs_killed")
+properties/1/spawn = true
+properties/1/sync = true
 
 [node name="GameState" type="Node"]
 script = ExtResource("1_g0bil")

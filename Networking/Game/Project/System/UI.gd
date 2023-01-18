@@ -1,7 +1,11 @@
 extends CanvasLayer
 
 func _ready():
-	GameState.button_press_count_changed.connect(self.update_label)
+	GameState.state_changed.connect(self.update_label)
+	update_label()
 
-func update_label(newScore : int) -> void:
-	$CenterContainer/Label.text = "Button pressed " + str(newScore) + " times since server restart"
+func update_label() -> void:
+	var string = "Button pressed " + str(GameState.button_press_count) + " times since server restart"
+	if (GameState.mobs_killed > 0):
+		string += "\nWhales killed: " + str(GameState.mobs_killed)
+	$CenterContainer/Label.text = string

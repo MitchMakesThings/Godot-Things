@@ -44,4 +44,6 @@ func flash_damage():
 	
 	# TODO explode in a cloud of red particles, then queue_free once they're done
 	if health_sync <= 0:
+		if multiplayer.is_server():
+			GameState.mobs_killed += 1
 		queue_free()
