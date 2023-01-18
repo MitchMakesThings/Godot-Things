@@ -46,4 +46,6 @@ func flash_damage():
 	if health_sync <= 0:
 		if multiplayer.is_server():
 			GameState.mobs_killed += 1
-		queue_free()
+			# Note that we only queue_free on the server.
+			# The MultiplayerSpawner will tell the clients to delete their instances
+			tween.tween_callback(queue_free)

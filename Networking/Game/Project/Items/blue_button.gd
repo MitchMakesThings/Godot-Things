@@ -23,5 +23,12 @@ func _on_blue_button_body_entered(body):
 	isPressed = true
 	if multiplayer.is_server():
 		GameState.button_press_count += 1
+		
+		# Murder a whale at random
+		var mobs = get_tree().get_nodes_in_group("mobs")
+		if not mobs.is_empty():
+			mobs.pick_random().take_damage(100)
+		
+		# Reset the button after a delay
 		await get_tree().create_timer(reset_delay).timeout
 		isPressed = false

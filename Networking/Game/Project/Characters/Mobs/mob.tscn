@@ -17,7 +17,7 @@ properties/2/path = NodePath(".:health_sync")
 properties/2/spawn = true
 properties/2/sync = true
 
-[node name="Mob" type="CharacterBody2D"]
+[node name="Mob" type="CharacterBody2D" groups=["mobs"]]
 script = ExtResource("1_lrhke")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
