@@ -3,6 +3,9 @@ extends Node
 @export
 var PlayerScene = preload("res://Characters/Aliens/Character.tscn")
 
+@export
+var MobScene = preload("res://Characters/Mobs/mob.tscn")
+
 func start_network(server: bool, ip: String = '', port: int = 4242) -> void:
 	var peer = ENetMultiplayerPeer.new()
 	if server:
@@ -30,3 +33,10 @@ func create_player(id : int) -> void:
 func destroy_player(id : int) -> void:
 	# Delete this peer's node.
 	$Players.get_node(str(id)).queue_free()
+
+
+func _on_mob_spawn_timeout():
+	if not multiplayer.is_server():
+		return
+	var mob = MobScene.instantiate()
+	get_node("Mobs").add_child(mob, true)

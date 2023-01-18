@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bul4uhisu33xs"]
+
+[ext_resource type="Script" path="res://Characters/Mobs/Mob.gd" id="1_lrhke"]
+[ext_resource type="Texture2D" uid="uid://dbqqen0oub23h" path="res://Characters/Mobs/whale.png" id="1_ujqvv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o17j4"]
+radius = 32.36
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gb048"]
+properties/0/path = NodePath(".:velocity_sync")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:global_pos_sync")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:health_sync")
+properties/2/spawn = true
+properties/2/sync = true
+
+[node name="Mob" type="CharacterBody2D"]
+script = ExtResource("1_lrhke")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o17j4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ujqvv")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_gb048")

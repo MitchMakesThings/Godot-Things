@@ -8,22 +8,6 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "CharacterBody2D",
-"class": &"Character",
-"language": &"GDScript",
-"path": "res://Characters/Aliens/Character.gd"
-}, {
-"base": "Sprite2D",
-"class": &"Weapon",
-"language": &"GDScript",
-"path": "res://Items/Weapons/weapon.gd"
-}]
-_global_script_class_icons={
-"Character": "",
-"Weapon": ""
-}
-
 [application]
 
 config/name="Multiplayer Game"
@@ -38,6 +22,10 @@ GameState="*res://System/game_state.tscn"
 [dotnet]
 
 project/assembly_name="Multiplayer"
+
+[editor]
+
+export/convert_text_resources_to_binary=true
 
 [input]
 

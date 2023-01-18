@@ -26,8 +26,18 @@ offset_bottom = 26.0
 grow_horizontal = 2
 
 [node name="Label" type="Label" parent="UI/CenterContainer"]
-offset_left = 285.0
-offset_right = 866.0
-offset_bottom = 42.0
+layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Button pressed X times since server restart"
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="MobSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Characters/Mobs/mob.tscn")
+spawn_path = NodePath("../Mobs")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_mob_spawn_timeout"]

@@ -1,8 +1,15 @@
 extends CharacterBody2D
 
-const SPEED = 800
+const SPEED = 80
 
 func _physics_process(_delta : float):
 	velocity = global_transform.x * SPEED
-	if move_and_slide():
-		queue_free()
+	var collision = move_and_collide(velocity)
+	
+	if collision == null:
+		return
+	
+	var collider = collision.get_collider()
+	if collider is Mob:
+		collider.take_damage(1)
+	queue_free()

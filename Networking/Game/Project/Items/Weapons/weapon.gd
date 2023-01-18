@@ -43,6 +43,7 @@ func shoot_impl(pos : Vector2, rot : float) -> void:
 	# TODO Sound effect
 	
 	var projectile = projectile_scene.instantiate()
+	projectile.add_collision_exception_with(character)
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = pos
 	projectile.global_rotation = rot
