@@ -16,17 +16,12 @@ func _ready():
 		_on_btn_host_pressed.call_deferred()
 
 func _on_btn_host_pressed():
+	NetworkState.start_network(true)
 	load_scene()
-	# Start the networking in server mode
-	get_node("/root/MainGame").start_network(true)
-	queue_free()
 
 func _on_btn_join_pressed():
+	NetworkState.start_network(false, ip_input.text, port_input.text.to_int())
 	load_scene()
-	get_node("/root/MainGame").start_network(false, ip_input.text, port_input.text.to_int())
-	queue_free()
 
 func load_scene():
-	var map = map_scene.instantiate()
-	add_sibling(map)
-	get_tree().current_scene = get_node("/root/MainGame")
+	get_tree().change_scene_to_packed(map_scene)

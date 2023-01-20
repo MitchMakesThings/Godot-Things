@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Multiplayer Game"
+config/name="Whale Game"
 run/main_scene="res://System/main_menu.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GameState="*res://System/game_state.tscn"
+NetworkState="*res://System/network_state.tscn"
 
 [dotnet]
 
