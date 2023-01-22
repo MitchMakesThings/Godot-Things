@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bul4uhisu33xs"]
+
+[ext_resource type="Script" path="res://Characters/Mobs/Mob.gd" id="1_lrhke"]
+[ext_resource type="Texture2D" uid="uid://dbqqen0oub23h" path="res://Characters/Mobs/whale.png" id="1_ujqvv"]
+[ext_resource type="Texture2D" uid="uid://bikgt8u4sdgnu" path="res://Assets/Particles/smoke_07.png" id="3_06eie"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7t318"]
+radius = 32.36
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pk1ot"]
+properties/0/path = NodePath(".:velocity_sync")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:global_pos_sync")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:health_sync")
+properties/2/spawn = true
+properties/2/sync = true
+
+[sub_resource type="Gradient" id="Gradient_1okme"]
+offsets = PackedFloat32Array(0.903683, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nb3x3"]
+gradient = SubResource("Gradient_1okme")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_786tw"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 32.0
+emission_ring_radius = 32.0
+emission_ring_inner_radius = 0.0
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_nb3x3")
+
+[node name="Mob" type="CharacterBody2D" groups=["mobs"]]
+script = ExtResource("1_lrhke")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7t318")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ujqvv")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pk1ot")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.501961, 0.0352941, 0.0352941, 1)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_786tw")
+texture = ExtResource("3_06eie")
+one_shot = true
+preprocess = 1.0
+explosiveness = 0.28
+randomness = 1.0

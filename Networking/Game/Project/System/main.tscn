@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://cruxxhpoyibub"]
+
+[ext_resource type="Script" path="res://System/main.gd" id="1_n31dg"]
+[ext_resource type="PackedScene" uid="uid://dhvi1o1ili7f" path="res://Maps/TestMap.tscn" id="3_uwrpn"]
+[ext_resource type="Script" path="res://System/UI.gd" id="4_kv3lk"]
+
+[node name="MainGame" type="Node"]
+script = ExtResource("1_n31dg")
+
+[node name="TestMap" parent="." instance=ExtResource("3_uwrpn")]
+
+[node name="Players" type="Node2D" parent="."]
+position = Vector2(325, 0)
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Characters/Aliens/Character.tscn")
+spawn_path = NodePath("../Players")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("4_kv3lk")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/CenterContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Button pressed X times since server restart"
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="MobSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Characters/Mobs/mob.tscn")
+spawn_path = NodePath("../Mobs")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_mob_spawn_timeout"]

@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhoh5emnxihxf"]
+
+[ext_resource type="Script" path="res://Characters/Aliens/Character.gd" id="1_uikhg"]
+[ext_resource type="Texture2D" uid="uid://cdvmbhtt0c41x" path="res://Assets/Particles/smoke_01.png" id="2_rl6wm"]
+[ext_resource type="SpriteFrames" uid="uid://yro4ypo6sek5" path="res://Characters/Aliens/Blue/BlueSpriteFrames.tres" id="3_qw8bw"]
+[ext_resource type="Script" path="res://Characters/Aliens/player_networking.gd" id="4_8oegb"]
+[ext_resource type="PackedScene" uid="uid://dyhw7cpqxneyb" path="res://Items/Weapons/weapon.tscn" id="5_eto5n"]
+
+[sub_resource type="Gradient" id="Gradient_eiqk4"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wdcn8"]
+radius = 30.0
+height = 100.0
+
+[sub_resource type="Gradient" id="Gradient_iei4u"]
+colors = PackedColorArray(0, 0.164706, 0.290196, 1, 0, 0.258824, 0.454902, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fds62"]
+gradient = SubResource("Gradient_iei4u")
+
+[sub_resource type="Gradient" id="Gradient_vkbam"]
+colors = PackedColorArray(0, 0.278431, 0.486275, 1, 0, 0.576471, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4hx83"]
+gradient = SubResource("Gradient_vkbam")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6o8wp"]
+properties/0/path = NodePath(":sync_position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(":sync_velocity")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(":sync_is_jumping")
+properties/2/spawn = true
+properties/2/sync = true
+properties/3/path = NodePath(".:sync_weapon_rotation")
+properties/3/spawn = true
+properties/3/sync = true
+
+[node name="Character" type="CharacterBody2D"]
+collision_layer = 3
+script = ExtResource("1_uikhg")
+
+[node name="JetpackParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-4, 47)
+emitting = false
+amount = 32
+draw_order = 1
+texture = ExtResource("2_rl6wm")
+emission_shape = 1
+emission_sphere_radius = 12.43
+gravity = Vector2(0, 98)
+scale_amount_min = 0.5
+color_ramp = SubResource("Gradient_eiqk4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+frames = ExtResource("3_qw8bw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_wdcn8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -56.0
+offset_top = -29.0
+offset_right = -16.0
+offset_bottom = 11.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
+layout_mode = 0
+offset_right = 15.0
+offset_bottom = 66.0
+value = 100.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture1D_fds62")
+texture_progress = SubResource("GradientTexture1D_4hx83")
+
+[node name="Networking" type="Node" parent="."]
+script = ExtResource("4_8oegb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Networking"]
+replication_config = SubResource("SceneReplicationConfig_6o8wp")
+
+[node name="WeaponParent" type="Node2D" parent="."]
+
+[node name="Weapon" parent="WeaponParent" instance=ExtResource("5_eto5n")]
