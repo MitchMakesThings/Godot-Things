@@ -4,6 +4,7 @@ class_name Mob
 var SPEED := 80
 var velocity_sync : Vector2
 var global_pos_sync : Vector2
+var is_dead := false
 
 var health_sync := 3:
 	set (value):
@@ -48,7 +49,8 @@ func flash_damage():
 		tween.tween_property($Sprite2D, "modulate", Color("ffffff00"), 0.1)
 		$GPUParticles2D.emitting = true
 		
-		if multiplayer.is_server():
+		if multiplayer.is_server() and not is_dead:
+			is_dead = true
 			GameState.mobs_killed += 1
 			# Note that we only queue_free on the server.
 			# The MultiplayerSpawner will tell the clients to delete their instances
