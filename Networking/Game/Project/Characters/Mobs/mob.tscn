@@ -17,6 +17,9 @@ properties/1/sync = true
 properties/2/path = NodePath(".:health_sync")
 properties/2/spawn = true
 properties/2/sync = true
+properties/3/path = NodePath(".:target_sync")
+properties/3/spawn = true
+properties/3/sync = true
 
 [sub_resource type="Gradient" id="Gradient_1okme"]
 offsets = PackedFloat32Array(0.903683, 1)
@@ -42,6 +45,7 @@ color_ramp = SubResource("GradientTexture1D_nb3x3")
 
 [node name="Mob" type="CharacterBody2D" groups=["mobs"]]
 script = ExtResource("1_lrhke")
+targets = []
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7t318")

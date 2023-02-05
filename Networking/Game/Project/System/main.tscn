@@ -6,6 +6,7 @@
 
 [node name="MainGame" type="Node"]
 script = ExtResource("1_n31dg")
+mob_targets = [Vector2(1680, -1442), Vector2(2907, -890), Vector2(-496, 44)]
 
 [node name="TestMap" parent="." instance=ExtResource("3_uwrpn")]
 
@@ -37,7 +38,7 @@ _spawnable_scenes = PackedStringArray("res://Characters/Mobs/mob.tscn")
 spawn_path = NodePath("../Mobs")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_mob_spawn_timeout"]
