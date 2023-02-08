@@ -2,7 +2,6 @@ extends CharacterBody2D
 class_name Mob
 
 var SPEED := 100
-var velocity_sync : Vector2
 var global_pos_sync : Vector2
 var is_dead := false
 
@@ -33,13 +32,7 @@ func _ready():
 
 func _physics_process(_delta : float):
 	if not multiplayer.is_server():
-		global_position = global_pos_sync
-		velocity = velocity_sync
-		move_and_slide()
-		return
-		
-	if health_sync <= 0:
-		velocity_sync = Vector2.ZERO
+		global_position = global_position.lerp(global_pos_sync, 0.1)
 		return
 	
 	# Move in a straight line towards our target
@@ -48,7 +41,6 @@ func _physics_process(_delta : float):
 	var direction := (target_sync - global_position)
 	velocity = direction.normalized() * SPEED
 	move_and_slide()
-	velocity_sync = velocity
 	global_pos_sync = global_position
 	
 	# If we've moved close enough to our target destination pick a new one
