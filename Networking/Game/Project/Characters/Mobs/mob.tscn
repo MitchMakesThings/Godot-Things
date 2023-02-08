@@ -45,7 +45,6 @@ color_ramp = SubResource("GradientTexture1D_nb3x3")
 
 [node name="Mob" type="CharacterBody2D" groups=["mobs"]]
 script = ExtResource("1_lrhke")
-targets = []
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7t318")

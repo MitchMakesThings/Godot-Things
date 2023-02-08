@@ -6,7 +6,7 @@
 
 [node name="MainGame" type="Node"]
 script = ExtResource("1_n31dg")
-mob_targets = [Vector2(1680, -1442), Vector2(2907, -890), Vector2(-496, 44)]
+mob_targets = Array[Vector2]([Vector2(1680, -1442), Vector2(2907, -890), Vector2(-496, 44)])
 
 [node name="TestMap" parent="." instance=ExtResource("3_uwrpn")]
 

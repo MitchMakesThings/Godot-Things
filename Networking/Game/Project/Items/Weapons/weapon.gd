@@ -19,7 +19,7 @@ func shoot() -> void:
 	rpc_id(1, "shoot_server", global_position, get_parent().global_rotation)
 	shoot_impl(global_position, get_parent().global_rotation)
 
-@rpc(any_peer) # Secretly only called on the server, but using any_peer because we're fudging authority.
+@rpc("any_peer") # Secretly only called on the server, but using any_peer because we're fudging authority.
 func shoot_server(pos : Vector2, rot : float) -> void:
 	var caller_id = multiplayer.get_remote_sender_id()
 	if str(character.name).to_int() != caller_id:

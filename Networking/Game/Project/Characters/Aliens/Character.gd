@@ -33,7 +33,8 @@ func _ready():
 	# https://github.com/godotengine/godot/issues/55284
 	$Networking/MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 	
-	$Camera2D.current = is_local_authority()
+	if is_local_authority():
+		$Camera2D.make_current()
 	$UI.visible = is_local_authority()
 
 func _process(_delta):
