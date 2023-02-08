@@ -31,6 +31,10 @@ func _ready():
 	pick_new_target()
 
 func _physics_process(_delta : float):
+	if health_sync <= 0:
+		# No movement if dead!
+		return
+	
 	if not multiplayer.is_server():
 		global_position = global_position.lerp(global_pos_sync, 0.1)
 		return
