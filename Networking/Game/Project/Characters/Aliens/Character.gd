@@ -53,7 +53,6 @@ func _rotate_weapon(_delta : float) -> void:
 		weapon_angle = controller_input.angle()
 		$WeaponParent.rotation = weapon_angle
 		is_using_controller = true # First time we aim with a controller we activate controller-only mode
-		return
 	else:
 		if is_using_controller:
 			# We don't want to use the mouse aiming from here on.
