@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://i3ubbq6i8h6u"]
 
 [ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_ex43h"]
-[ext_resource type="Texture2D" uid="uid://b28va6ysrynt6" path="res://icon.png" id="2_sbir5"]
+[ext_resource type="Texture2D" uid="uid://b28va6ysrynt6" path="res://icon.png" id="2_trpyo"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mdwe2"]
-properties/0/path = NodePath(":sync_position")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jx5up"]
+properties/0/path = NodePath(".:sync_position")
 properties/0/spawn = true
 properties/0/sync = true
 
@@ -12,14 +12,13 @@ properties/0/sync = true
 size = Vector2(64, 64)
 
 [node name="Character" type="CharacterBody2D"]
-script = ExtResource( "1_ex43h" )
+script = ExtResource("1_ex43h")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-root_path = NodePath("..")
-resource = SubResource( "SceneReplicationConfig_mdwe2" )
+replication_config = SubResource("SceneReplicationConfig_jx5up")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource( "2_sbir5" )
+texture = ExtResource("2_trpyo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( "RectangleShape2D_smgvy" )
+shape = SubResource("RectangleShape2D_smgvy")

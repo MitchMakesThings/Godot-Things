@@ -18,25 +18,25 @@ func _physics_process(delta):
 
 	# Add the gravity.
 	if not is_on_floor():
-		motion_velocity.y += gravity * delta
+		velocity.y += gravity * delta
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		motion_velocity.y = JUMP_FORCE
+		velocity.y = JUMP_FORCE
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
-		motion_velocity.x = direction * SPEED
+		velocity.x = direction * SPEED
 	else:
-		motion_velocity.x = move_toward(motion_velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 	move_and_slide()
 	
 	# Tell the server our new position
 	rpc_id(1, StringName('push_to_server'), position)
 
-@rpc(any_peer, unreliable_ordered)
+@rpc("any_peer", "unreliable_ordered")
 func push_to_server(newPosition : Vector2):
 	if not multiplayer.is_server():
 		return
