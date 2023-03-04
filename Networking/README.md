@@ -14,3 +14,11 @@ A more complex project, with some actual "gameplay" going on (Players can press 
 ![Screenshot](https://github.com/MitchMakesThings/Godot-Things/blob/main/Networking/Explained/Screenshots/220.png)
 
 A youtube video has been released walking through the project - https://youtu.be/nQ4P3ogXp2Q
+
+## [Game](https://github.com/MitchReidNZ/Godot-Things/tree/main/Networking/Game)
+Builds on the Explained project even further, adding a main menu, shooting, and enemies to kill.
+
+![Screenshot](https://github.com/MitchMakesThings/Godot-Things/blob/main/Networking/Game/Screenshots/main_menu.png)
+![Screenshot](https://github.com/MitchMakesThings/Godot-Things/blob/main/Networking/Game/Screenshots/gameplay.png)
+
+There is a [blog post](https://mitchmakesthings.online/godot/networking/2023/02/19/networking-game.html) walking through the changes from the Explained project.
