@@ -43,7 +43,6 @@ script = ExtResource("1_ytcn0")
 position = Vector2(-4, 47)
 emitting = false
 amount = 32
-local_coords = false
 draw_order = 1
 texture = ExtResource("2_bvf2j")
 emission_shape = 1
@@ -53,22 +52,25 @@ scale_amount_min = 0.5
 color_ramp = SubResource("Gradient_oqb3v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-frames = ExtResource("1_bgwyd")
+sprite_frames = ExtResource("1_bgwyd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CapsuleShape2D_b0aad")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-smoothing_enabled = true
 
 [node name="UI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
 offset_left = -56.0
 offset_top = -29.0
 offset_right = -16.0
 offset_bottom = 11.0
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
+layout_mode = 0
 offset_right = 15.0
 offset_bottom = 66.0
 value = 100.0
