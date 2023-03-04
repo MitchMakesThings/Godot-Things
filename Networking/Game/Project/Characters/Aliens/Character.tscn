@@ -56,7 +56,7 @@ scale_amount_min = 0.5
 color_ramp = SubResource("Gradient_eiqk4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-frames = ExtResource("3_qw8bw")
+sprite_frames = ExtResource("3_qw8bw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
