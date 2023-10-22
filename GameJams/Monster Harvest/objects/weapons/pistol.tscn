@@ -1,0 +1,122 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdx5p2pgo7g6i"]
+
+[ext_resource type="PackedScene" uid="uid://dj6ng4jah04ks" path="res://assets/Quaternius - Toon Shooter Game Kit/Guns/glTF/Pistol.gltf" id="1_qpv6e"]
+[ext_resource type="Script" path="res://scripts/weapons/Pistol.cs" id="2_f1afc"]
+[ext_resource type="PackedScene" uid="uid://c7imn8una7ugv" path="res://objects/weapons/gunshot_particles.tscn" id="3_24kgq"]
+[ext_resource type="AudioStream" uid="uid://dlw11xrp1p1al" path="res://assets/Fire weapons sound effects/Fire Weapons Sound Effects - gun-dry-firing-1.mp3" id="3_xrr0t"]
+[ext_resource type="AudioStream" uid="uid://bocid0um7lmy1" path="res://assets/Fire weapons sound effects/Fire Weapons Sound Effects - 9mm-pistol-load-and-chamber.mp3" id="4_tbd3y"]
+[ext_resource type="AudioStream" uid="uid://scicrca6b05x" path="res://assets/q009/pistol.ogg" id="5_0yr6i"]
+
+[sub_resource type="Animation" id="Animation_0ux3n"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pistol:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pistol:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pistol:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_v1dny"]
+resource_name = "recoil"
+length = 0.5
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pistol:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -1.32803e-08, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pistol:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.308696, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pistol:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.3, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n8tiq"]
+_data = {
+"RESET": SubResource("Animation_0ux3n"),
+"recoil": SubResource("Animation_v1dny")
+}
+
+[node name="Pistol" node_paths=PackedStringArray("_animationPlayer", "Mesh", "_audioStreamPlayer") instance=ExtResource("1_qpv6e")]
+script = ExtResource("2_f1afc")
+_animationPlayer = NodePath("AnimationPlayer")
+NormalPosition = Vector3(0.5, -0.6, -1)
+ADSPosition = Vector3(0, -0.345, -0.5)
+Mesh = NodePath("Pistol")
+Cooldown = 0.5
+ShotSpread = 0.5
+ClipSize = 10
+TotalAmmo = 150
+ReloadSpeed = 0.5
+PlayerKnockback = 20.0
+EnemyKnockback = 100.0
+ShotCameraTrauma = 0.2
+_outOfAmmoAudio = ExtResource("3_xrr0t")
+_reloadAudio = ExtResource("4_tbd3y")
+_fireAudio = ExtResource("5_0yr6i")
+_audioStreamPlayer = NodePath("AudioStreamPlayer")
+
+[node name="Pistol" parent="." index="0"]
+transform = Transform3D(-4.37113e-08, 0, -1, 0, 0.999999, 0, 0.999999, 0, -4.37114e-08, 0, 0, 0)
+layers = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_n8tiq")
+}
+
+[node name="Particles" parent="." index="2" instance=ExtResource("3_24kgq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.241479, -0.627669)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
+bus = &"Player"

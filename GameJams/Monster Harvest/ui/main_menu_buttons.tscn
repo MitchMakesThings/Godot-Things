@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn8lsu0jaylp0"]
+
+[ext_resource type="Script" path="res://scripts/ui/MainMenu.cs" id="1_ngnsi"]
+[ext_resource type="PackedScene" uid="uid://dbrbp7a50rohu" path="res://scenes/loading.tscn" id="2_1svnp"]
+
+[node name="Buttons" type="VBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ngnsi")
+PlayScene = ExtResource("2_1svnp")
+
+[node name="btnPlay" type="Button" parent="."]
+layout_mode = 2
+text = "Play!"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="btnSettings" type="Button" parent="."]
+visible = false
+layout_mode = 2
+text = "Settings"
+
+[node name="HSeparator2" type="HSeparator" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="btnExit" type="Button" parent="."]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="button_down" from="btnPlay" to="." method="OnPlay"]
+[connection signal="button_down" from="btnSettings" to="." method="OnSettings"]
+[connection signal="button_down" from="btnExit" to="." method="OnExit"]

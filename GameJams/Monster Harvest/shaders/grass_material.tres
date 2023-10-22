@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cpc8wlaaq6a7a"]
+
+[ext_resource type="Shader" path="res://assets/StayAtHomeDev/grass.gdshader" id="1_78wwp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nb8hl"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_83x1v"]
+noise = SubResource("FastNoiseLite_nb8hl")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_78wwp")
+shader_parameter/color = Color(0.0784314, 0.419608, 0, 1)
+shader_parameter/color2 = Color(0.188235, 0.662745, 0, 1)
+shader_parameter/noiseScale = 100.0
+shader_parameter/noise = SubResource("NoiseTexture2D_83x1v")

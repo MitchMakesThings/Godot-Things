@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3vj8rspo4pnc"]
+
+[ext_resource type="Script" path="res://scripts/InteractionSystem.cs" id="1_mfj7u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dgudh"]
+size = Vector3(1, 2, 1)
+
+[node name="InteractionSystem" type="Node3D" node_paths=PackedStringArray("Cast", "Layer", "_outcomeLabel", "_costLabel")]
+script = ExtResource("1_mfj7u")
+Cast = NodePath("InteractionCast")
+Layer = NodePath("CanvasLayer")
+_outcomeLabel = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Outcome")
+_costLabel = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Cost")
+
+[node name="InteractionCast" type="ShapeCast3D" parent="."]
+shape = SubResource("BoxShape3D_dgudh")
+target_position = Vector3(0, 0, -2)
+collision_mask = 8
+debug_shape_custom_color = Color(0, 0, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.5
+offset_top = -25.0
+offset_right = 77.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Outcome" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Buy AK"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "10 Chunks"
+horizontal_alignment = 1
+
+[node name="Cost2" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Press E"
+horizontal_alignment = 1

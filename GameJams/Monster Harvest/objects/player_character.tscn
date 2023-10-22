@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://bp62tq14xp4kx"]
+
+[ext_resource type="Script" path="res://scripts/PlayerCharacter.cs" id="1_camwn"]
+[ext_resource type="PackedScene" uid="uid://bdwwjmurelhtl" path="res://objects/weapons/flash_animation.tscn" id="2_2e0mf"]
+[ext_resource type="AudioStream" uid="uid://bf7bp81c8q3xc" path="res://assets/cc0-creature-sfx/grunt_02.ogg" id="2_3gmhd"]
+[ext_resource type="AudioStream" uid="uid://b3u87rxq2mpni" path="res://assets/cc0-creature-sfx/hurt_04.ogg" id="3_2kpt6"]
+[ext_resource type="PackedScene" uid="uid://dg7cul3wn6xb6" path="res://ui/main_ui.tscn" id="3_12k1u"]
+[ext_resource type="PackedScene" uid="uid://d3vj8rspo4pnc" path="res://objects/interaction_system.tscn" id="4_xmdtb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nfpmf"]
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Audio", "Head", "Camera", "WeaponAttach", "HitScan", "WeaponAttachmentPoint", "WeaponCooldown") groups=["players"]]
+script = ExtResource("1_camwn")
+JumpSound = ExtResource("2_3gmhd")
+DamageSound = ExtResource("3_2kpt6")
+Audio = NodePath("PlayerSoundEffects")
+Head = NodePath("Head")
+Camera = NodePath("Head/Camera")
+WeaponAttach = NodePath("SubViewportContainer/SubViewport/Camera3D/WeaponAttach")
+HitScan = NodePath("Head/Camera/HitscanRaycast")
+WeaponAttachmentPoint = NodePath("SubViewportContainer/SubViewport/Camera3D/WeaponAttach")
+WeaponCooldown = NodePath("WeaponCooldown")
+SparkAnimationScene = ExtResource("2_2e0mf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_nfpmf")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.27955, 0)
+cull_mask = 1047554
+
+[node name="WeaponAttach" type="Node3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera" type="Camera3D" parent="Head"]
+cull_mask = 1048573
+
+[node name="HitscanRaycast" type="RayCast3D" parent="Head/Camera"]
+target_position = Vector3(0, 0, -400)
+
+[node name="InteractionSystem" parent="Head/Camera" instance=ExtResource("4_xmdtb")]
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Head"]
+current = true
+
+[node name="MainUI" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("3_12k1u")]
+Player = NodePath("..")
+
+[node name="WeaponCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="PlayerSoundEffects" type="AudioStreamPlayer" parent="."]
+bus = &"Player"

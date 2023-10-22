@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b24o8gdpuhlp0"]
+
+[ext_resource type="FontFile" uid="uid://dnljkie070n0j" path="res://assets/fonts/PlaypenSans-VariableFont_wght.ttf" id="1_6jn8q"]
+
+[resource]
+default_font = ExtResource("1_6jn8q")

@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba3kksqqcx2xq"]
+
+[ext_resource type="Script" path="res://scripts/helpers/PickupSpawner.cs" id="1_hx4mf"]
+[ext_resource type="PackedScene" uid="uid://d73eaqxsgw3k" path="res://objects/interactable/mushroom_pickup.tscn" id="2_n463j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_st7gr"]
+size = Vector3(2, 1, 2)
+
+[node name="PickupSpawner" type="Node3D"]
+script = ExtResource("1_hx4mf")
+PickupScene = ExtResource("2_n463j")
+QueryShape = SubResource("BoxShape3D_st7gr")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, 8.20731, 9.53674e-07, -9.75154)
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, 7.68036, 9.53674e-07, -0.278503)
+
+[node name="Node3D3" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, 7.82733, 9.53674e-07, 3.55648)
+
+[node name="Node3D4" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, 8.0739, 9.53674e-07, 8.66993)
+
+[node name="Node3D5" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, 8.19074, 9.53674e-07, 13.1124)
+
+[node name="Node3D6" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, 3.28851, 9.53674e-07, 13.1962)
+
+[node name="Node3D7" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, 2.67502, 9.53674e-07, -13.316)
+
+[node name="Node3D8" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -1.49836, 9.53674e-07, 14.3133)
+
+[node name="Node3D9" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -5.60715, 9.53674e-07, -13.5303)
+
+[node name="Node3D10" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -10.2807, 9.53674e-07, -13.3885)
+
+[node name="Node3D11" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -5.18243, 9.53674e-07, 14.1957)
+
+[node name="Node3D12" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -10.0653, 9.53674e-07, 11.1267)
+
+[node name="Node3D13" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -13.8289, 9.53674e-07, 3.93018)
+
+[node name="Node3D14" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -12.3627, 9.53674e-07, -10.5913)
+
+[node name="Node3D15" type="Node3D" parent="."]
+transform = Transform3D(0.422573, 0, 0, 0, 1, 0, 0, 0, 0.587961, -7.53324, 9.53674e-07, -11.0893)
+
+[node name="Node3D16" type="Node3D" parent="."]
+transform = Transform3D(0.659021, 0, 0, 0, 1, 0, 0, 0, 1.86547, -6.5279, 9.53674e-07, 5.14641)
+
+[node name="Node3D17" type="Node3D" parent="."]
+transform = Transform3D(0.659021, 0, 0, 0, 1, 0, 0, 0, 1.86547, -6.5279, 9.53674e-07, -0.883656)

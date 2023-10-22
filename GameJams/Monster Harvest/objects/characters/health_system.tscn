@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddlo1kt4dn1yd"]
+
+[ext_resource type="Script" path="res://scripts/characters/HealthSystem.cs" id="1_bsitv"]
+[ext_resource type="Texture2D" uid="uid://w5d05eipx7t4" path="res://assets/kenney_smoke-particles/PNG/White puff/whitePuff07.png" id="1_ffell"]
+[ext_resource type="Texture2D" uid="uid://drpejddmh4k6n" path="res://assets/Splat pack/splat_pack_1.png" id="2_t3sme"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_clakq"]
+resource_local_to_scene = true
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 7.0
+radial_velocity_max = 1.0
+attractor_interaction_enabled = false
+scale_max = 3.0
+color = Color(0, 0.929412, 0.364706, 1)
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nn4y2"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_t3sme")
+roughness_texture = ExtResource("2_t3sme")
+roughness_texture_channel = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_0gyvi"]
+material = SubResource("StandardMaterial3D_nn4y2")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vsuaa"]
+resource_local_to_scene = true
+lifetime_randomness = 0.4
+direction = Vector3(0, 1, 0)
+spread = 34.838
+initial_velocity_min = 4.0
+initial_velocity_max = 10.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oed7o"]
+transparency = 1
+albedo_color = Color(0, 0.305882, 1, 1)
+albedo_texture = ExtResource("1_ffell")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8lmi1"]
+material = SubResource("StandardMaterial3D_oed7o")
+size = Vector2(1, 1)
+orientation = 2
+
+[node name="HealthSystem" type="Node3D" node_paths=PackedStringArray("DamageParticles", "DeathParticles")]
+script = ExtResource("1_bsitv")
+DamageParticles = NodePath("DamageParticles")
+DeathParticles = NodePath("DeathParticles")
+
+[node name="DamageParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15012, 0.524396)
+emitting = false
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_clakq")
+draw_pass_1 = SubResource("SphereMesh_0gyvi")
+
+[node name="DeathParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.52, 0, 0, 0, 0.52, 0, 0, 0, 0.52, 0, 0.70095, -0.6)
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_vsuaa")
+draw_pass_1 = SubResource("PlaneMesh_8lmi1")

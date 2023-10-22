@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpm3us2mwy4e5"]
+
+[ext_resource type="Script" path="res://scripts/helpers/CameraShake.cs" id="1_0ekyx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bgb3j"]
+seed = 205
+fractal_octaves = 2
+fractal_lacunarity = 4.0
+
+[node name="CameraShake" type="Node"]
+script = ExtResource("1_0ekyx")
+_noise = SubResource("FastNoiseLite_bgb3j")

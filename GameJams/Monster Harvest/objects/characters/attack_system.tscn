@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://vs3oq1t5dggk"]
+
+[ext_resource type="Script" path="res://scripts/characters/AttackSystem.cs" id="1_2f5e0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oyyyy"]
+size = Vector3(2, 2, 3.42748)
+
+[node name="AttackSystem" type="Area3D"]
+script = ExtResource("1_2f5e0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.286262)
+shape = SubResource("BoxShape3D_oyyyy")
