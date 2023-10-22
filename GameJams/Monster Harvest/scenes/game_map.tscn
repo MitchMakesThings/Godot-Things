@@ -1,0 +1,122 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwx7pjkjb4w8d"]
+
+[ext_resource type="PackedScene" uid="uid://cr4u0q0d8da3l" path="res://scenes/main_level.tscn" id="1_7krn4"]
+[ext_resource type="Material" uid="uid://bl47pigtxwbar" path="res://shaders/floor_material.tres" id="1_c8rbi"]
+[ext_resource type="PackedScene" uid="uid://bdh4q5fb4qicr" path="res://helpers/wave_helper.tscn" id="1_djtqw"]
+[ext_resource type="PackedScene" uid="uid://bp62tq14xp4kx" path="res://objects/player_character.tscn" id="2_kvc35"]
+[ext_resource type="PackedScene" uid="uid://ba3kksqqcx2xq" path="res://helpers/pickup_spawner.tscn" id="3_baqx5"]
+[ext_resource type="PackedScene" uid="uid://d73eaqxsgw3k" path="res://objects/interactable/mushroom_pickup.tscn" id="4_5qysr"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e758x"]
+material = ExtResource("1_c8rbi")
+size = Vector2(150, 150)
+
+[node name="Map" type="Node3D"]
+
+[node name="Map" parent="." instance=ExtResource("1_7krn4")]
+
+[node name="WaveHelper" parent="." groups=["wave_helpers"] instance=ExtResource("1_djtqw")]
+
+[node name="Node3D" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7618, 0, -19.7894)
+
+[node name="Node3D2" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93833, 0, -30.0995)
+
+[node name="Node3D3" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6563, 0, -28.5366)
+
+[node name="Node3D4" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6299, 0, -22.2196)
+
+[node name="Node3D5" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3357, 0, -11.3093)
+
+[node name="Node3D6" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3357, 0, 8.87024)
+
+[node name="Node3D7" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.7753, 0, 20.3088)
+
+[node name="Node3D8" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.41017, 0, 28.4083)
+
+[node name="Node3D9" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19147, 0, 31.4065)
+
+[node name="Node3D10" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0433, 0, 26.8955)
+
+[node name="Node3D11" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.6154, 0, 20.3608)
+
+[node name="Node3D12" type="Node3D" parent="WaveHelper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.2506, 0, 10.602)
+
+[node name="Player" parent="." instance=ExtResource("2_kvc35")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26.132)
+
+[node name="PickupSpawner" parent="." instance=ExtResource("3_baqx5")]
+
+[node name="Node3D18" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7239, 0, 17.1433)
+
+[node name="Node3D19" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.468, 0, 9.14981)
+
+[node name="Node3D20" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.19507, 9.53674e-07, 1.41605)
+
+[node name="Node3D21" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.95666, 9.53674e-07, -3.25624)
+
+[node name="Node3D22" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.41662, 0, -24.4301)
+
+[node name="Node3D23" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.89008, 0, -4.97593)
+
+[node name="Node3D24" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7444, 0, -13.2334)
+
+[node name="Node3D25" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5247, 0, 9.78941)
+
+[node name="Node3D26" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2656, 0, 24.7647)
+
+[node name="Node3D27" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9976, 0, 11.8143)
+
+[node name="Node3D28" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46287, 0, 20.3222)
+
+[node name="Node3D29" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75435, 0, 17.0103)
+
+[node name="Node3D30" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.18795, 0, -28.0492)
+
+[node name="Node3D31" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92638, 0, 29.2126)
+
+[node name="Node3D32" type="Node3D" parent="PickupSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1401, 0, 10.0435)
+
+[node name="TutorialPickups" type="Node3D" parent="."]
+
+[node name="mushroom_pickup" parent="TutorialPickups" instance=ExtResource("4_5qysr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31768, 2.38419e-07, 14.1128)
+
+[node name="mushroom_pickup2" parent="TutorialPickups" instance=ExtResource("4_5qysr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25649, 2.38419e-07, 19.237)
+
+[node name="mushroom_pickup3" parent="TutorialPickups" instance=ExtResource("4_5qysr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39917, 1.19209e-06, 5.2762)
+
+[node name="mushroom_pickup4" parent="TutorialPickups" instance=ExtResource("4_5qysr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.78994, -1.66893e-06, 4.71685)
+
+[node name="Fakefloor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("PlaneMesh_e758x")

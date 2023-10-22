@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://boo0isgx4mjlu"]
+
+[ext_resource type="Script" path="res://scripts/helpers/DamageHelper.cs" id="1_ow72e"]
+[ext_resource type="PackedScene" uid="uid://c2wb7w445jhfu" path="res://helpers/bouncy_damage.tscn" id="2_ylsv6"]
+
+[node name="DamageHelper" type="Node3D" node_paths=PackedStringArray("PoolParent")]
+script = ExtResource("1_ow72e")
+PoolParent = NodePath("PooledDamageIndicators")
+
+[node name="PooledDamageIndicators" type="Node3D" parent="."]
+
+[node name="BouncyDamage" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage2" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage3" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage4" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage5" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage6" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage7" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage8" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage9" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]
+
+[node name="BouncyDamage10" parent="PooledDamageIndicators" instance=ExtResource("2_ylsv6")]

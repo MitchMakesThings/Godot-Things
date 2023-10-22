@@ -1,0 +1,182 @@
+[gd_scene load_steps=15 format=3 uid="uid://1fjeb108ruu2"]
+
+[ext_resource type="Script" path="res://scripts/helpers/GameState.cs" id="1_iaany"]
+[ext_resource type="PackedScene" uid="uid://wrek0q85teqy" path="res://objects/monster_chunk.tscn" id="2_7f76x"]
+[ext_resource type="PackedScene" uid="uid://3m88r76cj0ou" path="res://scenes/game_over.tscn" id="3_o3akt"]
+[ext_resource type="PackedScene" uid="uid://c3pvpaqa8vwf2" path="res://scenes/daytime.tscn" id="4_451ow"]
+[ext_resource type="PackedScene" uid="uid://b6ndxy68pt5ky" path="res://scenes/nighttime.tscn" id="5_3jwhb"]
+[ext_resource type="AudioStream" uid="uid://ba71ovsp43x7k" path="res://assets/music/Funshine.mp3" id="6_4v22w"]
+[ext_resource type="AudioStream" uid="uid://bv3pmxfkc58yi" path="res://assets/music/Horror Suspense.mp3" id="7_742ry"]
+[ext_resource type="Shader" path="res://shaders/time_ripple.gdshader" id="8_e382g"]
+[ext_resource type="AudioStream" uid="uid://b3f0hhw7o40j5" path="res://assets/scribe/sfx kart game.mp3" id="9_xyy3c"]
+
+[sub_resource type="Animation" id="Animation_bhld6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NightMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DayMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7xadw"]
+resource_name = "daybreak"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayMusic:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DayMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NightMusic:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+
+[sub_resource type="Animation" id="Animation_7ixtc"]
+resource_name = "nightfall"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NightMusic:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NightMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DayMusic:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cmrje"]
+_data = {
+"RESET": SubResource("Animation_bhld6"),
+"daybreak": SubResource("Animation_7xadw"),
+"nightfall": SubResource("Animation_7ixtc")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ym1cv"]
+shader = ExtResource("8_e382g")
+shader_parameter/wave_count = 20.0
+shader_parameter/speed = 6.0
+shader_parameter/height = 0.01
+
+[node name="GameState" type="Node" node_paths=PackedStringArray("NightCountdown", "DayCountdownTimer", "RejectSound", "EnvironmentParent", "Animation", "timeWarpEffect")]
+script = ExtResource("1_iaany")
+ChunkRewardScene = ExtResource("2_7f76x")
+GameOverScene = ExtResource("3_o3akt")
+NightCountdown = NodePath("NightCountdownTimer")
+DayCountdownTimer = NodePath("DayCountdownTimer")
+RejectSound = NodePath("RejectSound")
+DayEnvironment = ExtResource("4_451ow")
+NightEnvironment = ExtResource("5_3jwhb")
+EnvironmentParent = NodePath("Environment")
+Animation = NodePath("AnimationPlayer")
+timeWarpEffect = NodePath("CanvasLayer")
+
+[node name="NightCountdownTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="DayCountdownTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="DayMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_4v22w")
+autoplay = true
+bus = &"Background music"
+
+[node name="NightMusic" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_742ry")
+bus = &"Background music"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cmrje")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ym1cv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RejectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_xyy3c")

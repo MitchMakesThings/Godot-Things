@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4hppq4js3ecv"]
+
+[ext_resource type="Script" path="res://scripts/characters/MovementSystem.cs" id="1_nndqa"]
+
+[node name="MovementSystem" type="Node3D" node_paths=PackedStringArray("Navigation")]
+script = ExtResource("1_nndqa")
+Navigation = NodePath("NavigationAgent3D")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 1.0
+
+[node name="TargetUpdateTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="TargetUpdateTimer" to="." method="UpdateTarget"]

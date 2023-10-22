@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://culr4cww4ipyv"]
+
+[ext_resource type="PackedScene" uid="uid://cn8lsu0jaylp0" path="res://ui/main_menu_buttons.tscn" id="1_rguby"]
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" parent="." instance=ExtResource("1_rguby")]
+layout_mode = 1
+offset_top = -58.5
+offset_bottom = 58.5
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -330.5
+offset_right = 330.5
+offset_bottom = 153.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 65
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Mushroom Harvester"

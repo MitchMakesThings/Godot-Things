@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://mf76ahsym5a2"]
+
+[ext_resource type="Shader" path="res://shaders/ghost.gdshader" id="1_eh5ps"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_eh5ps")
+shader_parameter/albedo = Color(0, 0.45098, 0.568627, 1)
+shader_parameter/emission_color = Color(0, 0.45098, 0.568627, 1)
+shader_parameter/emission_amount = 2.296
+shader_parameter/rim_steepness = 0.233
+shader_parameter/uv_scale = null
+shader_parameter/uv_offset = null

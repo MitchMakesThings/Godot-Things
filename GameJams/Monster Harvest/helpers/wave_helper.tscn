@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdh4q5fb4qicr"]
+
+[ext_resource type="Script" path="res://scripts/helpers/WaveHelper.cs" id="1_noop4"]
+[ext_resource type="PackedScene" uid="uid://b633fmf5yivf7" path="res://objects/characters/mushnub.tscn" id="2_intqo"]
+[ext_resource type="PackedScene" uid="uid://csi2vnkk1gm48" path="res://objects/characters/mushnub_evolved.tscn" id="3_331xx"]
+
+[node name="WaveHelper" type="Node3D"]
+script = ExtResource("1_noop4")
+WaveSizeStep = 4
+EasyEnemies = [ExtResource("2_intqo")]
+ModerateEnemies = [ExtResource("3_331xx")]

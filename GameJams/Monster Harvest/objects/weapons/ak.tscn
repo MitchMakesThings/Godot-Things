@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://bb2ryjuvx72b3"]
+
+[ext_resource type="PackedScene" uid="uid://tb7n88eqhyka" path="res://assets/Quaternius - Toon Shooter Game Kit/Guns/glTF/AK.gltf" id="1_y0jku"]
+[ext_resource type="Script" path="res://scripts/weapons/Pistol.cs" id="2_4m4ed"]
+[ext_resource type="PackedScene" uid="uid://c7imn8una7ugv" path="res://objects/weapons/gunshot_particles.tscn" id="3_4uwe3"]
+[ext_resource type="AudioStream" uid="uid://cpo6qx4eysskf" path="res://assets/Fire weapons sound effects/Fire Weapons Sound Effects - 07_arma1.mp3" id="3_8y8gs"]
+[ext_resource type="AudioStream" uid="uid://bocid0um7lmy1" path="res://assets/Fire weapons sound effects/Fire Weapons Sound Effects - 9mm-pistol-load-and-chamber.mp3" id="4_5xq0c"]
+[ext_resource type="AudioStream" uid="uid://cvro6gt10cj1c" path="res://assets/Fire weapons sound effects/Fire Weapons Sound Effects - ar15-real-recording-trimmed.mp3" id="5_r2gal"]
+
+[sub_resource type="Animation" id="Animation_frgr7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AK:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AK:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v7l70"]
+resource_name = "recoil"
+length = 0.3
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AK:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.075, 0.1, 0.125, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(-2.24273e-09, -1.5708, -0.0513301), Vector3(0, -1.5708, 0), Vector3(-2.24273e-09, -1.5708, -0.0513301), Vector3(0, -1.5708, 0), Vector3(-2.24273e-09, -1.5708, -0.0513301)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AK:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.075, 0.1, 0.125, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.0776371), Vector3(0, 0, -0.0115084), Vector3(0, 0, 0.117568), Vector3(0, 0, 0.0840916), Vector3(0, 0, 0.194843), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_63e1r"]
+_data = {
+"RESET": SubResource("Animation_frgr7"),
+"recoil": SubResource("Animation_v7l70")
+}
+
+[node name="AK" node_paths=PackedStringArray("_animationPlayer", "Mesh", "_audioStreamPlayer") instance=ExtResource("1_y0jku")]
+script = ExtResource("2_4m4ed")
+_animationPlayer = NodePath("AnimationPlayer")
+NormalPosition = Vector3(0.61, -0.7, -1)
+ADSPosition = Vector3(0, -0.4, -0.265)
+Mesh = NodePath("AK")
+MaxDamage = 20
+MinDamage = 10
+ADSModifier = 1.0
+Cooldown = 0.5
+ShotCount = 3
+ShotSpread = 3.0
+DelayBetweenShots = 0.1
+ClipSize = 30
+TotalAmmo = 250
+ReloadSpeed = 1.0
+PlayerKnockback = 25.0
+EnemyKnockback = 100.0
+ShotCameraTrauma = 0.4
+_outOfAmmoAudio = ExtResource("3_8y8gs")
+_reloadAudio = ExtResource("4_5xq0c")
+_fireAudio = ExtResource("5_r2gal")
+_audioStreamPlayer = NodePath("AudioStreamPlayer")
+
+[node name="AK" parent="." index="0"]
+transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
+layers = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_63e1r")
+}
+
+[node name="Particles" parent="." index="2" instance=ExtResource("3_4uwe3")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
+bus = &"Player"

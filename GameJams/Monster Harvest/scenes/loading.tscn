@@ -1,0 +1,359 @@
+[gd_scene load_steps=32 format=3 uid="uid://dbrbp7a50rohu"]
+
+[ext_resource type="Script" path="res://scripts/scenes/Loading.cs" id="1_3sveb"]
+[ext_resource type="PackedScene" uid="uid://b633fmf5yivf7" path="res://objects/characters/mushnub.tscn" id="1_v75wb"]
+[ext_resource type="PackedScene" uid="uid://csi2vnkk1gm48" path="res://objects/characters/mushnub_evolved.tscn" id="2_kntk4"]
+[ext_resource type="PackedScene" uid="uid://cwx7pjkjb4w8d" path="res://scenes/game_map.tscn" id="2_vj6r4"]
+[ext_resource type="PackedScene" uid="uid://cmx3sg75rml1h" path="res://objects/weapons/buy/buy_ak.tscn" id="3_euvbl"]
+[ext_resource type="PackedScene" uid="uid://ckwk74wohtf3k" path="res://objects/weapons/buy/buy_smg.tscn" id="4_hv7td"]
+[ext_resource type="PackedScene" uid="uid://bibvis42d8lvf" path="res://objects/weapons/buy/buy_pistol.tscn" id="5_tx2ve"]
+[ext_resource type="PackedScene" uid="uid://cqbtqwb1mnid7" path="res://objects/environment/fence.tscn" id="6_oampj"]
+[ext_resource type="PackedScene" uid="uid://ctn3sx6bokui1" path="res://objects/environment/red_container.tscn" id="7_e7tv6"]
+[ext_resource type="PackedScene" uid="uid://wrek0q85teqy" path="res://objects/monster_chunk.tscn" id="8_jd6xv"]
+[ext_resource type="PackedScene" uid="uid://bb2ryjuvx72b3" path="res://objects/weapons/ak.tscn" id="10_nitcq"]
+[ext_resource type="PackedScene" uid="uid://bdx5p2pgo7g6i" path="res://objects/weapons/pistol.tscn" id="11_gowh5"]
+[ext_resource type="PackedScene" uid="uid://bs8boqatmq3x8" path="res://objects/weapons/smg.tscn" id="12_nqkyb"]
+[ext_resource type="Environment" uid="uid://b6no7b0o81qiu" path="res://scenes/daytime_environment.tres" id="13_0251o"]
+[ext_resource type="PackedScene" uid="uid://d73eaqxsgw3k" path="res://objects/interactable/mushroom_pickup.tscn" id="16_jm61s"]
+[ext_resource type="PackedScene" uid="uid://dp70vwpjdhuen" path="res://objects/interactable/buildable_fence.tscn" id="17_bcy0o"]
+[ext_resource type="PackedScene" uid="uid://c7imn8una7ugv" path="res://objects/weapons/gunshot_particles.tscn" id="18_555ch"]
+[ext_resource type="PackedScene" uid="uid://cr4u0q0d8da3l" path="res://scenes/main_level.tscn" id="18_a5swa"]
+[ext_resource type="PackedScene" uid="uid://uucx0kldnqlb" path="res://assets/MitchMakesThings/mushroom.gltf" id="18_afo0l"]
+[ext_resource type="Material" uid="uid://dh8drt4ul63ce" path="res://objects/interactable/materials/mushroom_pickup_material.tres" id="19_q7qmi"]
+[ext_resource type="PackedScene" uid="uid://c3pvpaqa8vwf2" path="res://scenes/daytime.tscn" id="20_0xhnu"]
+
+[sub_resource type="Gradient" id="Gradient_clfgf"]
+colors = PackedColorArray(0.290196, 0.623529, 0.819608, 1, 0.819608, 0.486275, 0.290196, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cjv3c"]
+noise_type = 4
+offset = Vector3(0, 100, 0)
+fractal_gain = 0.035
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_verln"]
+color_ramp = SubResource("Gradient_clfgf")
+noise = SubResource("FastNoiseLite_cjv3c")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1vi2p"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Animation" id="Animation_sl0ty"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/CanvasLayer/TextureRect:texture:noise:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 100, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3yybg"]
+resource_name = "loading"
+length = 3.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StuffToLoad/Mushnub")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"InstantKill"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnFinishedLoading"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D/CanvasLayer/TextureRect:texture:noise:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 300, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_24qoi"]
+_data = {
+"RESET": SubResource("Animation_sl0ty"),
+"loading": SubResource("Animation_3yybg")
+}
+
+[sub_resource type="Animation" id="Animation_n5tgm"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mushroom:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mushroom:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mushroom:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mushroom:scale:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ph878"]
+resource_name = "bounce"
+length = 0.99
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mushroom:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 2.5, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.7, 1.01532)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mushroom:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 0.75, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6, 1.01532)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mushroom:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0, 1.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6, 1.01532)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mushroom:scale:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 0.75, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6, 1.01532)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bpb4p"]
+_data = {
+"RESET": SubResource("Animation_n5tgm"),
+"bounce": SubResource("Animation_ph878")
+}
+
+[node name="Loading" type="Node3D"]
+script = ExtResource("1_3sveb")
+_sceneToLoad = ExtResource("2_vj6r4")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
+
+[node name="ColorRect" type="ColorRect" parent="Camera3D/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.262745, 0.301961, 0.341176, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Camera3D/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_verln")
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -44.0
+offset_right = 150.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Camera3D/CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Loading..."
+
+[node name="TextureRect2" type="TextureRect" parent="Camera3D/CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -512.0
+offset_top = -512.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("ViewportTexture_1vi2p")
+
+[node name="TextureRect3" type="TextureRect" parent="Camera3D/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -512.0
+offset_right = 512.0
+grow_vertical = 0
+texture = SubResource("ViewportTexture_1vi2p")
+
+[node name="StuffToLoad" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.0904)
+
+[node name="Mushnub" parent="StuffToLoad" instance=ExtResource("1_v75wb")]
+
+[node name="Mushnub_Evolved" parent="StuffToLoad" instance=ExtResource("2_kntk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62372, 0, 0)
+
+[node name="BuyWeapon" parent="StuffToLoad" instance=ExtResource("3_euvbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46661, 0, 0)
+collision_layer = 9
+collision_mask = 9
+
+[node name="BuyWeapon2" parent="StuffToLoad" instance=ExtResource("4_hv7td")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.49615, 0, 0)
+collision_layer = 9
+collision_mask = 9
+
+[node name="BuyWeapon3" parent="StuffToLoad" instance=ExtResource("5_tx2ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5292, 0, 0)
+collision_layer = 9
+collision_mask = 9
+
+[node name="Fence" parent="StuffToLoad" instance=ExtResource("6_oampj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1, 0, -2.574)
+
+[node name="RedContainer" parent="StuffToLoad" instance=ExtResource("7_e7tv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.53252, 0, 0.202646)
+
+[node name="MonsterChunk" parent="StuffToLoad" instance=ExtResource("8_jd6xv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47, 2.28, -0.06)
+
+[node name="AK" parent="StuffToLoad" instance=ExtResource("10_nitcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.885, 0)
+
+[node name="Pistol" parent="StuffToLoad/AK" instance=ExtResource("11_gowh5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.625, 0, 0)
+
+[node name="SMG" parent="StuffToLoad/AK" instance=ExtResource("12_nqkyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.535, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="StuffToLoad"]
+environment = ExtResource("13_0251o")
+
+[node name="mushroom_pickup" parent="StuffToLoad" instance=ExtResource("16_jm61s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.485, 0, 0)
+
+[node name="BuildableFence" parent="StuffToLoad" instance=ExtResource("17_bcy0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.955, 0)
+
+[node name="Particles" parent="StuffToLoad" instance=ExtResource("18_555ch")]
+transform = Transform3D(1, 0, 0, 0, -0.128761, -0.991676, 0, 0.991676, -0.128761, -0.195, 2.326, -0.937)
+emitting = true
+one_shot = false
+
+[node name="Map" parent="StuffToLoad" instance=ExtResource("18_a5swa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.305, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_24qoi")
+}
+autoplay = "loading"
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+render_target_clear_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+cull_mask = 1048064
+size = 10.0
+
+[node name="mushroom" parent="SubViewport" instance=ExtResource("18_afo0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.965, 6.425)
+
+[node name="Mushroom" parent="SubViewport/mushroom" index="0"]
+layers = 512
+surface_material_override/0 = ExtResource("19_q7qmi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport/mushroom"]
+libraries = {
+"": SubResource("AnimationLibrary_bpb4p")
+}
+autoplay = "bounce"
+
+[node name="Daytime" parent="." instance=ExtResource("20_0xhnu")]
+
+[editable path="SubViewport/mushroom"]

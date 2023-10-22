@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2wb7w445jhfu"]
+
+[ext_resource type="Script" path="res://scripts/helpers/BouncyDamage.cs" id="1_obw4t"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ikhtu"]
+resource_local_to_scene = true
+
+[node name="BouncyDamage" type="RigidBody3D" node_paths=PackedStringArray("Label")]
+collision_layer = 2
+mass = 0.5
+gravity_scale = 0.2
+lock_rotation = true
+script = ExtResource("1_obw4t")
+Label = NodePath("DamageLabel")
+LaunchStrength = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ikhtu")
+
+[node name="DamageLabel" type="Label3D" parent="."]
+billboard = 2
+fixed_size = true
+text = "10"

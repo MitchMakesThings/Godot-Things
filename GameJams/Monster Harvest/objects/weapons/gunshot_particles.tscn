@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7imn8una7ugv"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yq65f"]
+direction = Vector3(0, 0, -1)
+spread = 5.806
+initial_velocity_min = 16.13
+initial_velocity_max = 16.13
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_076ly"]
+albedo_color = Color(0.913725, 0.529412, 0.388235, 1)
+emission_enabled = true
+emission = Color(0.913725, 0.529412, 0.388235, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pmn58"]
+material = SubResource("StandardMaterial3D_076ly")
+radius = 0.05
+height = 0.1
+
+[node name="Particles" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.236493, -0.936574)
+layers = 3
+emitting = false
+lifetime = 0.05
+one_shot = true
+explosiveness = 1.0
+transform_align = 2
+process_material = SubResource("ParticleProcessMaterial_yq65f")
+draw_pass_1 = SubResource("CapsuleMesh_pmn58")

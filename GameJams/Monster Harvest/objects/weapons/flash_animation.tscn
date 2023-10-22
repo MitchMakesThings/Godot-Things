@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdwwjmurelhtl"]
+
+[ext_resource type="Texture2D" uid="uid://bf7cr2su3ryuc" path="res://assets/kenney_smoke-particles/PNG/Flash/flash00.png" id="1_cemyx"]
+[ext_resource type="Texture2D" uid="uid://cwbrkc565q8qu" path="res://assets/kenney_smoke-particles/PNG/Flash/flash01.png" id="2_ni5if"]
+[ext_resource type="Texture2D" uid="uid://b6h8x8yo7n3dc" path="res://assets/kenney_smoke-particles/PNG/Flash/flash02.png" id="3_0gvwe"]
+[ext_resource type="Texture2D" uid="uid://6i7y6fmbwjyp" path="res://assets/kenney_smoke-particles/PNG/Flash/flash03.png" id="4_o2h4d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_an0le"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cemyx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ni5if")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0gvwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_o2h4d")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="FlashAnimation" type="AnimatedSprite3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_an0le")
+autoplay = "default"
+frame_progress = 0.392104
+
+[connection signal="animation_finished" from="." to="." method="queue_free"]

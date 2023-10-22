@@ -1,0 +1,125 @@
+[gd_scene load_steps=10 format=3 uid="uid://bs8boqatmq3x8"]
+
+[ext_resource type="PackedScene" uid="uid://dboh47a5vyqjt" path="res://assets/Quaternius - Toon Shooter Game Kit/Guns/glTF/SMG.gltf" id="1_rjvbk"]
+[ext_resource type="Script" path="res://scripts/weapons/Pistol.cs" id="2_c2l6y"]
+[ext_resource type="AudioStream" uid="uid://dlw11xrp1p1al" path="res://assets/Fire weapons sound effects/Fire Weapons Sound Effects - gun-dry-firing-1.mp3" id="3_0207d"]
+[ext_resource type="PackedScene" uid="uid://c7imn8una7ugv" path="res://objects/weapons/gunshot_particles.tscn" id="3_gmc1m"]
+[ext_resource type="AudioStream" uid="uid://bocid0um7lmy1" path="res://assets/Fire weapons sound effects/Fire Weapons Sound Effects - 9mm-pistol-load-and-chamber.mp3" id="4_i3klm"]
+[ext_resource type="AudioStream" uid="uid://biuygi54rsvs7" path="res://assets/q009/minigun3.ogg" id="5_i2tdd"]
+
+[sub_resource type="Animation" id="Animation_8y0u7"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SMG:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SMG:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SMG:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_jramw"]
+resource_name = "recoil"
+length = 0.15
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SMG:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -2.37833e-09, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.05, 0.15)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SMG:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.0544368, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.05, 0.15)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SMG:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.0584484, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.05)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i7ygt"]
+_data = {
+"RESET": SubResource("Animation_8y0u7"),
+"recoil": SubResource("Animation_jramw")
+}
+
+[node name="SMG" node_paths=PackedStringArray("_animationPlayer", "Mesh", "_audioStreamPlayer") instance=ExtResource("1_rjvbk")]
+script = ExtResource("2_c2l6y")
+_animationPlayer = NodePath("AnimationPlayer")
+NormalPosition = Vector3(0.5, -0.6, -1)
+ADSPosition = Vector3(0, -0.36, -0.46)
+Mesh = NodePath("SMG")
+MaxDamage = 5
+MinDamage = 2
+ADSModifier = 1.5
+Cooldown = 0.1
+ShotSpread = 2.0
+ClipSize = 60
+TotalAmmo = 300
+ReloadSpeed = 0.8
+PlayerKnockback = 15.0
+EnemyKnockback = 10.0
+ShotCameraTrauma = 0.5
+_outOfAmmoAudio = ExtResource("3_0207d")
+_reloadAudio = ExtResource("4_i3klm")
+_fireAudio = ExtResource("5_i2tdd")
+_audioStreamPlayer = NodePath("AudioStreamPlayer")
+
+[node name="SMG" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+layers = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_i7ygt")
+}
+
+[node name="Particles" parent="." index="2" instance=ExtResource("3_gmc1m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.301749, -0.813501)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
+bus = &"Player"

@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://3m88r76cj0ou"]
+
+[ext_resource type="Script" path="res://scripts/scenes/GameOver.cs" id="1_182sk"]
+[ext_resource type="PackedScene" uid="uid://cn8lsu0jaylp0" path="res://ui/main_menu_buttons.tscn" id="1_molhe"]
+[ext_resource type="PackedScene" uid="uid://csi2vnkk1gm48" path="res://objects/characters/mushnub_evolved.tscn" id="3_rkmh7"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pyqgp"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04i1d"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_e51sr"]
+sky_material = SubResource("ProceduralSkyMaterial_04i1d")
+
+[sub_resource type="Environment" id="Environment_15wv5"]
+background_mode = 2
+sky = SubResource("Sky_e51sr")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="GameOverScene" type="Node3D" node_paths=PackedStringArray("CollectedLabel", "KilledLabel")]
+script = ExtResource("1_182sk")
+CollectedLabel = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Collected")
+KilledLabel = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Killed")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.5
+offset_right = 93.5
+offset_bottom = 79.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 54
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label3" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 61
+text = "You died!"
+horizontal_alignment = 1
+
+[node name="Collected" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Collected X Mushrooms!"
+horizontal_alignment = 1
+
+[node name="Killed" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Killed Y Monsters"
+horizontal_alignment = 1
+
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("1_molhe")]
+offset_top = 17.575
+offset_bottom = 118.575
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -439.0
+offset_top = -361.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("ViewportTexture_pyqgp")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -361.0
+offset_right = 439.0
+grow_vertical = 0
+texture = SubResource("ViewportTexture_pyqgp")
+expand_mode = 3
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+
+[node name="Mushnub_Evolved" parent="SubViewport/Camera3D" instance=ExtResource("3_rkmh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.135, -1.892)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Camera3D"]
+transform = Transform3D(0.92388, 0.213994, 0.317259, 0, 0.829038, -0.559193, -0.382683, 0.516627, 0.765931, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Camera3D"]
+environment = SubResource("Environment_15wv5")

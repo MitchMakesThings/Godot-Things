@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3pvpaqa8vwf2"]
+
+[ext_resource type="Environment" uid="uid://b6no7b0o81qiu" path="res://scenes/daytime_environment.tres" id="1_i3qqy"]
+
+[node name="Daytime" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_i3qqy")

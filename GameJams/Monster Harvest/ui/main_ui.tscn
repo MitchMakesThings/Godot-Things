@@ -1,0 +1,182 @@
+[gd_scene load_steps=6 format=3 uid="uid://dg7cul3wn6xb6"]
+
+[ext_resource type="Script" path="res://scripts/ui/MainUI.cs" id="1_xuqeo"]
+
+[sub_resource type="Gradient" id="Gradient_44003"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_novqc"]
+gradient = SubResource("Gradient_44003")
+
+[sub_resource type="Gradient" id="Gradient_ysabu"]
+colors = PackedColorArray(0.4068, 0.6, 0.186, 1, 0.527193, 0.77, 0.1078, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wqqut"]
+gradient = SubResource("Gradient_ysabu")
+
+[node name="MainUI" type="CanvasLayer" node_paths=PackedStringArray("HarvestTotalLabel", "KillLabel", "DamageIndicator", "NightCountdownLabel", "ResourceLabel", "AmmoLabel", "TotalAmmoLabel", "HealthBar", "AmmoContainer", "NightTransitionUI")]
+script = ExtResource("1_xuqeo")
+HarvestTotalLabel = NodePath("MarginContainer/HarvestCount/Value")
+KillLabel = NodePath("KillLabel")
+DamageIndicator = NodePath("DamageIndicator")
+NightCountdownLabel = NodePath("NightCountdown/Label")
+ResourceLabel = NodePath("MarginContainer/HarvestCount/Resource")
+AmmoLabel = NodePath("AmmoMarginContainer/HBoxContainer/Ammo")
+TotalAmmoLabel = NodePath("AmmoMarginContainer/HBoxContainer/Total")
+HealthBar = NodePath("HealthBar")
+AmmoContainer = NodePath("AmmoMarginContainer")
+NightTransitionUI = NodePath("ColorRect")
+
+[node name="DamageIndicator" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 122.0
+offset_bottom = 69.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+
+[node name="HarvestCount" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Resource" type="Label" parent="MarginContainer/HarvestCount"]
+layout_mode = 2
+text = "Harvest:"
+
+[node name="Value" type="Label" parent="MarginContainer/HarvestCount"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="KillLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -44.0
+offset_right = 20.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NightCountdown" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 50
+
+[node name="Label" type="Label" parent="NightCountdown"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Nightfall in X seconds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmmoMarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -121.0
+offset_top = -73.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AmmoMarginContainer"]
+layout_mode = 2
+
+[node name="Ammo" type="Label" parent="AmmoMarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "100
+"
+
+[node name="Divider" type="Label" parent="AmmoMarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "/"
+
+[node name="Total" type="Label" parent="AmmoMarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "200
+"
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -38.0
+offset_right = 128.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, 20)
+pivot_offset = Vector2(128, 0)
+size_flags_vertical = 3
+step = 5.0
+value = 100.0
+rounded = true
+texture_under = SubResource("GradientTexture1D_novqc")
+texture_progress = SubResource("GradientTexture1D_wqqut")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+top_level = true
+z_index = 4096
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1000.0
+offset_bottom = -1000.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12549, 0.152941, 0.219608, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Night X"
+
+[node name="Reticule" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2

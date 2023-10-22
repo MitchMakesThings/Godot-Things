@@ -1,0 +1,48 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=10 format=3 uid="uid://s4napkq3i0e7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_draqd"]
+animation = &"Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vqtnd"]
+animation = &"Bite_Front"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4k68e"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_exr2l"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_72jcm"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6dlxq"]
+animation = &"HitRecieve"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_qt50p"]
+mix_mode = 1
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3hbbw"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_w6602"]
+
+[resource]
+graph_offset = Vector2(-333.987, -5.00935)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_draqd")
+nodes/Animation/position = Vector2(466.667, 266.667)
+"nodes/Attack 2/node" = SubResource("AnimationNodeAnimation_vqtnd")
+"nodes/Attack 2/position" = Vector2(-133.333, 200)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_4k68e")
+nodes/Idle/position = Vector2(-426.667, -66.6667)
+nodes/Walk/node = SubResource("AnimationNodeAnimation_exr2l")
+nodes/Walk/position = Vector2(-426.667, 66.6667)
+nodes/attack/node = SubResource("AnimationNodeOneShot_72jcm")
+nodes/attack/position = Vector2(80, 66.6667)
+nodes/damage/node = SubResource("AnimationNodeOneShot_qt50p")
+nodes/damage/position = Vector2(306.667, 160)
+"nodes/damage anim/node" = SubResource("AnimationNodeAnimation_6dlxq")
+"nodes/damage anim/position" = Vector2(53.3333, 333.333)
+nodes/death/node = SubResource("AnimationNodeBlend2_3hbbw")
+nodes/death/position = Vector2(619.333, 129.333)
+nodes/output/position = Vector2(840, 160)
+nodes/speed/node = SubResource("AnimationNodeBlend2_w6602")
+nodes/speed/position = Vector2(-133.333, -53.3333)
+node_connections = [&"attack", 0, &"speed", &"attack", 1, &"Attack 2", &"damage", 0, &"attack", &"damage", 1, &"damage anim", &"death", 0, &"damage", &"death", 1, &"Animation", &"output", 0, &"death", &"speed", 0, &"Idle", &"speed", 1, &"Walk"]
